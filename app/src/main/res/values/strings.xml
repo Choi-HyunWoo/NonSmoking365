@@ -3,4 +3,40 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- BasisInfoActivity -->
+    <string name="basis_text_motto">금연 목표</string>
+    <string name="basis_text_startDate">금연 시작일</string>
+    <string name="basis_text_numOfCigar">1일 흡연량(개비)</string>
+    <string name="basis_text_packPrice">한 갑 가격</string>
+    <string name="basis_text_gender">성별</string>
+    <string name="basis_text_birthDate">생년월일</string>
+    <string name="basis_btn_finish">완료</string>
+
+    <!-- StateFragment -->
+    <string name="state_text_grade">회원 등급</string>
+    <string name="state_text_default_motto">금연 목표를 입력해 주세요</string>
+    <string name="state_text_default_banner">금연365에서 금연 성공 하고 120% 포상금의 주인공이 되세요</string>
+    <string name="state_text_time">금연 시간</string>
+    <string name="state_text_price">절약 금액</string>
+    <string name="state_text_status">건강 상태</string>
+    <string name="state_btn_warning">흡연의 위험성</string>
+    <string name="state_btn_tips">금연 팁</string>
+    <string name="state_btn_centers">내 주변 보건소 및 금연상담센터</string>
+
+    <!-- BoardActivity -->
+    <string name="board_btn_like">좋아요</string>
+    <string name="board_btn_comments">댓글</string>
+    <string name="board_btn_share">공유하기</string>
+
+
+    <!-- OptionsFragment -->
+    <string name="options_btn_login">로그인</string>
+    <string name="options_btn_logout">로그아웃</string>
+    <string name="options_basis_info">기초정보 수정</string>
+    <string name="options_alarm">알람 설정</string>
+    <string name="options_notice">공지사항 및 이벤트</string>
+    <string name="options_question">문의하기</string>
+    <string name="options_withdraw">탈퇴신청</string>
+    <string name="options_version_info">버전정보</string>
 </resources>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 import aftercoffee.org.nonsmoking365.R;
-import aftercoffee.org.nonsmoking365.TabsAdapter;
+import aftercoffee.org.nonsmoking365.adapter.TabsAdapter;
 import aftercoffee.org.nonsmoking365.fragment.CountFragment;
 import aftercoffee.org.nonsmoking365.fragment.OptionsFragment;
 import aftercoffee.org.nonsmoking365.fragment.StateFragment;

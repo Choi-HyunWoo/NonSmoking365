@@ -9,7 +9,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".activity.SplashActivity" >
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/NoTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +23,22 @@
         <activity android:name=".activity.BasisInfoActivity" >
         </activity>
         <activity android:name=".activity.MainActivity" >
+        </activity>
+        <activity android:name=".activity.CentersActivity" >
+        </activity>
+        <activity android:name=".activity.ContentsActivity" >
+        </activity>
+        <activity android:name=".activity.BoardActivity" >
+        </activity>
+        <activity android:name=".activity.LoginActivity" >
+        </activity>
+        <activity android:name=".activity.NoticeActivity" >
+        </activity>
+        <activity android:name=".activity.AlarmActivity" >
+        </activity>
+        <activity android:name=".activity.QuestionActivity" >
+        </activity>
+        <activity android:name=".activity.WithdrawActivity" >
         </activity>
     </application>
 
