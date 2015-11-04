@@ -13,6 +13,8 @@
     <string name="basis_text_birthDate">생년월일</string>
     <string name="basis_btn_finish">완료</string>
 
+    <string name="basis_hint_motto">금연 좌우명을 입력해주세요</string>
+
     <!-- StateFragment -->
     <string name="state_text_grade">회원 등급</string>
     <string name="state_text_default_motto">금연 목표를 입력해 주세요</string>
@@ -39,4 +41,23 @@
     <string name="options_question">문의하기</string>
     <string name="options_withdraw">탈퇴신청</string>
     <string name="options_version_info">버전정보</string>
+
+    <!-- LoginActivity -->
+    <!-- LoginFragment -->
+    <string name="login_text_email">E-mail</string>
+    <string name="login_text_password">비밀번호</string>
+    <string name="login_checkbox_autologin">자동 로그인</string>
+    <string name="login_text_find">회원정보 찾기</string>
+    <string name="login_btn_login">로그인</string>
+    <string name="login_btn_facebook">Facebook 로그인</string>
+    <string name="login_text_signup">회원가입</string>
+    <!-- SignupFragmnet -->
+    <string name="signup_text_nickname">닉네임</string>
+    <string name="signup_text_email">E-mail</string>
+    <string name="signup_text_password">비밀번호</string>
+    <string name="signup_text_passwordCheck">비밀번호 확인</string>
+    <string name="signup_text_accesstermsCheck">이용약관 확인</string>
+    <string name="signup_btn_finish">완료</string>
+    <string name="signup_btn_facebook">Facebook으로 회원가입</string>
+
 </resources>

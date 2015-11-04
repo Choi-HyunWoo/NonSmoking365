@@ -28,6 +28,10 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public static final String KEY_PREVIEW_CHECK = "isPreviewChecked";
     public static final String KEY_BASIS_INFO_CHECK = "isBasisInfoFilledIn";
 
+    public void setId(String id) {
+        mEditor.putString(KEY_ID, id);
+        mEditor.commit();
+    }
     public String getId() {
         return mPrefs.getString(KEY_ID, "");
     }
@@ -36,7 +40,6 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor.putString(KEY_PASSWORD, password);
         mEditor.commit();
     }
-
     public String getPassword() {
         return mPrefs.getString(KEY_PASSWORD, "");
     }

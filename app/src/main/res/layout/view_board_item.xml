@@ -33,18 +33,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/board_btn_like"
+            android:focusable="false"
             android:id="@+id/btn_like" />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/board_btn_comments"
-            android:id="@+id/btn_comment" />
+            android:focusable="false"
+            android:id="@+id/btn_comments" />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/board_btn_share"
+            android:focusable="false"
             android:id="@+id/btn_share" />
 
     </LinearLayout>

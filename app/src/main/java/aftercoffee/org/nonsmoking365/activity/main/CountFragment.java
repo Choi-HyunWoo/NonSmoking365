@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.fragment;
+package aftercoffee.org.nonsmoking365.activity.main;
 
 
 import android.os.Bundle;

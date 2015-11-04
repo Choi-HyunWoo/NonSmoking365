@@ -22,15 +22,15 @@
         </activity>
         <activity android:name=".activity.BasisInfoActivity" >
         </activity>
-        <activity android:name=".activity.MainActivity" >
+        <activity android:name=".activity.main.MainActivity" >
         </activity>
         <activity android:name=".activity.CentersActivity" >
         </activity>
         <activity android:name=".activity.ContentsActivity" >
         </activity>
-        <activity android:name=".activity.BoardActivity" >
+        <activity android:name=".activity.board.BoardActivity" >
         </activity>
-        <activity android:name=".activity.LoginActivity" >
+        <activity android:name=".activity.login.LoginActivity" >
         </activity>
         <activity android:name=".activity.NoticeActivity" >
         </activity>
@@ -39,6 +39,12 @@
         <activity android:name=".activity.QuestionActivity" >
         </activity>
         <activity android:name=".activity.WithdrawActivity" >
+        </activity>
+        <activity android:name=".activity.VersionInfoActivity" >
+        </activity>
+        <activity android:name=".activity.AccessTermsActivity" >
+        </activity>
+        <activity android:name=".activity.CommentsActivity" >
         </activity>
     </application>
 

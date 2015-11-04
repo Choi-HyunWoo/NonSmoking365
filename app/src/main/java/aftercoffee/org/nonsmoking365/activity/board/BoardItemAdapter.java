@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.adapter;
+package aftercoffee.org.nonsmoking365.activity.board;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +36,7 @@ public class BoardItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public BoardItem getItem(int position) {
         return items.get(position);
     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import aftercoffee.org.nonsmoking365.activity.main.MainActivity;
 import aftercoffee.org.nonsmoking365.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
 

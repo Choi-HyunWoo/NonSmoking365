@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.fragment;
+package aftercoffee.org.nonsmoking365.activity.main;
 
 
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import aftercoffee.org.nonsmoking365.R;
-import aftercoffee.org.nonsmoking365.activity.BoardActivity;
+import aftercoffee.org.nonsmoking365.activity.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.activity.CentersActivity;
 
 
