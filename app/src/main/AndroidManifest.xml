@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".activity.PreviewActivity" >
         </activity>
-        <activity android:name=".activity.BasisInfoActivity" >
+        <activity android:name=".activity.basisinfo.BasisInfoActivity" >
         </activity>
         <activity android:name=".activity.main.MainActivity" >
         </activity>

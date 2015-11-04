@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import aftercoffee.org.nonsmoking365.activity.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.activity.main.MainActivity;
 import aftercoffee.org.nonsmoking365.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;

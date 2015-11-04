@@ -3,6 +3,8 @@ package aftercoffee.org.nonsmoking365;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.Date;
+
 /**
  * Created by Tacademy on 2015-11-02.
  */
@@ -25,8 +27,19 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
 
     public static final String KEY_ID = "id";
     public static final String KEY_PASSWORD = "password";
-    public static final String KEY_PREVIEW_CHECK = "isPreviewChecked";
-    public static final String KEY_BASIS_INFO_CHECK = "isBasisInfoFilledIn";
+
+    /* Launch check Keys */
+    public static final String KEY_LAUNCH_PREVIEW_CHECK = "isPreviewChecked";
+    public static final String KEY_LAUNCH_BASISINFO_CHECK = "isBasisInfoFilledIn";
+
+    /* Basis info keys */
+    public static final String KEY_BASISINFO_MOTTO = "basisInfo_motto";
+    public static final String KEY_BASISINFO_START_DATE = "basisInfo_startDate";
+    public static final String KEY_BASISINFO_NUM_OF_CIGAR = "basisInfo_numOfCigar";
+    public static final String KEY_BASISINFO_PACK_PRICE = "basisInfo_packPrice";
+    public static final String KEY_BASISINFO_GENDER = "basisInfo_gender";
+    public static final String KEY_BASISINFO_BIRTH_DATE = "basisInfo_birthDate";
+
 
     public void setId(String id) {
         mEditor.putString(KEY_ID, id);
@@ -45,20 +58,67 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     }
 
 
-    /* Check next activity */
+    /* Choice next activity */
     public void setPreviewCheck (Boolean check) {
-        mEditor.putBoolean(KEY_PREVIEW_CHECK, check);
+        mEditor.putBoolean(KEY_LAUNCH_PREVIEW_CHECK, check);
         mEditor.commit();
     }
     public Boolean getPreviewCheck() {
-        return mPrefs.getBoolean(KEY_PREVIEW_CHECK, false);
+        return mPrefs.getBoolean(KEY_LAUNCH_PREVIEW_CHECK, false);
     }
     public void setBasisInfoCheck (Boolean check) {
-        mEditor.putBoolean(KEY_BASIS_INFO_CHECK, check);
+        mEditor.putBoolean(KEY_LAUNCH_BASISINFO_CHECK, check);
         mEditor.commit();
     }
     public Boolean getBasisInfoCheck() {
-        return mPrefs.getBoolean(KEY_BASIS_INFO_CHECK, false);
+        return mPrefs.getBoolean(KEY_LAUNCH_BASISINFO_CHECK, false);
+    }
+
+
+    /* Basis info set */
+    public void setBasisMotto(String motto) {
+        mEditor.putString(KEY_BASISINFO_MOTTO, motto);
+        mEditor.commit();
+    }
+    public void setBasisStartDate(String startDate) {
+        mEditor.putString(KEY_BASISINFO_START_DATE, startDate);
+        mEditor.commit();
+    }
+    public void setBasisNumOfCigar(String numOfCigar) {
+        mEditor.putString(KEY_BASISINFO_NUM_OF_CIGAR, numOfCigar);
+        mEditor.commit();
+    }
+    public void setBasisPackPrice(String packPrice) {
+        mEditor.putString(KEY_BASISINFO_PACK_PRICE, packPrice);
+        mEditor.commit();
+    }
+    public void setBasisGender(String gender) {
+        mEditor.putString(KEY_BASISINFO_GENDER, gender);
+        mEditor.commit();
+    }
+    public void setBasisBirthDate(String birthDate) {
+        mEditor.putString(KEY_BASISINFO_BIRTH_DATE, birthDate);
+        mEditor.commit();
+    }
+
+    /* get BasisInfo */
+    public String getBasisMotto() {
+        return mPrefs.getString(KEY_BASISINFO_MOTTO, "금연 목표를 입력해 주세요");
+    }
+    public String getBasisStartDate() {
+        return mPrefs.getString(KEY_BASISINFO_START_DATE, "");
+    }
+    public String getBasisNumOfCigar() {
+        return mPrefs.getString(KEY_BASISINFO_NUM_OF_CIGAR, "");
+    }
+    public String getBasisPackPrice() {
+        return mPrefs.getString(KEY_BASISINFO_PACK_PRICE, "");
+    }
+    public String getBasisGender() {
+        return mPrefs.getString(KEY_BASISINFO_GENDER, "");
+    }
+    public String getBasisBirthDate() {
+        return mPrefs.getString(KEY_BASISINFO_BIRTH_DATE, "");
     }
 
 

@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import aftercoffee.org.nonsmoking365.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.activity.basisinfo.BasisInfoActivity;
 
 public class PreviewActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class PreviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 PropertyManager.getInstance().setPreviewCheck(true);
                 Intent intent = new Intent(PreviewActivity.this, BasisInfoActivity.class);
+                intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_INIT);
                 startActivity(intent);
                 finish();
             }

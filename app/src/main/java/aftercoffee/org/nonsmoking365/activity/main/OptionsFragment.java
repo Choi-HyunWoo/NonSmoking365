@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.activity.AlarmActivity;
-import aftercoffee.org.nonsmoking365.activity.BasisInfoActivity;
+import aftercoffee.org.nonsmoking365.activity.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.activity.login.LoginActivity;
 import aftercoffee.org.nonsmoking365.activity.NoticeActivity;
 import aftercoffee.org.nonsmoking365.activity.QuestionActivity;
@@ -67,7 +67,9 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
             case R.id.btn_basisInfo:
-                startActivity(new Intent(getActivity(), BasisInfoActivity.class));
+                Intent intent = new Intent(getActivity(), BasisInfoActivity.class);
+                intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_MODIFY);
+                startActivity(intent);
                 break;
             case R.id.btn_alarm:
                 startActivity(new Intent(getActivity(), AlarmActivity.class));

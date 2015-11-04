@@ -11,6 +11,7 @@
     <string name="basis_text_packPrice">한 갑 가격</string>
     <string name="basis_text_gender">성별</string>
     <string name="basis_text_birthDate">생년월일</string>
+    <string name="basis_btn_datepick">날짜 선택</string>
     <string name="basis_btn_finish">완료</string>
 
     <string name="basis_hint_motto">금연 좌우명을 입력해주세요</string>
