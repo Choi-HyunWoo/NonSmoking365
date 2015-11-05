@@ -3,6 +3,7 @@ package aftercoffee.org.nonsmoking365.activity.basisinfo;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -30,9 +32,9 @@ public class BasisInfoActivity extends AppCompatActivity {
     EditText mottoView;
     EditText numOfCigarView;
     EditText packPriceView;
-
     Button startDateBtn;
     Button birthDateBtn;
+    RadioGroup genderView;
 
     /* Current time */
     int year, month, day, hour, minute;
@@ -43,7 +45,7 @@ public class BasisInfoActivity extends AppCompatActivity {
     String startDate;
     String numOfCigar;
     String packPrice;
-    String gender;
+    String gender;                              // male , female
     String birthDate;
 
 
@@ -61,35 +63,72 @@ public class BasisInfoActivity extends AppCompatActivity {
         numOfCigarView = (EditText)findViewById(R.id.edit_numOfCigar);
         packPriceView = (EditText)findViewById(R.id.edit_packPrice);
         birthDateBtn = (Button)findViewById(R.id.btn_birthDate);
-        // genderView !!
+        genderView = (RadioGroup)findViewById(R.id.radiogroup_gender);
 
-        // "기초정보 수정" 일경우 저장되있던 데이터를 화면에 표시한다.
+        // "기초정보 수정" 일경우 임시 변수에 데이터를 저장하고 , 화면에 표시
         if (startMode == MODE_MODIFY) {
-            mottoView.setText(PropertyManager.getInstance().getBasisMotto());
-            startDateBtn.setText(PropertyManager.getInstance().getBasisStartDate());
-            numOfCigarView.setText(PropertyManager.getInstance().getBasisNumOfCigar());
-            packPriceView.setText(PropertyManager.getInstance().getBasisPackPrice());
-            birthDateBtn.setText(PropertyManager.getInstance().getBasisBirthDate());
+            motto = PropertyManager.getInstance().getBasisMotto();
+            startDate = PropertyManager.getInstance().getBasisStartDate();
+            numOfCigar = PropertyManager.getInstance().getBasisNumOfCigar();
+            packPrice = PropertyManager.getInstance().getBasisPackPrice();
+            gender = PropertyManager.getInstance().getBasisGender();
+            birthDate = PropertyManager.getInstance().getBasisBirthDate();
+
+            mottoView.setText(motto);
+            startDateBtn.setText(startDate);
+            numOfCigarView.setText(numOfCigar);
+            packPriceView.setText(packPrice);
+            if (gender.equals("male")) {
+                genderView.check(R.id.radioBtn_male);
+            } else {
+                genderView.check(R.id.radioBtn_female);
+            }
+            birthDateBtn.setText(birthDate);
         }
 
-        // 현재 날짜 및 시간을 받아온다.
+        // 성별 선택 Listener
+        genderView.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioBtn_male :
+                        gender = "male";
+                        break;
+                    case R.id.radioBtn_female :
+                        gender = "female";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // DatePicker를 현재 날짜로 지정하기 위해 Calendar에서 날짜 및 시간을 받아온다.
         calendar = new GregorianCalendar();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);               // 0~11
         day= calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        // 날짜 선택
+        // 시작 날짜 선택
         startDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(BasisInfoActivity.this, startDateSetListener, year, month, day).show();
             }
         });
+        // 생년 월일 선택
         birthDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(BasisInfoActivity.this, birthDateSetListener, year, month, day).show();
+                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, android.R.style.Theme_Holo_Light_Dialog ,birthDateSetListener, year, month, day);
+                if (Build.VERSION.SDK_INT >= 11) {
+                    dlg.getDatePicker().setMaxDate(System.currentTimeMillis());
+                }
+                /**
+                 * (On API levels under 11 where getDatePicker() and setCalendarViewShown() are not available it does not matter - there's no CalendarView in the dialog anyway.)
+                 */
+                dlg.show();
             }
         });
 
@@ -102,9 +141,8 @@ public class BasisInfoActivity extends AppCompatActivity {
                 motto = mottoView.getText().toString();
                 numOfCigar = numOfCigarView.getText().toString();
                 packPrice = packPriceView.getText().toString();
-                // gender ;
 
-                // 1. 작성되었는지 체크
+                // 1. 입력된 부분이 빠진곳이 있는지 체크
                 if (TextUtils.isEmpty(motto)) {
                     Toast.makeText(BasisInfoActivity.this, "금연 목표를 입력해 주세요", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(startDate)) {
@@ -113,22 +151,25 @@ public class BasisInfoActivity extends AppCompatActivity {
                     Toast.makeText(BasisInfoActivity.this, "1일 흡연량을 입력해 주세요", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(packPrice)) {
                     Toast.makeText(BasisInfoActivity.this, "담배 가격을 입력해 주세요", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(gender)) {
+                    Toast.makeText(BasisInfoActivity.this, "성별을 입력해 주세요", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(birthDate)) {
                     Toast.makeText(BasisInfoActivity.this, "생년월일을 입력해 주세요", Toast.LENGTH_SHORT).show();
-                } else {        // 모두 제대로 작성되었다면
-
-                    // 2. SharedPreferences에 저장
+                }
+                else {        // 모두 제대로 작성되었다면
+                    // 2. 입력사항을 SharedPreferences에 저장
                     PropertyManager.getInstance().setBasisMotto(motto);
                     PropertyManager.getInstance().setBasisStartDate(startDate);
                     PropertyManager.getInstance().setBasisNumOfCigar(numOfCigar);
                     PropertyManager.getInstance().setBasisPackPrice(packPrice);
+                    PropertyManager.getInstance().setBasisGender(gender);
                     PropertyManager.getInstance().setBasisBirthDate(birthDate);
 
-                    if (startMode == MODE_INIT) {                                                   // 최초의 입력이라면
+                    if (startMode == MODE_INIT) {                                                   // 기초정보 최초의 입력이라면
                         PropertyManager.getInstance().setBasisInfoCheck(true);                      // splash 이후에도 기초정보창이 안뜨도록 변경
                         Intent intent = new Intent(BasisInfoActivity.this, MainActivity.class);
                         startActivity(intent);
-                    } else {
+                    } else {                                                                        // 기초정보 수정이라면
                         Toast.makeText(BasisInfoActivity.this, "기초정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                     finish();

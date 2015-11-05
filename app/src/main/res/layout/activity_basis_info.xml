@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:text="@string/basis_text_motto" />
 
     <android.support.design.widget.TextInputLayout
@@ -26,6 +27,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
             android:id="@+id/edit_motto"
             android:hint="@string/basis_hint_motto" />
     </android.support.design.widget.TextInputLayout>
@@ -61,6 +64,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:inputType="number"
             android:id="@+id/edit_numOfCigar" />
     </LinearLayout>
     <LinearLayout
@@ -77,6 +83,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:inputType="number"
             android:id="@+id/edit_packPrice" />
     </LinearLayout>
     <LinearLayout
@@ -95,6 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:id="@+id/radiogroup_gender"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -102,14 +112,14 @@
                 android:layout_height="wrap_content"
                 android:text="남자"
                 android:layout_marginRight="20dp"
-                android:id="@+id/radioButton"
+                android:id="@+id/radioBtn_male"
                 android:checked="false" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="여자"
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioBtn_female"
                 android:checked="false" />
 
         </RadioGroup>
