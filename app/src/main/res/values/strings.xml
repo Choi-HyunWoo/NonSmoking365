@@ -21,7 +21,7 @@
     <string name="state_text_default_motto">금연 목표를 입력해 주세요</string>
     <string name="state_text_default_banner">금연365에서 금연 성공 하고 120% 포상금의 주인공이 되세요</string>
     <string name="state_text_time">금연 시간</string>
-    <string name="state_text_price">절약 금액</string>
+    <string name="state_text_savedmoney">절약 금액</string>
     <string name="state_text_status">건강 상태</string>
     <string name="state_btn_warning">흡연의 위험성</string>
     <string name="state_btn_tips">금연 팁</string>
