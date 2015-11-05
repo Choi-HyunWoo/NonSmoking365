@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.activity.main.CountFragment;
+import aftercoffee.org.nonsmoking365.activity.main.OptionsFragment;
+import aftercoffee.org.nonsmoking365.activity.main.StateFragment;
 import aftercoffee.org.nonsmoking365.adapter.TabsAdapter;
-import aftercoffee.org.nonsmoking365.fragment.CountFragment;
-import aftercoffee.org.nonsmoking365.fragment.OptionsFragment;
-import aftercoffee.org.nonsmoking365.fragment.StateFragment;
-
 public class MainActivity extends AppCompatActivity {
 
     TabHost tabHost;
