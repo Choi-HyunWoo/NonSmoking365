@@ -28,6 +28,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical|right"
             android:textColor="#FF0000"
+            android:textStyle="bold"
             android:text="grade"/>
     </LinearLayout>
 
@@ -39,6 +40,8 @@
         android:layout_weight="2"
         android:gravity="center"
         android:id="@+id/text_mottoView"
+        android:textColor="#00004A"
+        android:textStyle="bold"
         android:text="@string/state_text_default_motto" />
 
 

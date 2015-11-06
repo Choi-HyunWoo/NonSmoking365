@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import aftercoffee.org.nonsmoking365.activity.main.MainActivity;
 import aftercoffee.org.nonsmoking365.PropertyManager;
@@ -114,14 +116,15 @@ public class BasisInfoActivity extends AppCompatActivity {
         startDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(BasisInfoActivity.this, startDateSetListener, year, month, day).show();
+                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, startDateSetListener, year, month, day);
+                dlg.show();
             }
         });
         // 생년 월일 선택
         birthDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, android.R.style.Theme_Holo_Light_Dialog ,birthDateSetListener, year, month, day);
+                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, birthDateSetListener, year, month, day);
                 if (Build.VERSION.SDK_INT >= 11) {
                     dlg.getDatePicker().setMaxDate(System.currentTimeMillis());
                 }
@@ -185,7 +188,7 @@ public class BasisInfoActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             // TODO Auto-generated method stub
-            String msg = String.format("%d-%d-%d", year,monthOfYear+1, dayOfMonth);
+            String msg = String.format("%d-%d-%d", year, monthOfYear+1, dayOfMonth);
             startDate = msg;
             startDateBtn.setText(msg);
         }
