@@ -5,6 +5,8 @@ import android.preference.PreferenceManager;
 
 import java.util.Date;
 
+import aftercoffee.org.nonsmoking365.activity.main.CountItem;
+
 /**
  * Created by Tacademy on 2015-11-02.
  */
@@ -39,6 +41,11 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public static final String KEY_BASISINFO_PACK_PRICE = "basisInfo_packPrice";
     public static final String KEY_BASISINFO_GENDER = "basisInfo_gender";
     public static final String KEY_BASISINFO_BIRTH_DATE = "basisInfo_birthDate";
+
+    /* CountItem mode keys */
+    public static final String KEY_COUNT_ITEM_ROW = "count row:";           // 행
+    public static final String KEY_COUNT_ITEM_COL = "count col:";           // 열
+    /** KEY_COUNT_ITEM = KEY_COUNT_COL + (int)column + KEY_COUNT_ROW + (int)row 로 할 것 */
 
 
     public void setId(String id) {
@@ -121,6 +128,28 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         return mPrefs.getString(KEY_BASISINFO_BIRTH_DATE, "");
     }
 
+    /* CountItems init */
+    public void setCountItemInit() {
+        for (int row=0; row<6; row++) {
+            for (int col=0; col<5; col++) {
+                mEditor.putInt(KEY_COUNT_ITEM_ROW+row+KEY_COUNT_ITEM_COL+col, CountItem.MODE_OFF);
+                mEditor.commit();
+            }
+        }
+        mEditor.putInt(KEY_COUNT_ITEM_ROW+0+KEY_COUNT_ITEM_COL+0, CountItem.MODE_ON);
+        mEditor.commit();
+    }
+
+    /* set CountItem mode */
+    public void setCountItemMode(int row, int col, int mode) {        // 행, 열
+        mEditor.putInt(KEY_COUNT_ITEM_ROW+row+KEY_COUNT_ITEM_COL+col, mode);
+        mEditor.commit();
+    }
+
+    /* get CountItem mode */
+    public int getCountItemMode(int row, int col) {
+        return mPrefs.getInt(KEY_COUNT_ITEM_ROW+row+KEY_COUNT_ITEM_COL+col, 0);
+    }
 
     public boolean isBackupSync() {
         return mPrefs.getBoolean("perf_sync", false);

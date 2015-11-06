@@ -68,11 +68,7 @@ public class StateFragment extends Fragment {
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
 
-        // 절약 금액
-        currentSaved = packPrice/20 * numOfCigar * nonSmokingDays;
-
-        // 건강 상태
-
+        /** 건강 상태 << 기획 받는대로 추가 */
 
         // Btn
         Button btn = (Button)view.findViewById(R.id.btn_warning);

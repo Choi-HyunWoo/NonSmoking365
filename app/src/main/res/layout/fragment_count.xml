@@ -1,15 +1,27 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="aftercoffee.org.nonsmoking365.activity.main.CountFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="금연 카운트"
-        android:id="@+id/textView5"
-        android:layout_gravity="center" />
-</FrameLayout>
+        android:gravity="center" />
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="300dp"
+        android:layout_height="360dp"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
+        android:numColumns="5"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
