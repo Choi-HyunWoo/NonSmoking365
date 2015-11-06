@@ -170,6 +170,7 @@ public class BasisInfoActivity extends AppCompatActivity {
 
                     if (startMode == MODE_INIT) {                                                   // 기초정보 최초의 입력이라면
                         PropertyManager.getInstance().setBasisInfoCheck(true);                      // splash 이후에도 기초정보창이 안뜨도록 변경
+                        PropertyManager.getInstance().setCountItemInit();                           // 또한 금연 카운트 정보를 초기화
                         Intent intent = new Intent(BasisInfoActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {                                                                        // 기초정보 수정이라면

@@ -1,13 +1,17 @@
 package aftercoffee.org.nonsmoking365.activity.main;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
@@ -45,12 +49,46 @@ public class CountFragment extends Fragment {
 
         countGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 CountItem c = (CountItem) mAdapter.getItem(position);
                 if (c.itemMode == CountItem.MODE_ON) {
                     // Dialog
                     // O, X 처리
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("금연 카운트");
+                    builder.setMessage(position + "일차 금연에 성공하셨습니까?");
+
+                    builder.setPositiveButton("성공", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((CountItem) mAdapter.getItem(position)).itemMode = CountItem.MODE_O;
+                            PropertyManager.getInstance().setCountItemMode(position/5, position%5, CountItem.MODE_O);
+                            ((CountItem) mAdapter.getItem(position + 1)).itemMode = CountItem.MODE_ON;
+                            PropertyManager.getInstance().setCountItemMode(position/5, position%5+1, CountItem.MODE_ON);        // 수정 필요
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    builder.setNegativeButton("실패", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((CountItem) mAdapter.getItem(position)).itemMode = CountItem.MODE_X;
+                            ((CountItem) mAdapter.getItem(position+1)).itemMode = CountItem.MODE_ON;
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    AlertDialog dlg = builder.create();
+                    dlg.show();
+
                 }
+            }
+        });
+
+        Button btn = (Button) view.findViewById(R.id.btn_reset);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PropertyManager.getInstance().setCountItemInit();
+                Toast.makeText(getActivity(), "금연 카운트가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
