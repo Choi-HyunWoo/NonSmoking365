@@ -58,7 +58,7 @@ public class StateFragment extends Fragment {
         statusView = (TextView)view.findViewById(R.id.text_statusView);
 
         // 회원 등급
-        /** 등급 Network에서 받아와서 처리할 것 */
+        /** 회원 등급 Network에서 받아와서 처리할 것 */
         gradeView.setText("일반 회원");
 
         // 금연 목표
@@ -71,8 +71,6 @@ public class StateFragment extends Fragment {
         numOfCigar = Integer.parseInt(PropertyManager.getInstance().getBasisNumOfCigar());
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
-
-        /** 건강 상태 << 기획 받는대로 추가 */
 
         // Btn
         Button btn = (Button)view.findViewById(R.id.btn_warning);
