@@ -43,9 +43,9 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public static final String KEY_BASISINFO_BIRTH_DATE = "basisInfo_birthDate";
 
     /* CountItem mode keys */
-    public static final String KEY_COUNT_ITEM_ROW = "count row:";           // 행
-    public static final String KEY_COUNT_ITEM_COL = "count col:";           // 열
-    /** KEY_COUNT_ITEM = KEY_COUNT_COL + (int)column + KEY_COUNT_ROW + (int)row 로 할 것 */
+    public static final String KEY_COUNT_ITEM_POSITION = "countitem_position:";         // + position
+    public static final String KEY_COUNT_START_TIME = "count_start_time";
+    public static final String KEY_COUNT_TODAY_POS = "today_count_position";
 
 
     public void setId(String id) {
@@ -128,27 +128,31 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         return mPrefs.getString(KEY_BASISINFO_BIRTH_DATE, "");
     }
 
-    /* CountItems init */
-    public void setCountItemInit() {
-        for (int row=0; row<6; row++) {
-            for (int col=0; col<5; col++) {
-                mEditor.putInt(KEY_COUNT_ITEM_ROW+row+KEY_COUNT_ITEM_COL+col, CountItem.MODE_OFF);
-                mEditor.commit();
-            }
-        }
-        mEditor.putInt(KEY_COUNT_ITEM_ROW+0+KEY_COUNT_ITEM_COL+0, CountItem.MODE_ON);
-        mEditor.commit();
+
+
+    /* CountItems Reset */
+    public void setCountItemReset() {
+        setCountItemMode(0, CountItem.MODE_ON);
+        for (int i=1; i<30; i++)
+            setCountItemMode(i, CountItem.MODE_OFF);
     }
 
     /* set CountItem mode */
-    public void setCountItemMode(int row, int col, int mode) {        // 행, 열
-        mEditor.putInt(KEY_COUNT_ITEM_ROW+row+KEY_COUNT_ITEM_COL+col, mode);
+    public void setCountItemMode(int position, int mode) {        // 행, 열
+        mEditor.putInt(KEY_COUNT_ITEM_POSITION+position, mode);
+        mEditor.commit();
+    }
+    public void setCountStartTime(long countStartTime) {
+        mEditor.putLong(KEY_COUNT_START_TIME, countStartTime);
         mEditor.commit();
     }
 
     /* get CountItem mode */
-    public int getCountItemMode(int row, int col) {
-        return mPrefs.getInt(KEY_COUNT_ITEM_ROW+row+KEY_COUNT_ITEM_COL+col, 0);
+    public int getCountItemMode(int position) {
+        return mPrefs.getInt(KEY_COUNT_ITEM_POSITION+position, 0);
+    }
+    public Long getCountStartTime() {
+        return mPrefs.getLong(KEY_COUNT_START_TIME, 0L);
     }
 
     public boolean isBackupSync() {

@@ -31,9 +31,7 @@ public class StateFragment extends Fragment {
 
     int packPrice, numOfCigar, oneDaySaved, currentSaved;
     String startDateStr;
-    Date startDate;
     long nonSmokingTime;
-    int nonSmokingDays;
 
     public StateFragment() {
         // Required empty public constructor
@@ -136,5 +134,22 @@ public class StateFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        mHandler.removeCallbacks(updateRunnable);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(updateRunnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mHandler.removeCallbacks(updateRunnable);
+        mHandler.post(updateRunnable);
+    }
 }
