@@ -27,6 +27,20 @@
     <string name="state_btn_tips">금연 팁</string>
     <string name="state_btn_centers">내 주변 보건소 및 금연상담센터</string>
 
+    <!--healthgradeInfo-->
+    <string name="health_grade_12">혈압, 맥박, 손발 체온이 정상으로 돌아옵니다.</string>
+    <string name="health_grade_11">혈액 속의 니코틴이 감소하기 시작합니다.</string>
+    <string name="health_grade_10">혈액 속의 일산화탄소와 산소 농도가 정상으로 돌아옵니다.</string>
+    <string name="health_grade_9">심장마비의 위험이 감소합니다.</string>
+    <string name="health_grade_8">신경말단 기능이 회복되어 후각, 미각 기능이 정상으로 돌아옵니다.</string>
+    <string name="health_grade_7">기관지 기능이 회복되고 호흡이 정상으로 돌아옵니다.</string>
+    <string name="health_grade_6">혈액순환이 좋아지고 폐활량이 30% 이상 증가합니다.</string>
+    <string name="health_grade_5">기침, 코 막힘, 피로, 호흡곤란이 감소되고, 폐의 섬모가 정상 기능이 됩니다. 면역력이 증가하여 각종 질병에 덜 노출됩니다.</string>
+    <string name="health_grade_4">관상동맥질환(심장병)에 걸릴 위험이 흡연자의 절반 수준으로 감소합니다.</string>
+    <string name="health_grade_3">구강, 후두, 식도, 방광암에 걸릴 위험이 흡연자의 절반 수준으로 감소하고, 자궁 경부암과 뇌졸중에 걸릴 위험이 비흡연자 수준으로 감소합니다.</string>
+    <string name="health_grade_2">폐암 사망률이 흡연자의 절반 수준으로 감소하고, 암으로 진행될 수 있는 위험을 가진 세포들이 정상 세포로 바뀝니다.</string>
+    <string name="health_grade_1">관상동맥질환(심장병)에 걸릴 위험이 비흡연자들과 동일해집니다.</string>
+
     <!-- BoardActivity -->
     <string name="board_btn_like">좋아요</string>
     <string name="board_btn_comments">댓글</string>

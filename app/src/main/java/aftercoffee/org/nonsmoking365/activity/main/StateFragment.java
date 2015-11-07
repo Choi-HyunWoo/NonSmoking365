@@ -27,6 +27,12 @@ import aftercoffee.org.nonsmoking365.activity.CentersActivity;
  */
 public class StateFragment extends Fragment {
 
+    private static final long TIME_SEC = 1000;
+    private static final long TIME_MIN = 60 * TIME_SEC;
+    private static final long TIME_HOUR = 60 * TIME_MIN;
+    private static final long TIME_DAY = 24 * TIME_HOUR;
+    private static final long TIME_YEAR = 365 * TIME_DAY;
+
     TextView gradeView, mottoView, timeView, savedMoneyView, statusView;
 
     int packPrice, numOfCigar, oneDaySaved, currentSaved;
@@ -49,7 +55,7 @@ public class StateFragment extends Fragment {
         mottoView = (TextView)view.findViewById(R.id.text_mottoView);
         timeView = (TextView)view.findViewById(R.id.text_timeView);
         savedMoneyView = (TextView)view.findViewById(R.id.text_savedmoneyView);
-        statusView = (TextView)view.findViewById(R.id.text_status);
+        statusView = (TextView)view.findViewById(R.id.text_statusView);
 
         // 회원 등급
         /** 등급 Network에서 받아와서 처리할 것 */
@@ -117,18 +123,50 @@ public class StateFragment extends Fragment {
             // 뷰 설정
             if (nonSmokingTime > 0) {
                 // 현재시간 설정
-                int nonSmokingDays = (int) nonSmokingTime / (24 * 60 * 60 * 1000);
-                int nonSmokingHours = (int) nonSmokingTime / (60 * 60 * 1000) - (nonSmokingDays * 24);
-                int nonSmokingMins = (int) nonSmokingTime / (60 * 1000) - (nonSmokingDays * 24 * 60) - (nonSmokingHours * 60);
-                int nonSmokingSecs = (int) nonSmokingTime / 1000 - (nonSmokingDays * 24 * 60 * 60) - (nonSmokingHours * 60 * 60) - (nonSmokingMins * 60);
+                int nonSmokingDays = (int) (nonSmokingTime / TIME_DAY);
+                int nonSmokingHours= (int) (nonSmokingTime / TIME_HOUR) - (nonSmokingDays * 24);
+                int nonSmokingMins = (int) (nonSmokingTime / TIME_MIN) - (nonSmokingDays * 24 * 60) - (nonSmokingHours * 60);
+                int nonSmokingSecs = (int) (nonSmokingTime / TIME_SEC) - (nonSmokingDays * 24 * 60 * 60) - (nonSmokingHours * 60 * 60) - (nonSmokingMins * 60);
                 String s = String.format("%d일 %d시간 %d분 %d초", nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
                 timeView.setText(s);
 
+                // 절약금액
                 currentSaved = packPrice/20 * numOfCigar * nonSmokingDays;
                 savedMoneyView.setText(currentSaved+" 원 절약");
 
+                // 건강 상태 (12단계 등급)
+                if (nonSmokingTime > 15*TIME_YEAR) {
+                    statusView.setText("1등급");
+                }else if (nonSmokingTime > 10*TIME_YEAR) {
+                    statusView.setText("2등급");
+                }else if (nonSmokingTime > 5*TIME_YEAR) {
+                    statusView.setText("3등급");
+                }else if (nonSmokingTime > TIME_YEAR) {
+                    statusView.setText("4등급");
+                }else if (nonSmokingTime > 180 * TIME_DAY) {
+                    statusView.setText("5등급");
+                }else if (nonSmokingTime > 14 * TIME_DAY) {
+                    statusView.setText("6등급");
+                }else if (nonSmokingTime > 72 * TIME_HOUR) {
+                    statusView.setText("7등급");
+                }else if (nonSmokingTime > 48 * TIME_HOUR) {
+                    statusView.setText("8등급");
+                }else if (nonSmokingTime > 24 * TIME_HOUR) {
+                    statusView.setText("9등급");
+                }else if (nonSmokingTime > 8 * TIME_HOUR) {
+                    statusView.setText("10등급");
+                }else if (nonSmokingTime > 2 * TIME_HOUR) {
+                    statusView.setText("11등급");
+                }else if (nonSmokingTime > 20 * TIME_MIN) {
+                    statusView.setText("12등급");
+                }else {
+                    statusView.setText("13등급");
+                }
+
             } else {
                 timeView.setText("아직 금연을 시작하지 않으셨습니다");
+                savedMoneyView.setText("금연 시작하시고 담배값을 절약하세요!");
+                statusView.setText("13등급");
             }
             mHandler.postDelayed(this, TIME_INTERVAL);
         }
