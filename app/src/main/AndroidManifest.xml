@@ -26,8 +26,6 @@
         </activity>
         <activity android:name=".activity.CentersActivity" >
         </activity>
-        <activity android:name=".activity.ContentsActivity" >
-        </activity>
         <activity android:name=".activity.board.BoardActivity" >
         </activity>
         <activity android:name=".activity.login.LoginActivity" >

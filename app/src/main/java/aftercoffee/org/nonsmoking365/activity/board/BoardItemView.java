@@ -41,11 +41,13 @@ public class BoardItemView extends FrameLayout {
         commentsBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CommentsActivity.class);
-                intent.putExtra("title", titleTextView.getText().toString());
-                getContext().startActivity(intent);
+                // comment fragment로?
             }
         });
+
+    }
+    interface CommentClickListener {
+        public void setOnCommentClickListener(OnClickListener listener);
     }
 
     public void setBoardItem(BoardItem item) {
