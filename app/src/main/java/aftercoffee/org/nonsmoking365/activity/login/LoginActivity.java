@@ -23,19 +23,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void pushSingUpFragment() {
+    public void pushSignUpFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new SignupFragment()).addToBackStack(null).commit();
     }
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+
+    public void popSignUpFragment() {
+        getSupportFragmentManager().popBackStack();
     }
-    */
+
 }

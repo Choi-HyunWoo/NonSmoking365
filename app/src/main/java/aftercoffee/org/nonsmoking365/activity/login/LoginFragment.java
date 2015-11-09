@@ -3,7 +3,10 @@ package aftercoffee.org.nonsmoking365.activity.login;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,6 +33,7 @@ public class LoginFragment extends Fragment {
 
     public LoginFragment() {
         // Required empty public constructor
+        this.setHasOptionsMenu(true);
     }
 
 
@@ -37,6 +41,9 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
+
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("로그인");
 
         findView = (TextView)v.findViewById(R.id.text_find);
         signupView = (TextView)v.findViewById(R.id.text_signUp);
@@ -95,11 +102,21 @@ public class LoginFragment extends Fragment {
         signupView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LoginActivity)getActivity()).pushSingUpFragment();
+                ((LoginActivity)getActivity()).pushSignUpFragment();
             }
         });
         return v;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                getActivity().finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
