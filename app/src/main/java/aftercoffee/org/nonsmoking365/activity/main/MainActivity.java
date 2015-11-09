@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setIcon(R.drawable.logo);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("금연 진행 현황");
+        actionBar.setElevation(0);
 
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
         tabHost.setup();

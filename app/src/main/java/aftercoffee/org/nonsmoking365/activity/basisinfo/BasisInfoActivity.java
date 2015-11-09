@@ -1,12 +1,13 @@
 package aftercoffee.org.nonsmoking365.activity.basisinfo;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,11 +15,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import aftercoffee.org.nonsmoking365.activity.main.MainActivity;
 import aftercoffee.org.nonsmoking365.PropertyManager;
@@ -58,6 +56,16 @@ public class BasisInfoActivity extends AppCompatActivity {
         /** START MODE SETTING */
         Intent data = getIntent();
         startMode = data.getIntExtra(START_MODE, 0);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setElevation(0);
+        if (startMode == MODE_INIT) {
+            actionBar.setTitle("기초정보 입력");
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        } else {
+            actionBar.setTitle("기초정보 수정");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // View init
         mottoView = (EditText)findViewById(R.id.edit_motto);
@@ -203,4 +211,16 @@ public class BasisInfoActivity extends AppCompatActivity {
             birthDateBtn.setText(msg);
         }
     };
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
