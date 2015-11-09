@@ -22,6 +22,7 @@ import java.util.Date;
 
 import aftercoffee.org.nonsmoking365.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.activity.CommunityActivity;
 import aftercoffee.org.nonsmoking365.activity.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.activity.CentersActivity;
 
@@ -85,21 +86,19 @@ public class ProgressFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        Button btn = (Button)view.findViewById(R.id.btn_warning);
+        Button btn = (Button)view.findViewById(R.id.btn_board);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BoardActivity.class);
-                intent.putExtra(BoardActivity.PARAM_BOARD_TYPE, BoardActivity.TYPE_WARNING);
                 startActivity(intent);
             }
         });
-        btn = (Button)view.findViewById(R.id.btn_tips);
+        btn = (Button)view.findViewById(R.id.btn_community);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BoardActivity.class);
-                intent.putExtra(BoardActivity.PARAM_BOARD_TYPE, BoardActivity.TYPE_TIPS);
+                Intent intent = new Intent(getActivity(), CommunityActivity.class);
                 startActivity(intent);
             }
         });

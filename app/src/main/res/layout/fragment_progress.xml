@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:text="@string/state_text_grade" />
+            android:text="@string/progress_text_grade" />
         <TextView
             android:id="@+id/text_gradeView"
             android:layout_width="0dp"
@@ -47,7 +47,7 @@
         android:id="@+id/text_mottoView"
         android:textColor="#00004A"
         android:textStyle="bold"
-        android:text="@string/state_text_default_motto" />
+        android:text="@string/progress_text_default_motto" />
 
     <TextView
         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:text="@string/state_text_time" />
+            android:text="@string/progress_text_time" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -85,7 +85,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:text="@string/state_text_savedmoney" />
+            android:text="@string/progress_text_savedmoney" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -105,7 +105,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:text="@string/state_text_status" />
+            android:text="@string/progress_text_status" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -146,7 +146,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:gravity="bottom|left"
-                    android:text="@string/state_text_banner1"
+                    android:text="@string/progress_text_banner1"
                     android:textColor="@color/colorWhite" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="top|left"
-                    android:text="@string/state_text_banner2"
+                    android:text="@string/progress_text_banner2"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
         </LinearLayout>
@@ -169,9 +169,9 @@
         android:layout_marginTop="2dp"
         android:stateListAnimator="@null"
         android:background="@drawable/btn_color_border"
-        android:text="@string/state_btn_warning"
+        android:text="@string/progress_btn_board"
         android:textColor="@color/selector_text_color_black_to_white"
-        android:id="@+id/btn_warning" />
+        android:id="@+id/btn_board" />
 
     <Button
         android:layout_width="match_parent"
@@ -179,9 +179,9 @@
         android:layout_marginTop="2dp"
         android:stateListAnimator="@null"
         android:background="@drawable/btn_color_border"
-        android:text="@string/state_btn_tips"
+        android:text="@string/progress_btn_community"
         android:textColor="@color/selector_text_color_black_to_white"
-        android:id="@+id/btn_tips" />
+        android:id="@+id/btn_community" />
 
     <Button
         android:layout_width="match_parent"
@@ -189,7 +189,7 @@
         android:layout_marginTop="2dp"
         android:stateListAnimator="@null"
         android:background="@drawable/btn_color_border"
-        android:text="@string/state_btn_centers"
+        android:text="@string/progress_btn_centers"
         android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_centers" />
 

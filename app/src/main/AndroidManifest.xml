@@ -46,6 +46,11 @@
         </activity>
         <activity android:name=".activity.CommentsActivity" >
         </activity>
+        <activity
+            android:name=".activity.CommunityActivity"
+            android:label="@string/title_activity_community"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

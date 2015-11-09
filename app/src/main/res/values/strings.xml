@@ -20,16 +20,16 @@
     <string name="basis_hint_motto">금연 좌우명을 입력해주세요</string>
 
     <!-- ProgressFragment -->
-    <string name="state_text_grade">회원 등급</string>
-    <string name="state_text_default_motto">금연 목표를 입력해 주세요</string>
-    <string name="state_text_banner1">에서 금연 성공 하고 120%의 </string>
-    <string name="state_text_banner2">금연 성공 포상금의 주인공이 되세요!</string>
-    <string name="state_text_time">금연 시간</string>
-    <string name="state_text_savedmoney">절약 금액</string>
-    <string name="state_text_status">건강 상태</string>
-    <string name="state_btn_warning">흡연의 위험성</string>
-    <string name="state_btn_tips">금연 팁</string>
-    <string name="state_btn_centers">내 주변 보건소 및 금연상담센터</string>
+    <string name="progress_text_grade">회원 등급</string>
+    <string name="progress_text_default_motto">금연 목표를 입력해 주세요</string>
+    <string name="progress_text_banner1">에서 금연 성공 하고 120%의 </string>
+    <string name="progress_text_banner2">금연 성공 포상금의 주인공이 되세요!</string>
+    <string name="progress_text_time">금연 시간</string>
+    <string name="progress_text_savedmoney">절약 금액</string>
+    <string name="progress_text_status">건강 상태</string>
+    <string name="progress_btn_board">금연 정보</string>
+    <string name="progress_btn_community">금연갤</string>
+    <string name="progress_btn_centers">내 주변 보건소 및 금연상담센터</string>
 
     <!--healthgradeInfo-->
     <string name="health_grade_12">혈압, 맥박, 손발 체온이 정상으로 돌아옵니다.</string>
@@ -81,4 +81,5 @@
     <!-- VersionInfo Activity -->
     <string name="version_info">버전 1.0.0</string>
     <string name="version_btn_access_terms">이용 약관</string>
+    <string name="title_activity_community">CommunityActivity</string>
 </resources>
