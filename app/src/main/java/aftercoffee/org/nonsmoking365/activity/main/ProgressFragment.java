@@ -2,14 +2,17 @@ package aftercoffee.org.nonsmoking365.activity.main;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -74,6 +77,14 @@ public class ProgressFragment extends Fragment {
         mHandler.post(updateRunnable);
 
         // Btn
+        RelativeLayout banner = (RelativeLayout)view.findViewById(R.id.banner);
+        banner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://nosmoking365.com"));
+                startActivity(intent);
+            }
+        });
         Button btn = (Button)view.findViewById(R.id.btn_warning);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +175,6 @@ public class ProgressFragment extends Fragment {
                 }else {
                     statusView.setText("13등급");
                 }
-
             } else {
                 timeView.setText("아직 금연을 시작하지 않으셨습니다");
                 savedMoneyView.setText("금연 시작하시고 담배값을 절약하세요!");

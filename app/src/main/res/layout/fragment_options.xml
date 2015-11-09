@@ -19,34 +19,34 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:stateListAnimator="@null"
         android:background="@color/colorAccent"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_btn_login"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_login"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:stateListAnimator="@null"
         android:background="@color/colorAccent"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_basis_info"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_basisInfo"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -57,11 +57,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_alarm"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_alarm"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -72,43 +73,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_notice"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_notice"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:stateListAnimator="@null"
         android:background="@color/colorAccent"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_question"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_question"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorAccent"/>
 
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_withdraw"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_withdraw"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -119,11 +121,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/options_version_info"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_versionInfo"
         android:gravity="left|center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:stateListAnimator="@null"
-        android:background="@color/colorWhite" />
+        android:background="@drawable/btn_color_normal" />
 
     <TextView
         android:layout_width="match_parent"

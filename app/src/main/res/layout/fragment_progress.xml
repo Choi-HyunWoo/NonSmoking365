@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/colorWhite"
     tools:context="aftercoffee.org.nonsmoking365.activity.main.ProgressFragment">
@@ -34,6 +33,11 @@
     </LinearLayout>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDDD"/>
+
     <!-- 금연 목표 -->
     <TextView
         android:layout_width="match_parent"
@@ -45,6 +49,10 @@
         android:textStyle="bold"
         android:text="@string/state_text_default_motto" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDDD"/>
 
     <!-- 금연 시간 -->
     <LinearLayout
@@ -107,15 +115,52 @@
             android:text="status test" />
     </LinearLayout>
 
-    <!-- Banner -->
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDDD" />
+
+    <!-- Banner -->
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:paddingLeft="75dp"
-        android:paddingRight="75dp"
-        android:gravity="center"
-        android:text="@string/state_text_default_banner" />
+        android:layout_weight="2"
+        android:background="@color/colorAccent" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/logo"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="bottom|left"
+                    android:text="@string/state_text_banner1"
+                    android:textColor="@color/colorWhite" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="top|left"
+                    android:text="@string/state_text_banner2"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <!-- Buttons -->
     <Button
@@ -125,7 +170,7 @@
         android:stateListAnimator="@null"
         android:background="@drawable/btn_color_border"
         android:text="@string/state_btn_warning"
-        android:textColor="@color/selector_btn_text_color"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_warning" />
 
     <Button
@@ -135,7 +180,7 @@
         android:stateListAnimator="@null"
         android:background="@drawable/btn_color_border"
         android:text="@string/state_btn_tips"
-        android:textColor="@color/selector_btn_text_color"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_tips" />
 
     <Button
@@ -145,7 +190,7 @@
         android:stateListAnimator="@null"
         android:background="@drawable/btn_color_border"
         android:text="@string/state_btn_centers"
-        android:textColor="@color/selector_btn_text_color"
+        android:textColor="@color/selector_text_color_black_to_white"
         android:id="@+id/btn_centers" />
 
 

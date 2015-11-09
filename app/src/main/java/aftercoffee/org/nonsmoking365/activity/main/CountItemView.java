@@ -25,16 +25,16 @@ public class CountItemView extends FrameLayout {
     public void setCountItem(CountItem item) {
         switch (item.itemMode) {
             case CountItem.MODE_ON :
-                btn.setBackgroundResource(R.drawable.count_on);
+                btn.setBackgroundResource(R.drawable.btn_count_today);
                 break;
             case CountItem.MODE_OFF :
-                btn.setBackgroundResource(R.drawable.count_off);
+                btn.setBackgroundResource(R.drawable.btn_count);
                 break;
             case CountItem.MODE_O :
-                btn.setBackgroundResource(R.drawable.count_o);
+                btn.setBackgroundResource(R.drawable.icon_count_succes);
                 break;
             case CountItem.MODE_X :
-                btn.setBackgroundResource(R.drawable.count_x);
+                btn.setBackgroundResource(R.drawable.icon_count_fail);
                 break;
             default :
                 break;

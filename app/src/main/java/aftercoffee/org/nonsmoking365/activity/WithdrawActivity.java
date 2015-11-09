@@ -1,5 +1,6 @@
 package aftercoffee.org.nonsmoking365.activity;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,5 +12,8 @@ public class WithdrawActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("회원 탈퇴");
     }
 }
