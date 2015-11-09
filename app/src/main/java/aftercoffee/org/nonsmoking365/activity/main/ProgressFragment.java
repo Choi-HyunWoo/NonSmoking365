@@ -77,7 +77,7 @@ public class ProgressFragment extends Fragment {
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
 
-        // Btn
+        // Banner
         RelativeLayout banner = (RelativeLayout)view.findViewById(R.id.banner);
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +86,8 @@ public class ProgressFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // Btn
         Button btn = (Button)view.findViewById(R.id.btn_board);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

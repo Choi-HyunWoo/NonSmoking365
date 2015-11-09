@@ -49,10 +49,28 @@ public class BoardFragment extends Fragment {
         });
 
         // multiple item list
-        mAdapter.add(R.drawable.sample, "흡연의 위험성 글 1번", "warning contents test11111111111111111111111111111111111111111111111111111111111111111");
-        mAdapter.add(R.drawable.sample, "금연팁 글 2번", "warning contents test22222222222222222222222222222222222222222222222222222222222222222222222222");
-        mAdapter.add(R.drawable.sample, "광고 글 3번", "warning contents test33333333333333333333333333333333333333333333333333333333333333333333333");
+        BoardWarningItem warning = new BoardWarningItem();
+        warning.title="흡연의 위험성 글입니다.";
+        warning.contents="흡연은 위헙합니다. 금연하세요";
+        warning.titleImg=R.drawable.sample;
 
+        BoardTipsItem tips = new BoardTipsItem();
+        tips.title="이것은 금연 팁 글입니다.";
+        tips.contents="금연이 힘드실땐 운동하세요";
+        tips.titleImg=R.drawable.sample;
+
+        BoardAdItem ad = new BoardAdItem();
+        ad.adImg=R.drawable.sample_lezhincomics_logo;
+        ad.url ="http://www.lezhin.com/";
+
+        mAdapter.add(warning);
+        mAdapter.add(tips);
+        mAdapter.add(warning);
+        mAdapter.add(ad);
+        mAdapter.add(tips);
+        mAdapter.add(ad);
+        mAdapter.add(warning);
+        mAdapter.add(tips);
 
         return view;
     }
