@@ -49,9 +49,9 @@ public class BoardFragment extends Fragment {
         });
 
         // multiple item list
-        mAdapter.add(R.mipmap.ic_launcher, "흡연의 위험성 글 1번", "warning contents test11111111111111111111111111111111111111111111111111111111111111111");
-        mAdapter.add(R.mipmap.ic_launcher, "금연팁 글 2번", "warning contents test22222222222222222222222222222222222222222222222222222222222222222222222222");
-        mAdapter.add(R.mipmap.ic_launcher, "광고 글 3번", "warning contents test33333333333333333333333333333333333333333333333333333333333333333333333");
+        mAdapter.add(R.drawable.sample, "흡연의 위험성 글 1번", "warning contents test11111111111111111111111111111111111111111111111111111111111111111");
+        mAdapter.add(R.drawable.sample, "금연팁 글 2번", "warning contents test22222222222222222222222222222222222222222222222222222222222222222222222222");
+        mAdapter.add(R.drawable.sample, "광고 글 3번", "warning contents test33333333333333333333333333333333333333333333333333333333333333333333333");
 
 
         return view;

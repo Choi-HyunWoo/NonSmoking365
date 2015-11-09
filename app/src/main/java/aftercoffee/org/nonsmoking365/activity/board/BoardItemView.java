@@ -28,7 +28,7 @@ public class BoardItemView extends FrameLayout {
     Button shareBtn;
 
     public void init() {
-        inflate(getContext(), R.layout.view_board_item, this);
+        inflate(getContext(), R.layout.view_board_tips_item, this);
 
         titleImageView = (ImageView)findViewById(R.id.image_title);
         titleTextView = (TextView)findViewById(R.id.text_title);
@@ -44,14 +44,10 @@ public class BoardItemView extends FrameLayout {
                 // comment fragment로?
             }
         });
-
-    }
-    interface CommentClickListener {
-        public void setOnCommentClickListener(OnClickListener listener);
     }
 
     public void setBoardItem(BoardItem item) {
-        titleImageView.setImageResource(item.imgResource);
+        titleImageView.setBackgroundResource(item.imgResource);
         titleTextView.setText(item.title);
         contentsTextView.setText(item.contents);
     }
