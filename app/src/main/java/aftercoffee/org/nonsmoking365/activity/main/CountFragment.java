@@ -44,6 +44,7 @@ public class CountFragment extends Fragment {
     long nextMidNight;              // 다음날 자정 시간
     long countingTime;              // countStartTime ~ NextMidnight까지의 시간
     long countRestTime;             // 다음 카운트까지 남은 시간
+    int todayCountPos;              // 오늘의 Count 는 몇일차인가? (0~)
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -121,6 +122,7 @@ public class CountFragment extends Fragment {
             public void onClick(View v) {
                 // 금연 카운트를 초기화하시겠습니까?
                 mAdapter.nonSmokingCountReset();
+                todayCountPos = 0;
                 Toast.makeText(getActivity(), "금연 카운트가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
                 countPositionView.setText("");
                 countStartView.setText("금연 카운트를 시작해 주세요");
@@ -153,7 +155,7 @@ public class CountFragment extends Fragment {
 
             // 오늘의 Count Position 계산
             countingTime = nextMidNight - countStartTime;
-            int todayCountPos = (int) countingTime / (24 * 60 * 60 * 1000);         // 오늘의 Count position이 몇인지?
+            todayCountPos = (int) countingTime / (24 * 60 * 60 * 1000);         // 오늘의 Count position이 몇인지?
 
             // 다음 Count까지 남은시간 계산
             countRestTime = nextMidNight - System.currentTimeMillis();

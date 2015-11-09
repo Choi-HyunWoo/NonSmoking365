@@ -26,16 +26,15 @@ public class MainActivity extends AppCompatActivity {
         pager = (ViewPager)findViewById(R.id.pager);
         mAdapter = new TabsAdapter(this, getSupportFragmentManager(), tabHost, pager);
 
-        mAdapter.addTab(tabHost.newTabSpec("tab1").setIndicator("진행 현황"), StateFragment.class, null);
-        mAdapter.addTab(tabHost.newTabSpec("tab2").setIndicator("금연 카운트"), CountFragment.class, null);
-        mAdapter.addTab(tabHost.newTabSpec("tab3").setIndicator("설정"), OptionsFragment.class, null);
-        /*, getResources().getDrawable(R.drawable.tab_chatting_selector) */
+        mAdapter.addTab(tabHost.newTabSpec("tab1").setIndicator("",getResources().getDrawable(R.drawable.selector_tab_progress)), ProgressFragment.class, null);
+        mAdapter.addTab(tabHost.newTabSpec("tab2").setIndicator("",getResources().getDrawable(R.drawable.selector_tab_count)), CountFragment.class, null);
+        mAdapter.addTab(tabHost.newTabSpec("tab3").setIndicator("",getResources().getDrawable(R.drawable.selector_tab_setting)), OptionsFragment.class, null);
+        setTabColor(tabHost);
 
         mAdapter.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                // ...
-
+                setTabColor(tabHost);
             }
         });
 
@@ -43,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
             mAdapter.onRestoreInstanceState(savedInstanceState);
             tabHost.setCurrentTabByTag(savedInstanceState.getString(TAB_TAG));
         }
+    }
+    public void setTabColor(TabHost tabhost) {
+        for(int i=0;i<tabhost.getTabWidget().getChildCount();i++) {
+            tabhost.getTabWidget().getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorDark)); //unselected
+        }
+        tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorAccent)); // selected
     }
 
     @Override

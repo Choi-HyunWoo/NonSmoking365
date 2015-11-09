@@ -10,15 +10,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorWhite"
     tools:context="aftercoffee.org.nonsmoking365.activity.basisinfo.BasisInfoActivity">
 
-
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:singleLine="true"
         android:text="@string/basis_text_motto" />
+    -->
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -30,6 +32,7 @@
             android:singleLine="true"
             android:imeOptions="actionDone"
             android:id="@+id/edit_motto"
+            android:textColorHint="@color/colorAccent"
             android:hint="@string/basis_hint_motto" />
     </android.support.design.widget.TextInputLayout>
 
@@ -47,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_normal_border"
             android:text="@string/basis_btn_datepick"
             android:id="@+id/btn_startDate" />
     </LinearLayout>
@@ -105,19 +109,21 @@
             android:layout_weight="1"
             android:gravity="center"
             android:id="@+id/radiogroup_gender"
+            android:background="@drawable/btn_normal_border"
             android:orientation="horizontal" >
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="남자"
-                android:layout_marginRight="20dp"
+                android:background="@drawable/icon_buttonbg_left"
                 android:id="@+id/radioBtn_male"
                 android:checked="false" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/icon_buttonbg_right"
                 android:text="여자"
                 android:id="@+id/radioBtn_female"
                 android:checked="false" />
@@ -139,6 +145,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_normal_border"
             android:text="@string/basis_btn_datepick"
             android:id="@+id/btn_birthDate" />
     </LinearLayout>
@@ -150,6 +157,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="#FFFFFF"
         android:text="@string/basis_btn_finish"
         android:id="@+id/btn_finish" />
 

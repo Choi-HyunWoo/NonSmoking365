@@ -41,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
                     goMain();
                 }
             }
-        }, 1000);
+        }, 2000);
     }
 
     private void goPreview() {

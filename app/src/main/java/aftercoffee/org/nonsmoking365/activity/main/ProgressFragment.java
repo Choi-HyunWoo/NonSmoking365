@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import aftercoffee.org.nonsmoking365.PropertyManager;
@@ -25,7 +26,7 @@ import aftercoffee.org.nonsmoking365.activity.CentersActivity;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StateFragment extends Fragment {
+public class ProgressFragment extends Fragment {
 
     private static final long TIME_SEC = 1000;
     private static final long TIME_MIN = 60 * TIME_SEC;
@@ -39,7 +40,7 @@ public class StateFragment extends Fragment {
     String startDateStr;
     long nonSmokingTime;
 
-    public StateFragment() {
+    public ProgressFragment() {
         // Required empty public constructor
     }
 
@@ -48,7 +49,7 @@ public class StateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_state, container, false);
+        View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
         // Initialize view
         gradeView = (TextView)view.findViewById(R.id.text_gradeView);
@@ -125,6 +126,9 @@ public class StateFragment extends Fragment {
                 int nonSmokingHours= (int) (nonSmokingTime / TIME_HOUR) - (nonSmokingDays * 24);
                 int nonSmokingMins = (int) (nonSmokingTime / TIME_MIN) - (nonSmokingDays * 24 * 60) - (nonSmokingHours * 60);
                 int nonSmokingSecs = (int) (nonSmokingTime / TIME_SEC) - (nonSmokingDays * 24 * 60 * 60) - (nonSmokingHours * 60 * 60) - (nonSmokingMins * 60);
+                //SimpleDateFormat sdf = new SimpleDateFormat("dd일 (hh:mm:ss)");
+                //Calendar.getInstance().set(0, 0, nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
+                //sdf.setCalendar();
                 String s = String.format("%d일 %d시간 %d분 %d초", nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
                 timeView.setText(s);
 
