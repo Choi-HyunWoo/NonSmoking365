@@ -20,15 +20,15 @@
         </activity>
         <activity android:name=".PreviewActivity" >
         </activity>
-        <activity android:name=".Basisinfo.BasisInfoActivity" >
+        <activity android:name=".basisinfo.BasisInfoActivity" >
         </activity>
-        <activity android:name=".Main.MainActivity" >
+        <activity android:name=".main.MainActivity" >
         </activity>
         <activity android:name=".Centers.CentersActivity" >
         </activity>
-        <activity android:name=".Board.BoardActivity" >
+        <activity android:name=".board.BoardActivity" >
         </activity>
-        <activity android:name=".Login.LoginActivity" >
+        <activity android:name=".login.LoginActivity" >
         </activity>
         <activity android:name=".NoticeActivity" >
         </activity>

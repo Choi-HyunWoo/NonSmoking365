@@ -3,7 +3,7 @@ package aftercoffee.org.nonsmoking365.Manager;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import aftercoffee.org.nonsmoking365.Main.CountItem;
+import aftercoffee.org.nonsmoking365.main.CountItem;
 import aftercoffee.org.nonsmoking365.MyApplication;
 
 /**
@@ -139,7 +139,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
 
     /* set CountItem mode */
     public void setCountItemMode(int position, int mode) {        // 행, 열
-        mEditor.putInt(KEY_COUNT_ITEM_POSITION+position, mode);
+        mEditor.putInt(KEY_COUNT_ITEM_POSITION + position, mode);
         mEditor.commit();
     }
     public void setCountStartTime(long countStartTime) {
@@ -153,7 +153,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
 
     /* get CountItem mode */
     public int getCountItemMode(int position) {
-        return mPrefs.getInt(KEY_COUNT_ITEM_POSITION+position, 0);
+        return mPrefs.getInt(KEY_COUNT_ITEM_POSITION + position, 0);
     }
     public Long getCountStartTime() {
         return mPrefs.getLong(KEY_COUNT_START_TIME, 0L);

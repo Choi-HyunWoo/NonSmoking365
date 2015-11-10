@@ -6,8 +6,8 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import aftercoffee.org.nonsmoking365.Basisinfo.BasisInfoActivity;
-import aftercoffee.org.nonsmoking365.Main.MainActivity;
+import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
+import aftercoffee.org.nonsmoking365.main.MainActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 
 public class SplashActivity extends AppCompatActivity {
