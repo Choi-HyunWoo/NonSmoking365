@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -6,10 +6,9 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import aftercoffee.org.nonsmoking365.activity.basisinfo.BasisInfoActivity;
-import aftercoffee.org.nonsmoking365.activity.main.MainActivity;
-import aftercoffee.org.nonsmoking365.PropertyManager;
-import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.Basisinfo.BasisInfoActivity;
+import aftercoffee.org.nonsmoking365.Main.MainActivity;
+import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 
 public class SplashActivity extends AppCompatActivity {
 

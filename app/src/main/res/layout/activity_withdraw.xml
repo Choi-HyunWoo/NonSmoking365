@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/colorWhite"
-    tools:context="aftercoffee.org.nonsmoking365.activity.WithdrawActivity">
+    tools:context="aftercoffee.org.nonsmoking365.WithdrawActivity">
 
     <TextView
         android:layout_width="wrap_content"

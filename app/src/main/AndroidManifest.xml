@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".SplashActivity"
             android:theme="@style/FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,34 +18,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PreviewActivity" >
+        <activity android:name=".PreviewActivity" >
         </activity>
-        <activity android:name=".activity.basisinfo.BasisInfoActivity" >
+        <activity android:name=".Basisinfo.BasisInfoActivity" >
         </activity>
-        <activity android:name=".activity.main.MainActivity" >
+        <activity android:name=".Main.MainActivity" >
         </activity>
-        <activity android:name=".activity.CentersActivity" >
+        <activity android:name=".Centers.CentersActivity" >
         </activity>
-        <activity android:name=".activity.board.BoardActivity" >
+        <activity android:name=".Board.BoardActivity" >
         </activity>
-        <activity android:name=".activity.login.LoginActivity" >
+        <activity android:name=".Login.LoginActivity" >
         </activity>
-        <activity android:name=".activity.NoticeActivity" >
+        <activity android:name=".NoticeActivity" >
         </activity>
-        <activity android:name=".activity.AlarmActivity" >
+        <activity android:name=".AlarmActivity" >
         </activity>
-        <activity android:name=".activity.QuestionActivity" >
+        <activity android:name=".QuestionActivity" >
         </activity>
-        <activity android:name=".activity.WithdrawActivity" >
+        <activity android:name=".WithdrawActivity" >
         </activity>
-        <activity android:name=".activity.VersionInfoActivity" >
+        <activity android:name=".VersionInfoActivity" >
         </activity>
-        <activity android:name=".activity.AccessTermsActivity" >
+        <activity android:name=".AccessTermsActivity" >
         </activity>
-        <activity android:name=".activity.CommentsActivity" >
+        <activity android:name=".CommentsActivity" >
         </activity>
         <activity
-            android:name=".activity.CommunityActivity"
+            android:name=".Community.CommunityActivity"
             android:label="@string/title_activity_community"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

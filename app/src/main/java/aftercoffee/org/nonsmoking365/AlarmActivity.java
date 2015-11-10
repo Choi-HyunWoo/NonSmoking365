@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,22 +7,24 @@ import android.view.MenuItem;
 
 import aftercoffee.org.nonsmoking365.R;
 
-public class CentersActivity extends AppCompatActivity {
+public class AlarmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_centers);
+        setContentView(R.layout.activity_alarm);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("알람 설정");
         actionBar.setElevation(0);
-        actionBar.setTitle("주변 보건소 및 금연 상담센터");
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home :
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
                 finish();
                 return true;
         }

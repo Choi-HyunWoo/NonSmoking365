@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Manager;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -41,4 +41,5 @@ public class NetworkManager {
             }
         }, 1000);
     }
+
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorWhite"
-    tools:context="aftercoffee.org.nonsmoking365.activity.main.CountFragment">
+    tools:context="aftercoffee.org.nonsmoking365.Main.CountFragment">
 
     <TextView
         android:layout_width="wrap_content"

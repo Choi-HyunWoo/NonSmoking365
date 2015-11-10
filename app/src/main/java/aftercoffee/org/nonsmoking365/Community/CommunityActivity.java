@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365.Community;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

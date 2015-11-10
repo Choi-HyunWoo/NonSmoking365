@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365;
 
 import android.app.Activity;
 import android.content.Intent;

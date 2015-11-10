@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

@@ -1,11 +1,10 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Manager;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.util.Date;
-
-import aftercoffee.org.nonsmoking365.activity.main.CountItem;
+import aftercoffee.org.nonsmoking365.Main.CountItem;
+import aftercoffee.org.nonsmoking365.MyApplication;
 
 /**
  * Created by Tacademy on 2015-11-02.
@@ -45,7 +44,8 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     /* CountItem mode keys */
     public static final String KEY_COUNT_ITEM_POSITION = "countitem_position:";         // + position
     public static final String KEY_COUNT_START_TIME = "count_start_time";
-    public static final String KEY_COUNT_TODAY_POS = "today_count_position";
+    public static final String KEY_COUNT_TODAY_POS = "today_count_position";            // 카운트상에서의 현재 위치
+    public static final String KEY_COUNT_IS_COUNTING = "is_counting";                   // 현재 카운트중인지에 대한 정보
 
 
     public void setId(String id) {
@@ -146,6 +146,10 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor.putLong(KEY_COUNT_START_TIME, countStartTime);
         mEditor.commit();
     }
+    public void setIsCounting (boolean isCounting) {
+        mEditor.putBoolean(KEY_COUNT_IS_COUNTING, isCounting);
+        mEditor.commit();
+    }
 
     /* get CountItem mode */
     public int getCountItemMode(int position) {
@@ -153,6 +157,9 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     }
     public Long getCountStartTime() {
         return mPrefs.getLong(KEY_COUNT_START_TIME, 0L);
+    }
+    public Boolean getIsCounting() {
+        return mPrefs.getBoolean(KEY_COUNT_IS_COUNTING, false);
     }
 
     public boolean isBackupSync() {

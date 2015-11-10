@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,17 +7,17 @@ import android.view.MenuItem;
 
 import aftercoffee.org.nonsmoking365.R;
 
-public class WithdrawActivity extends AppCompatActivity {
+public class NoticeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdraw);
-
+        setContentView(R.layout.activity_notice);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("공지사항");
         actionBar.setElevation(0);
-        actionBar.setTitle("회원 탈퇴");
+
     }
 
     @Override
