@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.board;
+package aftercoffee.org.nonsmoking365.Manager;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
-import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -22,6 +21,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import aftercoffee.org.nonsmoking365.MyApplication;
+import aftercoffee.org.nonsmoking365.board.Board;
 
 /**
  * Created by Tacademy on 2015-11-03.

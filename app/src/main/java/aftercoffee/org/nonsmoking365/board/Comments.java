@@ -3,10 +3,12 @@ package aftercoffee.org.nonsmoking365.board;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import aftercoffee.org.nonsmoking365.Manager.JSONParsing;
+
 /**
  * Created by Tacademy on 2015-11-11.
  */
-public class Comments implements JSONParsing{
+public class Comments implements JSONParsing {
     // String _id;
     int seq;
     String content;
