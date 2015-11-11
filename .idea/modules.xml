@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NonSmoking365.iml" filepath="$PROJECT_DIR$/NonSmoking365.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidAsyncHTTPClient/androidAsyncHTTPClient.iml" filepath="$PROJECT_DIR$/androidAsyncHTTPClient/androidAsyncHTTPClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/async/async.iml" filepath="$PROJECT_DIR$/async/async.iml" />
     </modules>
   </component>
 </project>
