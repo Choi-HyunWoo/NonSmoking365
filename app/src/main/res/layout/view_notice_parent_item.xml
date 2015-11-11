@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="60dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="New Text"
+        android:id="@+id/text_dateView" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="left|center_vertical"
+        android:layout_weight="7"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:text="현재 무통장 입금만 가능합니다."
+        android:id="@+id/text_titleView" />
+
+</LinearLayout>
