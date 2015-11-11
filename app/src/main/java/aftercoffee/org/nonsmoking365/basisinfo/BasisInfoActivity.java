@@ -54,15 +54,21 @@ public class BasisInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basis_info);
         /** START MODE SETTING */
+        // getIntent로 이전 화면이 Preview라면(MODE_INIT이 전달됬다면) , 기초정보 최초의 입력 모드일것이다.
         Intent data = getIntent();
         startMode = data.getIntExtra(START_MODE, 0);
+        // 기초정보 최초의 입력 전에 App이 껐다 켜진 경우를 대비.
+        // SharedPreference의 BasisInfo가 최초로 입력되었는지 확인 후 startMode를 INIT상태로 변경
+        if (!PropertyManager.getInstance().getBasisInfoCheck()) {
+            startMode = MODE_INIT;
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
         if (startMode == MODE_INIT) {
             actionBar.setTitle("기초정보 입력");
             actionBar.setDisplayHomeAsUpEnabled(false);
-        } else {
+        } else if (startMode == MODE_MODIFY) {
             actionBar.setTitle("기초정보 수정");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -143,7 +149,9 @@ public class BasisInfoActivity extends AppCompatActivity {
             }
         });
 
-        /// Finish Button
+        // 완료 버튼
+        // > 기초정보 최초의 입력 시 splash 이후에 기초정보창이 안뜨도록 SharedPreference의 BasisInfoCheck를 true로 변경
+        // > 최초의 입력이 아니라면 기초정보만 수정후 SharedPreference에 내용 저장
         Button btn = (Button) findViewById(R.id.btn_finish);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,3 +230,4 @@ public class BasisInfoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
