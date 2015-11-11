@@ -21,6 +21,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import aftercoffee.org.nonsmoking365.MyApplication;
+import aftercoffee.org.nonsmoking365.Notice.Notice;
 import aftercoffee.org.nonsmoking365.board.Board;
 
 /**
@@ -92,11 +93,15 @@ public class NetworkManager {
 
 
     private static final String SERVER = "http://52.68.247.34:3000";
-    private static final String BOARD_INFO_URL = SERVER + "/infos";
-    public void getBoardData(Context context,  final OnResultListener<Board> listener) {        // param1, param2 설정
-//        RequestParams params = new RequestParams();
+    private static final String BOARD_URL = SERVER + "/infos";
+    private static final String NOTICE_URL = SERVER + "/notices";
+    private static final String QUESTION_URL = SERVER + "/questions";
+    private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
-        client.get(context, BOARD_INFO_URL, new TextHttpResponseHandler() {
+    public void getBoardData(Context context,  final OnResultListener<Board> listener) {        // param 설정
+        // RequestParams params = new RequestParams();
+
+        client.get(context, BOARD_URL, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -113,5 +118,9 @@ public class NetworkManager {
                 listener.onSuccess(result.board);
             }
         });
+    }
+
+    public void getNoticeData (Context context, final OnResultListener<Notice> listener) {
+
     }
 }

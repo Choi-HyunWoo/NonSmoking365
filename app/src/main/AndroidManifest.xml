@@ -34,7 +34,7 @@
         </activity>
         <activity android:name=".login.LoginActivity" >
         </activity>
-        <activity android:name=".NoticeActivity" >
+        <activity android:name=".Notice.NoticeActivity" >
         </activity>
         <activity android:name=".AlarmActivity" >
         </activity>

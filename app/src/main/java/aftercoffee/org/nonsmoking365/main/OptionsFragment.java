@@ -13,7 +13,7 @@ import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.AlarmActivity;
 import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.login.LoginActivity;
-import aftercoffee.org.nonsmoking365.NoticeActivity;
+import aftercoffee.org.nonsmoking365.Notice.NoticeActivity;
 import aftercoffee.org.nonsmoking365.QuestionActivity;
 import aftercoffee.org.nonsmoking365.VersionInfoActivity;
 import aftercoffee.org.nonsmoking365.WithdrawActivity;

@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Notice;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +17,8 @@ public class NoticeActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("공지사항");
         actionBar.setElevation(0);
+
+
     }
 
     @Override
