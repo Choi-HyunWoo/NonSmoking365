@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.R;
 
@@ -48,6 +49,7 @@ public class BoardFragment extends Fragment {
             }
         });
 
+        /*
         // multiple item list
         BoardWarningItem warning = new BoardWarningItem();
         warning.title="흡연의 위험성 글입니다.";
@@ -61,7 +63,9 @@ public class BoardFragment extends Fragment {
 
         BoardAdItem ad = new BoardAdItem();
         ad.adImg=R.drawable.sample;
+        */
 
+        /*
         mAdapter.add(warning);
         mAdapter.add(tips);
         mAdapter.add(warning);
@@ -70,6 +74,27 @@ public class BoardFragment extends Fragment {
         //mAdapter.add(ad);
         mAdapter.add(warning);
         mAdapter.add(tips);
+        */
+
+        // NetworkManager add ListItem Test
+        NetworkManager.getInstance().getBoardData(getContext(), new NetworkManager.OnResultListener<Board>() {
+            @Override
+            public void onSuccess(Board result) {
+
+                for (Docs d : result.docsList) {
+                    BoardWarningItem b = new BoardWarningItem();
+                    b.title = d.title;
+                    b.contents = d.content;
+                    b.titleImg = R.drawable.sample;
+                    mAdapter.add(b);
+                }
+            }
+
+            @Override
+            public void onFail(int code) {
+                Toast.makeText(getContext(), "Network connect failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

@@ -17,7 +17,6 @@ public class NoticeActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("공지사항");
         actionBar.setElevation(0);
-
     }
 
     @Override

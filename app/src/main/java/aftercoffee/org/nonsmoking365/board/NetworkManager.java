@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Manager;
+package aftercoffee.org.nonsmoking365.board;
 
 import android.content.Context;
 import android.os.Handler;
@@ -21,7 +21,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-import aftercoffee.org.nonsmoking365.Data.Board;
 import aftercoffee.org.nonsmoking365.MyApplication;
 
 /**
@@ -71,6 +70,7 @@ public class NetworkManager {
     }
 
     Handler mHadler = new Handler(Looper.getMainLooper());
+
     public void login(String userid, String password, final OnResultListener<String> listener) {
         mHadler.postDelayed(new Runnable() {
             @Override
@@ -90,12 +90,13 @@ public class NetworkManager {
     }
 
 
-    private static final String TEST_SERVER_URL = "http://http://52.68.247.34:3000/" + "infos";
-    public void getBoardData(Context context, int page, final OnResultListener<Board> listener) {        // param1, param2 설정
-        RequestParams params = new RequestParams();
-        params.put("page", 1);             // param으로 받은 내용을 RequestParams 객체에 put한다
 
-        client.post(context, TEST_SERVER_URL, params, new TextHttpResponseHandler() {
+    private static final String SERVER = "http://52.68.247.34:3000";
+    private static final String BOARD_INFO_URL = SERVER + "/infos";
+    public void getBoardData(Context context,  final OnResultListener<Board> listener) {        // param1, param2 설정
+//        RequestParams params = new RequestParams();
+
+        client.get(context, BOARD_INFO_URL, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -104,7 +105,9 @@ public class NetworkManager {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 // MelonResult result = gson.fromJson(responseString, MelonResult.class);
-                // GSON 구조화된 데이터 클래스를 생성. 최상위 클래스를 ~~~Result 클래스로 정의하고, parse메소드에서 하위클래스의 객체를 생성하면서 parsing 해나갈 것.
+                // JSONParsing interface 생성 (parsing 메소드)
+                // GSON 구조화된 데이터 클래스들을 생성.
+                // 받을 데이터의 최상위 데이터 클래스를 ~~~Result 클래스로 정의, parse 메소드에서 하위클래스의 객체를 생성하면서 parsing 해나갈 것.
                 // listener.onSuccess(result.melon);
                 BoardResult result = gson.fromJson(responseString, BoardResult.class);
                 listener.onSuccess(result.board);

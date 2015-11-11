@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.board;
 
 import org.json.JSONException;
 import org.json.JSONObject;

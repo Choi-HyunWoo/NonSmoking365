@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Data;
+package aftercoffee.org.nonsmoking365.board;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import aftercoffee.org.nonsmoking365.JSONParsing;
-
 /**
  * Created by Tacademy on 2015-11-11.
  */
@@ -18,6 +16,7 @@ public class Board implements JSONParsing {
     String name;
     int count;
     int page;
+    @SerializedName("docs")
     List<Docs> docsList;
 
     @Override
@@ -25,6 +24,7 @@ public class Board implements JSONParsing {
         name = jobject.getString("name");
         count = jobject.getInt("count");
         page = jobject.getInt("page");
+
         docsList = new ArrayList<Docs>();
         JSONArray array = jobject.getJSONArray("docs");
         for (int i=0; i<array.length(); i++) {
