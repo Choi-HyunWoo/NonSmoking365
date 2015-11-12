@@ -239,7 +239,14 @@ public class CountFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_count_reset :
-                Toast.makeText(getActivity(), "리셋!", Toast.LENGTH_SHORT).show();
+                mAdapter.nonSmokingCountReset();
+                todayCountPos = 0;
+                Toast.makeText(getActivity(), "금연 카운트가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
+                countPositionView.setText("");
+                countStartView.setText("금연 카운트를 시작해 주세요");
+                isCounting = false;
+                PropertyManager.getInstance().setIsCounting(false);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
