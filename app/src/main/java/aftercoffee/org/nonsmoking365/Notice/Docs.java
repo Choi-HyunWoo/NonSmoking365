@@ -9,6 +9,9 @@ import aftercoffee.org.nonsmoking365.Manager.JSONParsing;
  * Created by Tacademy on 2015-11-11.
  */
 public class Docs implements JSONParsing {
+    /**
+     * 공지사항 item
+     */
 //    String _id;
     int seq;
     String title;

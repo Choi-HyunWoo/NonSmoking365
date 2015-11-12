@@ -5,7 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
+import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.R;
 
 public class NoticeActivity extends AppCompatActivity {
@@ -39,49 +44,8 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
+        // ListItem client test
         /*
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
         mAdapter.add("2015-11-12", "금연365 공지사항",
                         "금연365 공지사항입니다.\n" +
                         "금연365 공지사항입니다.\n" +
@@ -90,8 +54,22 @@ public class NoticeActivity extends AppCompatActivity {
                         "금연365 공지사항입니다.");
         */
 
-        
+        // ListItem network test
+        NetworkManager.getInstance().getNoticeData(this, new NetworkManager.OnResultListener<Notice>() {
+            @Override
+            public void onSuccess(Notice result) {
+                for (Docs d : result.docsList) {
+                    String createdDate = d.created.substring(0, d.created.indexOf("T"));
+                    // mAdapter.add(String createdDate, String title, String content)
+                    mAdapter.add(createdDate, d.title, d.content);
+                }
+            }
 
+            @Override
+            public void onFail(int code) {
+                Toast.makeText(NoticeActivity.this, "Network connect failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

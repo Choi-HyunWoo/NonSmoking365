@@ -50,6 +50,7 @@ public class BoardFragment extends Fragment {
             }
         });
 
+        // Client item test
         /*
         // multiple item list
         BoardWarningItem warning = new BoardWarningItem();
@@ -77,11 +78,10 @@ public class BoardFragment extends Fragment {
         mAdapter.add(tips);
         */
 
-        // NetworkManager add ListItem Test
+        // Network add BoardItem Test
         NetworkManager.getInstance().getBoardData(getContext(), new NetworkManager.OnResultListener<Board>() {
             @Override
             public void onSuccess(Board result) {
-
                 for (Docs d : result.docsList) {
                     BoardWarningItem b = new BoardWarningItem();
                     b.title = d.title;

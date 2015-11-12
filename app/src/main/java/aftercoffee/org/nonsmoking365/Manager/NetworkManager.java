@@ -122,5 +122,17 @@ public class NetworkManager {
 
     public void getNoticeData (Context context, final OnResultListener<Notice> listener) {
 
+        client.get(context, NOTICE_URL, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                NoticeResult result = gson.fromJson(responseString, NoticeResult.class);
+                listener.onSuccess(result.notice);
+            }
+        });
     }
 }
