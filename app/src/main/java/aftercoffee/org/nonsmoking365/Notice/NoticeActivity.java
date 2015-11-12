@@ -60,7 +60,7 @@ public class NoticeActivity extends AppCompatActivity {
             public void onSuccess(Notice result) {
                 for (Docs d : result.docsList) {
                     String createdDate = d.created.substring(0, d.created.indexOf("T"));
-                    // mAdapter.add(String createdDate, String title, String content)
+                    /* mAdapter.add(String createdDate, String title, String content) */
                     mAdapter.add(createdDate, d.title, d.content);
                 }
             }

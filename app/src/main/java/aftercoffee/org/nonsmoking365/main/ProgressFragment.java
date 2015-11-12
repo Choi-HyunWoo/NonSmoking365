@@ -20,6 +20,7 @@ import java.util.Date;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.Community.CommunityActivity;
+import aftercoffee.org.nonsmoking365.ServiceInfoActivity;
 import aftercoffee.org.nonsmoking365.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.Centers.CentersActivity;
 
@@ -79,7 +80,7 @@ public class ProgressFragment extends Fragment {
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://nosmoking365.com"));
+                Intent intent = new Intent(getActivity(), ServiceInfoActivity.class);
                 startActivity(intent);
             }
         });
@@ -135,9 +136,6 @@ public class ProgressFragment extends Fragment {
                 int nonSmokingHours= (int) (nonSmokingTime / TIME_HOUR) - (nonSmokingDays * 24);
                 int nonSmokingMins = (int) (nonSmokingTime / TIME_MIN) - (nonSmokingDays * 24 * 60) - (nonSmokingHours * 60);
                 int nonSmokingSecs = (int) (nonSmokingTime / TIME_SEC) - (nonSmokingDays * 24 * 60 * 60) - (nonSmokingHours * 60 * 60) - (nonSmokingMins * 60);
-                //SimpleDateFormat sdf = new SimpleDateFormat("dd일 (hh:mm:ss)");
-                //Calendar.getInstance().set(0, 0, nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
-                //sdf.setCalendar();
                 String s = String.format("%d일 %d시간 %d분 %d초", nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
                 timeView.setText(s);
 

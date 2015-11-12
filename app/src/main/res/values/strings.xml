@@ -16,7 +16,6 @@
     <string name="basis_text_birthDate">생년월일</string>
     <string name="basis_btn_datepick">날짜 선택</string>
     <string name="basis_btn_finish">완료</string>
-
     <string name="basis_hint_motto">금연 좌우명을 입력해주세요</string>
 
     <!-- ProgressFragment -->
@@ -30,6 +29,10 @@
     <string name="progress_btn_board">금연 정보</string>
     <string name="progress_btn_community">금연갤</string>
     <string name="progress_btn_centers">내 주변 보건소 및 금연상담센터</string>
+
+    <!-- ServiceInfoActivity -->
+    <string name="service_text_title">리워드 서비스 이용방법</string>
+    <string name="service_btn_register">서비스 신청하기</string>
 
     <!--healthgradeInfo-->
     <string name="health_grade_12">혈압, 맥박, 손발 체온이 정상으로 돌아옵니다.</string>
@@ -78,8 +81,17 @@
     <string name="signup_btn_finish">완료</string>
     <string name="signup_btn_facebook">Facebook으로 회원가입</string>
 
+    <!-- Question Activity -->
+    <string name="question_text_title">문의드립니다.</string>
+    <string name="question_text_title_hint">문의 글 제목</string>
+    <string name="question_text_hint">궁금한 사항이 있으시면 언제든지 문의 주세요 :^)</string>
+    <string name="question_text_info">가입시 등록되었던 메일로 답변 드립니다.</string>
+    <string name="question_btn_finish">문의하기</string>
+
     <!-- VersionInfo Activity -->
     <string name="version_info">버전 1.0.0</string>
     <string name="version_btn_access_terms">이용 약관</string>
     <string name="title_activity_community">CommunityActivity</string>
+
+
 </resources>

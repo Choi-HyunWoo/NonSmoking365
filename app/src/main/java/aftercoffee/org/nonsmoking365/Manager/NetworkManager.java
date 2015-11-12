@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -22,6 +23,7 @@ import java.security.cert.CertificateException;
 
 import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
+import aftercoffee.org.nonsmoking365.Question.Question;
 import aftercoffee.org.nonsmoking365.board.Board;
 
 /**
@@ -135,4 +137,33 @@ public class NetworkManager {
             }
         });
     }
+
+
+    public void postQuestionData (Context context, String user_id, String title, String content, final OnResultListener<Question> listener) {
+        RequestParams params = new RequestParams();
+        params.put("user_id", user_id);
+        params.put("title", title);
+        params.put("content", content);
+
+        client.post(context, QUESTION_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                QuestionResult result = gson.fromJson(responseString, QuestionResult.class);
+                listener.onSuccess(result.question);
+            }
+        });
+    }
+
+
+    /*
+    public void postLoginData (Context context, final OnResultListener<User> listener) {
+
+        client.post(context, )
+    }
+    */
 }

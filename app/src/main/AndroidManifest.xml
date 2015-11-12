@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="aftercoffee.org.nonsmoking365" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -38,7 +38,7 @@
         </activity>
         <activity android:name=".AlarmActivity" >
         </activity>
-        <activity android:name=".QuestionActivity" >
+        <activity android:name=".Question.QuestionActivity" >
         </activity>
         <activity android:name=".WithdrawActivity" >
         </activity>
@@ -52,6 +52,8 @@
             android:name=".Community.CommunityActivity"
             android:label="@string/title_activity_community"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".ServiceInfoActivity" >
         </activity>
     </application>
 

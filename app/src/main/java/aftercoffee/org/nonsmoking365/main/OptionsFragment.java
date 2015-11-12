@@ -14,7 +14,7 @@ import aftercoffee.org.nonsmoking365.AlarmActivity;
 import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.login.LoginActivity;
 import aftercoffee.org.nonsmoking365.Notice.NoticeActivity;
-import aftercoffee.org.nonsmoking365.QuestionActivity;
+import aftercoffee.org.nonsmoking365.Question.QuestionActivity;
 import aftercoffee.org.nonsmoking365.VersionInfoActivity;
 import aftercoffee.org.nonsmoking365.WithdrawActivity;
 
