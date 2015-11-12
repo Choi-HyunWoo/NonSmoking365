@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDDD"/>
+        android:background="@color/colorDDDDDD"/>
 
     <!-- 금연 목표 -->
     <TextView
@@ -52,7 +52,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDDD"/>
+        android:background="@color/colorDDDDDD"/>
 
     <!-- 금연 시간 -->
     <LinearLayout
@@ -118,7 +118,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDDD" />
+        android:background="@color/colorDDDDDD" />
 
     <!-- Banner -->
     <RelativeLayout

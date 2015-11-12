@@ -16,10 +16,12 @@ public class NoticeChildItemView extends FrameLayout {
     }
 
     TextView contentsView;
-
     private void init() {
-        inflate(getContext(), R.layout.view_notice_parent_item, this);
+        inflate(getContext(), R.layout.view_notice_child_item, this);
         contentsView = (TextView)findViewById(R.id.text_contentsView);
+    }
 
+    public void setChildItem(NoticeChildItem item) {
+        contentsView.setText(item.contents);
     }
 }

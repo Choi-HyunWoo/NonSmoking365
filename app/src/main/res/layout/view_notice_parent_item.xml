@@ -8,6 +8,7 @@
         android:layout_weight="3"
         android:gravity="center"
         android:text="New Text"
+        android:textStyle="bold"
         android:id="@+id/text_dateView" />
     <TextView
         android:layout_width="0dp"
@@ -15,6 +16,7 @@
         android:gravity="left|center_vertical"
         android:layout_weight="7"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
         android:text="현재 무통장 입금만 가능합니다."
         android:id="@+id/text_titleView" />
 

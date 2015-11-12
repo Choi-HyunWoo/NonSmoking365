@@ -22,4 +22,9 @@ public class NoticeParentItemView extends FrameLayout {
         dateView = (TextView)findViewById(R.id.text_dateView);
         titleView = (TextView)findViewById(R.id.text_titleView);
     }
+
+    public void setParentItem (NoticeParentItem item) {
+        dateView.setText(item.date);
+        titleView.setText(item.title);
+    }
 }
