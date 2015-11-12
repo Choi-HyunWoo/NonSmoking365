@@ -23,7 +23,6 @@ import java.security.cert.CertificateException;
 
 import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
-import aftercoffee.org.nonsmoking365.Question.Question;
 import aftercoffee.org.nonsmoking365.board.Board;
 
 /**
@@ -95,20 +94,16 @@ public class NetworkManager {
 
 
     private static final String SERVER = "http://52.68.247.34:3000";
-    private static final String BOARD_URL = SERVER + "/infos";
-    private static final String NOTICE_URL = SERVER + "/notices";
-    private static final String QUESTION_URL = SERVER + "/questions";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
-    public void getBoardData(Context context,  final OnResultListener<Board> listener) {        // param 설정
-        // RequestParams params = new RequestParams();
-
+    private static final String BOARD_URL = SERVER + "/infos";
+    public void getBoardData(Context context,  final OnResultListener<Board> listener) {
+        // RequestParams params = new RequestParams();        // param 설정
         client.get(context, BOARD_URL, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 // MelonResult result = gson.fromJson(responseString, MelonResult.class);
@@ -122,14 +117,13 @@ public class NetworkManager {
         });
     }
 
+    private static final String NOTICE_URL = SERVER + "/notices";
     public void getNoticeData (Context context, final OnResultListener<Notice> listener) {
-
         client.get(context, NOTICE_URL, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 NoticeResult result = gson.fromJson(responseString, NoticeResult.class);
@@ -139,22 +133,20 @@ public class NetworkManager {
     }
 
 
-    public void postQuestionData (Context context, String user_id, String title, String content, final OnResultListener<Question> listener) {
+    private static final String QUESTION_URL = SERVER + "/questions";
+    public void postQuestionData (Context context, String user_id, String title, String content, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("user_id", user_id);
         params.put("title", title);
         params.put("content", content);
-
         client.post(context, QUESTION_URL, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                QuestionResult result = gson.fromJson(responseString, QuestionResult.class);
-                listener.onSuccess(result.question);
+                listener.onSuccess(responseString);
             }
         });
     }

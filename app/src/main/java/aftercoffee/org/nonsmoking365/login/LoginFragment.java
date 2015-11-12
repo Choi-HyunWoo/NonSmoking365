@@ -28,7 +28,7 @@ public class LoginFragment extends Fragment {
     Button btn;
     EditText emailView, passwordView;
     CheckBox autoLoginCheckView;
-    TextView findView, signupView;
+    TextView findView;
 
 
     public LoginFragment() {
@@ -46,7 +46,6 @@ public class LoginFragment extends Fragment {
         actionBar.setTitle("로그인");
 
         findView = (TextView)v.findViewById(R.id.text_find);
-        signupView = (TextView)v.findViewById(R.id.text_signUp);
 
         emailView = (EditText)v.findViewById(R.id.edit_email);
         passwordView = (EditText)v.findViewById(R.id.edit_password);
@@ -99,7 +98,8 @@ public class LoginFragment extends Fragment {
 
 
         // Sign up clicked
-        signupView.setOnClickListener(new View.OnClickListener() {
+        btn = (Button)v.findViewById(R.id.btn_signUp);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((LoginActivity)getActivity()).pushSignUpFragment();

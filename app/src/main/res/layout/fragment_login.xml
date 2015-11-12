@@ -54,18 +54,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_btn_login"
-        android:id="@+id/btn_login" />
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/btn_login"
+        android:stateListAnimator="@null" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_btn_facebook"
-        android:id="@+id/btn_facebook" />
+        android:id="@+id/btn_facebook"
+        android:stateListAnimator="@null" />
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="@string/login_text_signup"
-        android:id="@+id/text_signUp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/login_btn_signup"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/btn_signUp"
+        android:stateListAnimator="@null" />
 </LinearLayout>
