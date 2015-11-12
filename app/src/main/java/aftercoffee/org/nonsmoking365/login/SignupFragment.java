@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import aftercoffee.org.nonsmoking365.AccessTermsActivity;
+import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 
 
@@ -92,8 +93,18 @@ public class SignupFragment extends Fragment {
                 } else if (!accessTermsCheckBox.isChecked()) {
                     Toast.makeText(getActivity(), "약관에 동의해 주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "회원 가입을 환영합니다", Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
+                    NetworkManager.getInstance().signUp(getContext(), email, password, nickname, new NetworkManager.OnResultListener<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast.makeText(getActivity(), "회원 가입을 환영합니다", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void onFail(int code) {
+                            Toast.makeText(getActivity(), "이미 존재하는 E-mail 입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
