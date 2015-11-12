@@ -17,6 +17,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import aftercoffee.org.nonsmoking365.AccessTermsActivity;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -84,6 +87,10 @@ public class SignupFragment extends Fragment {
                     Toast.makeText(getActivity(), "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(passwordCheck)) {
                     Toast.makeText(getActivity(), "비밀번호 확인에 입력된 비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
+                } else if (!checkEmail(email)) {
+                    Toast.makeText(getActivity(), "E-mail 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+                } else if (!accessTermsCheckBox.isChecked()) {
+                    Toast.makeText(getActivity(), "약관에 동의해 주세요", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "회원 가입을 환영합니다", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
@@ -92,6 +99,14 @@ public class SignupFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private boolean checkEmail(String email){
+        String regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(email);
+        boolean isNormal = m.matches();
+        return isNormal;
     }
 
 

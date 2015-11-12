@@ -82,6 +82,7 @@ public class NetworkManager {
         }, 1000);
     }
 
+    /*
     public void signup(String userid, String password, final OnResultListener<String> listener) {
         mHadler.postDelayed(new Runnable() {
             @Override
@@ -90,7 +91,7 @@ public class NetworkManager {
             }
         }, 1000);
     }
-
+    */
 
 
     private static final String SERVER = "http://52.68.247.34:3000";
@@ -124,6 +125,7 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 NoticeResult result = gson.fromJson(responseString, NoticeResult.class);
@@ -144,6 +146,25 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+    private static final String USERS_URL = SERVER + "/users";
+    public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+        params.put("password", password);
+        params.put("nick", nickname);
+        client.post(context, USERS_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 listener.onSuccess(responseString);
