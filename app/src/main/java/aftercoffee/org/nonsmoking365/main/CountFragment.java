@@ -6,7 +6,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,6 +41,7 @@ public class CountFragment extends Fragment {
 
     public CountFragment() {
         // Required empty public constructor
+        this.setHasOptionsMenu(true);
     }
 
     boolean isCounting;             // 카운트 중인가?
@@ -50,8 +56,9 @@ public class CountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_count, container, false);
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
 
+        View view = inflater.inflate(R.layout.fragment_count, container, false);
         // View initialize
         countGridView = (GridView)view.findViewById(R.id.gridView);
         mAdapter = new CountGridAdapter();
@@ -222,4 +229,18 @@ public class CountFragment extends Fragment {
         mHandler.post(countRunnable);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_count_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_count_reset :
+                Toast.makeText(getActivity(), "리셋!", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
