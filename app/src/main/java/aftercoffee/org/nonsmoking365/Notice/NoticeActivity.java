@@ -13,6 +13,8 @@ public class NoticeActivity extends AppCompatActivity {
     ExpandableListView listView;
     NoticeItemAdapter mAdapter;
 
+    int prev = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,18 @@ public class NoticeActivity extends AppCompatActivity {
         mAdapter = new NoticeItemAdapter();
         listView.setAdapter(mAdapter);
 
+        // ListItem 한개만 보이도록.
+        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (prev != -1) {
+                    listView.collapseGroup(prev);
+                }
+                prev = groupPosition;
+            }
+        });
+
+        /*
         mAdapter.add("2015-11-12", "금연365 공지사항",
                         "금연365 공지사항입니다.\n" +
                         "금연365 공지사항입니다.\n" +
@@ -74,6 +88,10 @@ public class NoticeActivity extends AppCompatActivity {
                         "금연365 공지사항입니다.\n" +
                         "금연365 공지사항입니다.\n" +
                         "금연365 공지사항입니다.");
+        */
+
+        
+
     }
 
 
