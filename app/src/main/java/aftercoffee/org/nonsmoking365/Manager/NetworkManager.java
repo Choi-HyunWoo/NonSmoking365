@@ -138,6 +138,7 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 listener.onSuccess(responseString);
@@ -146,7 +147,24 @@ public class NetworkManager {
     }
 
     private static final String USERS_URL = SERVER + "/users";
-//    public void login (Context context, String )
+    /*
+    public void login (Context context, String email, String password, final OnResultListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+        params.put("password", password);
+        client.post(context, USERS_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+            }
+        });
+    }
+    */
     public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("email", email);
@@ -157,12 +175,12 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 listener.onSuccess(responseString);
             }
         });
     }
+
 
 }

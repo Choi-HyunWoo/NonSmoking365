@@ -26,6 +26,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor = mPrefs.edit();
     }
 
+    /* Auto Login Checked */
     public static final String KEY_ID = "id";
     public static final String KEY_PASSWORD = "password";
 

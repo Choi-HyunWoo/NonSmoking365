@@ -1,10 +1,13 @@
 package aftercoffee.org.nonsmoking365.main;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.R;
 
@@ -64,6 +67,34 @@ public class MainActivity extends AppCompatActivity {
             tabhost.getTabWidget().getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorDark)); //unselected
         }
         tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorAccent)); // selected
+    }
+
+    /* Back key (뒤로가기) 처리 */
+    private static final int MESSAGE_BACKKEY_TIMEOUT = 1;
+    private static final long TIMEOUT_BACKKEY_DELAY = 2000;
+    Boolean isBackPressed = false;
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_BACKKEY_TIMEOUT :
+                    isBackPressed = false;
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+        if (!isBackPressed) {
+            isBackPressed = true;
+            Toast.makeText(MainActivity.this, "뒤로가기를 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            mHandler.sendEmptyMessageDelayed(MESSAGE_BACKKEY_TIMEOUT, TIMEOUT_BACKKEY_DELAY);
+        } else {
+            mHandler.removeMessages(MESSAGE_BACKKEY_TIMEOUT);
+            super.onBackPressed();
+        }
     }
 
     @Override
