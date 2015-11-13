@@ -57,6 +57,7 @@ public class BoardFragment extends Fragment {
             }
         });
 
+        // Scroll이 마지막 위치일때 호출
         refreshView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
@@ -121,6 +122,7 @@ public class BoardFragment extends Fragment {
             @Override
             public void onSuccess(Board result) {
                 mAdapter.setTotalCount(result.count);
+                mAdapter.clear();
                 for (Docs d : result.docsList) {
                     if (d.category.equals("warning")) {
                         BoardWarningItem b = new BoardWarningItem();

@@ -40,6 +40,11 @@ public class BoardItemAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        items.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         BoardItem d = items.get(position);
