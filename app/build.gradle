@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:23.1.0'
     compile project(':androidAsyncHTTPClient')
     compile 'com.google.code.gson:gson:2.2.4'
+    compile project(':refresh')
 }

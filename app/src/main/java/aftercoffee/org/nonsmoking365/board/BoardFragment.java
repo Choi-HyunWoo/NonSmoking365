@@ -83,11 +83,23 @@ public class BoardFragment extends Fragment {
             @Override
             public void onSuccess(Board result) {
                 for (Docs d : result.docsList) {
-                    BoardWarningItem b = new BoardWarningItem();
-                    b.title = d.title;
-                    b.contents = d.content;
-                    b.titleImg = R.drawable.sample;
-                    mAdapter.add(b);
+                    if (d.category.equals("warning")) {
+                        BoardWarningItem b = new BoardWarningItem();
+                        b.title = d.title;
+                        b.contents = d.content;
+                        b.titleImg = R.drawable.sample;
+                        mAdapter.add(b);
+                    } else if (d.category.equals("tip")) {
+                        BoardTipsItem b = new BoardTipsItem();
+                        b.title = d.title;
+                        b.contents = d.content;
+                        b.titleImg = R.drawable.sample;
+                        mAdapter.add(b);
+                    } else {
+                        BoardAdItem b = new BoardAdItem();
+                        b.adImg = R.drawable.sample;
+                        mAdapter.add(b);
+                    }
                 }
             }
 
