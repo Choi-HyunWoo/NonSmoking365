@@ -12,6 +12,7 @@ import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.apache.http.client.HttpClient;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -22,6 +23,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import aftercoffee.org.nonsmoking365.MyApplication;
+import aftercoffee.org.nonsmoking365.Notice.Image;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
 import aftercoffee.org.nonsmoking365.board.Board;
 
@@ -66,6 +68,10 @@ public class NetworkManager {
         client.setCookieStore(new PersistentCookieStore(MyApplication.getContext()));
     }
 
+    public HttpClient getHttpClient() {
+        return client.getHttpClient();
+    }
+
     public interface OnResultListener<T> {
         public void onSuccess(T result);
         public void onFail(int code);
@@ -103,7 +109,7 @@ public class NetworkManager {
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 // MelonResult result = gson.fromJson(responseString, MelonResult.class);
                 // JSONParsing interface 생성 (parsing 메소드)
-                // GSON 구조화된 데이터 클래스들을 생성.
+                // JSON 구조화된 데이터 클래스들을 생성.
                 // 받을 데이터의 최상위 데이터 클래스를 ~~~Result 클래스로 정의, parse 메소드에서 하위클래스의 객체를 생성하면서 parsing 해나갈 것.
                 // listener.onSuccess(result.melon);
                 BoardResult result = gson.fromJson(responseString, BoardResult.class);
@@ -119,7 +125,6 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 NoticeResult result = gson.fromJson(responseString, NoticeResult.class);

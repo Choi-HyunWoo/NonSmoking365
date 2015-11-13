@@ -7,10 +7,7 @@ import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
-import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.R;
 
 public class NoticeActivity extends AppCompatActivity {
@@ -33,7 +30,7 @@ public class NoticeActivity extends AppCompatActivity {
         mAdapter = new NoticeItemAdapter();
         listView.setAdapter(mAdapter);
 
-        // ListItem 한개만 보이도록.
+        // ListItem 클릭시 한 개만 expand되도록.
         listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -44,24 +41,19 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
-        // ListItem client test
-        /*
-        mAdapter.add("2015-11-12", "금연365 공지사항",
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.\n" +
-                        "금연365 공지사항입니다.");
-        */
-
-        // ListItem network test
+        // ListItem network
         NetworkManager.getInstance().getNoticeData(this, new NetworkManager.OnResultListener<Notice>() {
             @Override
             public void onSuccess(Notice result) {
+                int count=0;
                 for (Docs d : result.docsList) {
                     String createdDate = d.created.substring(0, d.created.indexOf("T"));
-                    /* mAdapter.add(String createdDate, String title, String content) */
-                    mAdapter.add(createdDate, d.title, d.content);
+                    if (d.image_ids.size() != 0) {
+                        /* mAdapter.add(String createdDate, String title, String content, String imageUrl) */
+                        mAdapter.add(createdDate, d.title, d.content, d.image_ids.get(0).uri);
+                    } else {
+                        mAdapter.add(createdDate, d.title, d.content, "");
+                    }
                 }
             }
 

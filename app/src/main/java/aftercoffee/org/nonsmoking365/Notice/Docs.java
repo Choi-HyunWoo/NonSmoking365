@@ -1,14 +1,20 @@
 package aftercoffee.org.nonsmoking365.Notice;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import aftercoffee.org.nonsmoking365.Manager.JSONParsing;
 
 /**
  * Created by Tacademy on 2015-11-11.
  */
-public class Docs implements JSONParsing {
+public class Docs /*implements JSONParsing*/ {
     /**
      * 공지사항 item
      */
@@ -18,14 +24,8 @@ public class Docs implements JSONParsing {
     String content;
 //    Boolean isAlarm;
 //    int __v;
-//    int image_ids[];
+    @SerializedName("image_ids")
+    List<Image> image_ids;
     String created;
 
-    @Override
-    public void parsing(JSONObject jobject) throws JSONException {
-        seq = jobject.getInt("seq");
-        title = jobject.getString("title");
-        content = jobject.getString("content");
-        created = jobject.getString("created");
-    }
 }

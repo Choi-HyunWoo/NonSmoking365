@@ -14,7 +14,7 @@ public class NoticeItemAdapter extends BaseExpandableListAdapter {
 
     List<NoticeParentItem> items = new ArrayList<NoticeParentItem>();
 
-    public void add (String date, String title, String contents) {
+    public void add (String date, String title, String contents, String imageUrl) {
         NoticeParentItem p = new NoticeParentItem();
         p.date = date;
         p.title = title;
@@ -22,6 +22,7 @@ public class NoticeItemAdapter extends BaseExpandableListAdapter {
 
         NoticeChildItem item = new NoticeChildItem();
         item.contents = contents;
+        item.imageUrl = imageUrl;
         p.childItem = item;
 
         notifyDataSetChanged();
