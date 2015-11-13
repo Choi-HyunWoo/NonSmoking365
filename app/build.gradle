@@ -31,4 +31,5 @@ dependencies {
     compile project(':androidAsyncHTTPClient')
     compile 'com.google.code.gson:gson:2.2.4'
     compile project(':refresh')
+    compile project(':imageloader')
 }

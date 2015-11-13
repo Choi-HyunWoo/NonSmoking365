@@ -1,1 +1,1 @@
-include ':app', ':androidAsyncHTTPClient', ':refresh'
+include ':app', ':androidAsyncHTTPClient', ':refresh', ':imageloader'

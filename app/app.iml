@@ -101,6 +101,7 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
     <orderEntry type="module" module-name="refresh" exported="" />
+    <orderEntry type="module" module-name="imageloader" exported="" />
     <orderEntry type="module" module-name="androidAsyncHTTPClient" exported="" />
     <orderEntry type="library" exported="" name="org.apache.http.legacy-android-23" level="project" />
   </component>

@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +48,7 @@ public class ProgressFragment extends Fragment {
 
     public ProgressFragment() {
         // Required empty public constructor
+        this.setHasOptionsMenu(true);
     }
 
 
@@ -197,5 +202,22 @@ public class ProgressFragment extends Fragment {
         super.onResume();
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_progress_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_startTime_reset :
+                // Dialog 띄운 후 현재시간으로 리셋
+                Toast.makeText(getActivity(), "시간리셋", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
