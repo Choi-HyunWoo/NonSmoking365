@@ -41,6 +41,7 @@ public class NoticeChildItemView extends FrameLayout {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
+//                .displayer(new RoundedBitmapDisplayer(50))
                 .build();
     }
 
