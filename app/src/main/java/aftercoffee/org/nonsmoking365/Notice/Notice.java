@@ -20,5 +20,4 @@ public class Notice /*implements JSONParsing*/ {
     int page;
     @SerializedName("docs")
     List<Docs> docsList;
-
 }

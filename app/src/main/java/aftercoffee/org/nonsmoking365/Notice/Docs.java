@@ -18,7 +18,7 @@ public class Docs /*implements JSONParsing*/ {
     /**
      * 공지사항 item
      */
-//    String _id;
+    String _id;
     int seq;
     String title;
     String content;
