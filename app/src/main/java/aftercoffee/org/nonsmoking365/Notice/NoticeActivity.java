@@ -67,7 +67,7 @@ public class NoticeActivity extends AppCompatActivity {
 
             @Override
             public void onFail(int code) {
-                Toast.makeText(NoticeActivity.this, "Network connect failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NoticeActivity.this, "Network error : "+code, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -73,7 +73,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFail(int code) {
-                                    Toast.makeText(QuestionActivity.this, "Network connect failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(QuestionActivity.this, "Network error : "+code, Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -104,4 +105,9 @@ public class MainActivity extends AppCompatActivity {
         outState.putString(TAB_TAG, tabHost.getCurrentTabTag());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkManager.getInstance().cancelAll(this);
+    }
 }

@@ -18,6 +18,23 @@ public class BoardItemAdapter extends BaseAdapter {
     private static final int TYPE_INDEX_TIPS = 2;
     private static final int TYPE_INDEX_AD = 3;
 
+
+    int totalCount;
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public int getStartIndex() {
+        if (items.size() < totalCount) {
+            return items.size() + 1;
+        }
+        return -1;
+    }
+
     public void add(BoardItem item) {
         items.add(item);
         notifyDataSetChanged();

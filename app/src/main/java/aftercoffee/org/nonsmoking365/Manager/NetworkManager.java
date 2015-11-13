@@ -89,9 +89,11 @@ public class NetworkManager {
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
     private static final String BOARD_URL = SERVER + "/infos";
-    public void getBoardData(Context context,  final OnResultListener<Board> listener) {
-        // RequestParams params = new RequestParams();        // param 설정
-        client.get(context, BOARD_URL, new TextHttpResponseHandler() {
+    public void getBoardData(Context context, int perPage, int page, final OnResultListener<Board> listener) {
+        RequestParams params = new RequestParams();        // param 설정
+        params.put("perPage", perPage);
+        params.put("page", page);
+        client.get(context, BOARD_URL, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -183,4 +185,7 @@ public class NetworkManager {
     }
 
 
+    public void cancelAll(Context context) {
+        client.cancelRequests(context, true);
+    }
 }
