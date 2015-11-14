@@ -13,6 +13,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
+import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -22,6 +23,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
+import aftercoffee.org.nonsmoking365.Centers.SearchPOIInfo;
 import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.Notice.Image;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
@@ -41,6 +43,7 @@ public class NetworkManager {
 
     AsyncHttpClient client;
     Gson gson;
+    Header[] headers;
 
     private NetworkManager() {
         try {
@@ -66,6 +69,10 @@ public class NetworkManager {
         }
         gson = new Gson();
         client.setCookieStore(new PersistentCookieStore(MyApplication.getContext()));
+
+        headers = new Header[2];
+        headers[0] = new BasicHeader("Accept", "application/json");
+        headers[1] = new BasicHeader("appKey", "7bf0afee-4fea-3563-97f5-c993e7af68e1");
     }
 
     public HttpClient getHttpClient() {
@@ -91,9 +98,11 @@ public class NetworkManager {
     ///////////////////////////////////////////////////////////////////////////////
 
 
+    // Server URL
     private static final String SERVER = "http://52.68.247.34:3000";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
+    // 금연 정보 get
     private static final String BOARD_URL = SERVER + "/infos";
     public void getBoardData(Context context, int perPage, int page, final OnResultListener<Board> listener) {
         RequestParams params = new RequestParams();        // param 설정
@@ -118,6 +127,7 @@ public class NetworkManager {
         });
     }
 
+    // 공지사항 get
     private static final String NOTICE_URL = SERVER + "/notices";
     public void getNoticeData (Context context, final OnResultListener<Notice> listener) {
         client.get(context, NOTICE_URL, new TextHttpResponseHandler() {
@@ -134,6 +144,7 @@ public class NetworkManager {
     }
 
 
+    // 문의하기 post
     private static final String QUESTION_URL = SERVER + "/questions";
     public void postQuestionData (Context context, String user_id, String title, String content, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
@@ -153,7 +164,7 @@ public class NetworkManager {
         });
     }
 
-    private static final String USERS_URL = SERVER + "/users";
+
     /*
     public void login (Context context, String email, String password, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
@@ -172,6 +183,9 @@ public class NetworkManager {
         });
     }
     */
+
+    // 회원가입 post
+    private static final String USERS_URL = SERVER + "/users";
     public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("email", email);
@@ -189,7 +203,29 @@ public class NetworkManager {
         });
     }
 
+    // 보건소 리스트 받아오기
+    private static final String FIND_POI_URL = "https://apis.skplanetx.com/tmap/pois/around";
+    public void findPOI(Context context, String keyword, final OnResultListener<SearchPOIInfo> listener) {
+        RequestParams params = new RequestParams();
+        params.put("version", 1);
+        params.put("searchKeyword", keyword);
+        params.put("resCoordType", "WGS84GEO");
 
+        client.get(context, FIND_POI_URL, headers, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                POIResult result = gson.fromJson(responseString, POIResult.class);
+                listener.onSuccess(result.searchPoiInfo);
+            }
+        });
+    }
+
+    // 접속 끊기
     public void cancelAll(Context context) {
         client.cancelRequests(context, true);
     }
