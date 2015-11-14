@@ -49,9 +49,8 @@ public class CentersItemAdapter extends BaseAdapter {
         view.mapIconView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(parent.getContext(), MapActivity.class);
-
-                parent.getContext().startActivity(intent);
+                POI item = (POI)getItem(position);
+                ((CentersActivity)parent.getContext()).pushMapFragment(item.getLatitude(), item.getLongitude());
             }
         });
         view.dialIconView.setOnClickListener(new View.OnClickListener() {

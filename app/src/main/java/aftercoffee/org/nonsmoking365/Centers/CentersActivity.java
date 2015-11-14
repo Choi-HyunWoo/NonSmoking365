@@ -15,9 +15,6 @@ import aftercoffee.org.nonsmoking365.R;
 
 public class CentersActivity extends AppCompatActivity {
 
-    ListView centerListView;
-    CentersItemAdapter mAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,48 +24,16 @@ public class CentersActivity extends AppCompatActivity {
         actionBar.setElevation(0);
         actionBar.setTitle("주변 보건소 및 금연 상담센터");
 
-        centerListView = (ListView)findViewById(R.id.list_centers);
-
-        // Headerview는 Listview에 adapter를 할당하기 전에 설정
-        View headerView = getLayoutInflater().inflate(R.layout.view_centers_header, null);
-        centerListView.addHeaderView(headerView, null, false);
-
-        mAdapter = new CentersItemAdapter();
-        centerListView.setAdapter(mAdapter);
-
-        Button btn = (Button)findViewById(R.id.btn_map);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CentersActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        NetworkManager.getInstance().findPOI(CentersActivity.this, new NetworkManager.OnResultListener<SearchPOIInfo>() {
-            @Override
-            public void onSuccess(SearchPOIInfo result) {
-                for (POI poi : result.pois.poilist) {
-                    mAdapter.add(poi);
-                }
-            }
-            @Override
-            public void onFail(int code) {
-                Toast.makeText(CentersActivity.this, "Network error " + code, Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new CenterListFragment()).commit();
+        }
     }
 
+    public void pushMapFragment(double latitude, double longtitude) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, MapFragment.newInstance(latitude,longtitude)).addToBackStack(null).commit();
+    }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home :
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void popMapFragment() {
+        getSupportFragmentManager().popBackStack();
     }
 }
