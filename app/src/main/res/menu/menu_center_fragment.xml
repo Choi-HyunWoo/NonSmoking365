@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_goto_provider"
         android:orderInCategory="100"
-        android:title="gotoprovidersetting"
+        android:title="go_to_setting"
         app:showAsAction="always"
         android:icon="@drawable/icon_location_active_plus"/>
 

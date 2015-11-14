@@ -120,6 +120,7 @@ public class CenterListFragment extends Fragment {
             NetworkManager.getInstance().findPOI(getActivity(), location.getLatitude(), location.getLongitude(), 10, new NetworkManager.OnResultListener<SearchPOIInfo>() {
                 @Override
                 public void onSuccess(SearchPOIInfo result) {
+                    mAdapter.clear();
                     for (POI item : result.pois.poilist) {
                         mAdapter.add(item);
                     }
@@ -158,7 +159,7 @@ public class CenterListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_count_fragment, menu);
+        inflater.inflate(R.menu.menu_center_fragment, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

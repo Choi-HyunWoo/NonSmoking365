@@ -66,4 +66,5 @@ public class CentersItemAdapter extends BaseAdapter {
         });
         return view;
     }
+
 }
