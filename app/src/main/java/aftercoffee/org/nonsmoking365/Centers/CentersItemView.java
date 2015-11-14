@@ -2,6 +2,8 @@ package aftercoffee.org.nonsmoking365.Centers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -31,8 +33,15 @@ public class CentersItemView extends FrameLayout{
         mapIconView = (ImageView)findViewById(R.id.image_mapIcon);
         dialIconView = (ImageView)findViewById(R.id.image_dialIcon);
 
+        mapIconView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 화면이동
+            }
+        });
+
     }
-    public void setCentersItem(POI item) {
+    public void setCentersItem(final POI item) {
         centersNameView.setText(item.name);
         distanceView.setText(item.distance);
     }

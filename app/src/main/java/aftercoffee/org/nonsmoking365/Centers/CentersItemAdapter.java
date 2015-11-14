@@ -1,5 +1,8 @@
 package aftercoffee.org.nonsmoking365.Centers;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -35,7 +38,7 @@ public class CentersItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         CentersItemView view;
         if (convertView != null) {
             view = (CentersItemView) convertView;
@@ -43,6 +46,22 @@ public class CentersItemAdapter extends BaseAdapter {
             view = new CentersItemView(parent.getContext());
         }
         view.setCentersItem(items.get(position));
+        view.mapIconView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(parent.getContext(), MapActivity.class);
+
+                parent.getContext().startActivity(intent);
+            }
+        });
+        view.dialIconView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("tel:"+((POI)getItem(position)).telNo);
+                Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+                parent.getContext().startActivity(intent);
+            }
+        });
         return view;
     }
 }
