@@ -55,15 +55,10 @@ public class CenterListFragment extends Fragment {
         actionBar.setTitle("주변 보건소 및 금연 상담센터");
 
         centerListView = (ListView)view.findViewById(R.id.list_centers);
-
-        // Headerview는 Listview에 adapter를 할당하기 전에 설정
-        View headerView = inflater.inflate(R.layout.view_centers_header, null);
-        centerListView.addHeaderView(headerView, null, false);
-
-        mLM = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-
         mAdapter = new CentersItemAdapter();
         centerListView.setAdapter(mAdapter);
+
+        mLM = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         return view;
     }
