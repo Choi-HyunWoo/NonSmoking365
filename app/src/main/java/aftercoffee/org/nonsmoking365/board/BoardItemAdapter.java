@@ -100,7 +100,6 @@ public class BoardItemAdapter extends BaseAdapter {
                 view.setBoardItem((BoardTipsItem) items.get(position));
                 return view;
             }
-
             case TYPE_INDEX_AD : {
                 BoardAdItemView view;
                 if (convertView != null && convertView instanceof BoardAdItemView) {

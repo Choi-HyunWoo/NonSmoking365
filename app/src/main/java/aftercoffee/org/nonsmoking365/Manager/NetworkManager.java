@@ -205,7 +205,7 @@ public class NetworkManager {
 
     // 보건소 리스트 받아오기
     private static final String FIND_POI_URL = "https://apis.skplanetx.com/tmap/pois/search/around";
-    public void findPOI(Context context, String keyword, final OnResultListener<SearchPOIInfo> listener) {
+    public void findPOI(Context context, final OnResultListener<SearchPOIInfo> listener) {
         RequestParams params = new RequestParams();
         params.put("version", 1);
         params.put("categories", "보건소");

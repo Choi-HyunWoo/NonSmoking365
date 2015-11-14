@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="3"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical|left"
+        android:text="보건소명"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:id="@+id/text_centerName" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="거리"
+        android:id="@+id/text_distance" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:src="@drawable/icon_map"
+        android:id="@+id/image_mapIcon" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:src="@drawable/icon_call"
+        android:id="@+id/image_dialIcon" />
+
+</LinearLayout>

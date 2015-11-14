@@ -24,7 +24,7 @@ import aftercoffee.org.nonsmoking365.R;
 public class CentersActivity extends AppCompatActivity {
 
     ListView centerListView;
-    ArrayAdapter<POI> mAdapter;
+    CentersItemAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,12 @@ public class CentersActivity extends AppCompatActivity {
         actionBar.setTitle("주변 보건소 및 금연 상담센터");
 
         centerListView = (ListView)findViewById(R.id.list_centers);
-        mAdapter = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1);
+
+        // Headerview는 Listview에 adapter를 할당하기 전에 설정
+        View headerView = getLayoutInflater().inflate(R.layout.view_centers_header, null);
+        centerListView.addHeaderView(headerView, null, false);
+
+        mAdapter = new CentersItemAdapter();
         centerListView.setAdapter(mAdapter);
 
         Button btn = (Button)findViewById(R.id.btn_map);
@@ -48,18 +53,12 @@ public class CentersActivity extends AppCompatActivity {
             }
         });
 
-        String keyword = "보건소";
-        NetworkManager.getInstance().findPOI(CentersActivity.this, keyword, new NetworkManager.OnResultListener<SearchPOIInfo>() {
+        NetworkManager.getInstance().findPOI(CentersActivity.this, new NetworkManager.OnResultListener<SearchPOIInfo>() {
             @Override
             public void onSuccess(SearchPOIInfo result) {
                 for (POI poi : result.pois.poilist) {
                     mAdapter.add(poi);
                 }
-                /*
-                if (result.pois.poilist.size() > 0) {
-                    //moveMap(result.pois.poilist.get(0).getLatitude(), result.pois.poilist.get(0).getLongitude());
-                }
-                */
             }
             @Override
             public void onFail(int code) {
