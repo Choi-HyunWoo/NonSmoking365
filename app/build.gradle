@@ -32,4 +32,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile project(':refresh')
     compile project(':imageloader')
+    compile files('libs/com.skp.Tmap_1.0.36.jar')
 }
