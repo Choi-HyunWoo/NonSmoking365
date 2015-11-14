@@ -24,6 +24,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +125,7 @@ public class MapFragment extends Fragment {
         mapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
             @Override
             public boolean onPressEvent(ArrayList<TMapMarkerItem> markers, ArrayList<TMapPOIItem> pois, TMapPoint tMapPoint, PointF screenPoint) {
-                for(TMapMarkerItem marker : markers) {
+                for (TMapMarkerItem marker : markers) {
                     double end_lat = marker.getTMapPoint().getLatitude();
                     double end_lon = marker.getTMapPoint().getLongitude();
                     end.setLatitude(end_lat);
@@ -346,10 +348,10 @@ public class MapFragment extends Fragment {
                         @Override
                         public void run() {
                             tMapPolyLine.setLineColor(Color.RED);
-                            tMapPolyLine.setLineWidth(10);
+                            tMapPolyLine.setLineWidth(8);
                             mapView.addTMapPath(tMapPolyLine);
-                            Bitmap sbm = ((BitmapDrawable) getResources().getDrawable(R.drawable.icon_location)).getBitmap();
-                            Bitmap ebm = ((BitmapDrawable) getResources().getDrawable(R.drawable.icon_location)).getBitmap();
+                            Bitmap sbm = ((BitmapDrawable) getResources().getDrawable(R.drawable.empty)).getBitmap();
+                            Bitmap ebm = ((BitmapDrawable) getResources().getDrawable(R.drawable.empty)).getBitmap();
                             mapView.setTMapPathIcon(sbm, ebm);
                         }
                     });
@@ -358,15 +360,26 @@ public class MapFragment extends Fragment {
         }
     }
 
+
     /**
      * Override Methods
      */
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_map_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 ((CentersActivity)getActivity()).popMapFragment();
+                return true;
+            case R.id.action_goto_current :
+                registerLocationListener();
+                Toast.makeText(getActivity(), "현재 위치로 이동합니다.", Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
