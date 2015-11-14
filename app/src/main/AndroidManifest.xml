@@ -62,8 +62,6 @@
         </activity>
         <activity android:name=".ServiceInfoActivity" >
         </activity>
-        <activity android:name=".Centers.MapActivity" >
-        </activity>
     </application>
 
 </manifest>

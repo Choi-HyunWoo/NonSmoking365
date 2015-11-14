@@ -48,15 +48,6 @@ public class CenterListFragment extends Fragment {
         mAdapter = new CentersItemAdapter();
         centerListView.setAdapter(mAdapter);
 
-        Button btn = (Button)view.findViewById(R.id.btn_map);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MapActivity.class);
-                startActivity(intent);
-            }
-        });
-
         NetworkManager.getInstance().findPOI(getActivity(), new NetworkManager.OnResultListener<SearchPOIInfo>() {
             @Override
             public void onSuccess(SearchPOIInfo result) {
