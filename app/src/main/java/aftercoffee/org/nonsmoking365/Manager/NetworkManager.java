@@ -208,7 +208,9 @@ public class NetworkManager {
     public void findPOI(Context context, String keyword, final OnResultListener<SearchPOIInfo> listener) {
         RequestParams params = new RequestParams();
         params.put("version", 1);
-        params.put("searchKeyword", keyword);
+        params.put("searchKeyword", "보건소");
+        params.put("centerLat", 37.566535);
+        params.put("centerLon", 126.977969);
         params.put("resCoordType", "WGS84GEO");
 
         client.get(context, FIND_POI_URL, headers, params, new TextHttpResponseHandler() {

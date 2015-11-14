@@ -1,12 +1,15 @@
 package aftercoffee.org.nonsmoking365.Centers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.skp.Tmap.TMapData;
@@ -35,26 +38,16 @@ public class CentersActivity extends AppCompatActivity {
         mAdapter = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1);
         centerListView.setAdapter(mAdapter);
 
-        /*
-
-        TMapData data = new TMapData();
-        data.findAllPOI("보건소", new TMapData.FindAllPOIListenerCallback() {
+        Button btn = (Button)findViewById(R.id.btn_map);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFindAllPOI(final ArrayList<TMapPOIItem> arrayList) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (TMapPOIItem item : arrayList) {
-                            POIItem poi = new POIItem();
-                            poi.poi = item;
-                            mAdapter.add(poi);
-                        }
-                    }
-                });
+            public void onClick(View v) {
+                Intent intent = new Intent(CentersActivity.this, MapActivity.class);
+                startActivity(intent);
             }
         });
 
-*/
+
 
         String keyword = "보건소";
         NetworkManager.getInstance().findPOI(CentersActivity.this, keyword, new NetworkManager.OnResultListener<SearchPOIInfo>() {
