@@ -22,8 +22,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.skp.Tmap.TMapData;
+import com.skp.Tmap.TMapPOIItem;
 import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapView;
+
+import java.util.ArrayList;
 
 import aftercoffee.org.nonsmoking365.R;
 
@@ -49,6 +53,9 @@ public class MapActivity extends AppCompatActivity {
                 current();
             }
         });
+
+
+
     }
 
     // LocationProvider에서 위치정보 획득
@@ -66,7 +73,6 @@ public class MapActivity extends AppCompatActivity {
             }
             return;
         }
-
         // Enable 상태라면
         isFirst = true;
         Location location = mLM.getLastKnownLocation(mProvider);
@@ -175,7 +181,7 @@ public class MapActivity extends AppCompatActivity {
     // 내 위치 설정 함수 (위도, 경도)
     public void setMyLocation(double lat, double lng) {
         mapView.setLocationPoint(lng, lat);             // setLocationPoint 함수의 parameter도 경도, 위도 순임을 주의..
-        Bitmap bm = ((BitmapDrawable)getResources().getDrawable(R.drawable.ic_launcher)).getBitmap();
+        Bitmap bm = ((BitmapDrawable)getResources().getDrawable(R.drawable.icon_man_active)).getBitmap();
         mapView.setIcon(bm);
         mapView.setIconVisibility(true);
     }

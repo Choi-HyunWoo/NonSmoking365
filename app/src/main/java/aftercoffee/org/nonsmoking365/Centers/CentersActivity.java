@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapPOIItem;
@@ -47,8 +48,6 @@ public class CentersActivity extends AppCompatActivity {
             }
         });
 
-
-
         String keyword = "보건소";
         NetworkManager.getInstance().findPOI(CentersActivity.this, keyword, new NetworkManager.OnResultListener<SearchPOIInfo>() {
             @Override
@@ -56,14 +55,15 @@ public class CentersActivity extends AppCompatActivity {
                 for (POI poi : result.pois.poilist) {
                     mAdapter.add(poi);
                 }
+                /*
                 if (result.pois.poilist.size() > 0) {
                     //moveMap(result.pois.poilist.get(0).getLatitude(), result.pois.poilist.get(0).getLongitude());
                 }
+                */
             }
-
             @Override
             public void onFail(int code) {
-
+                Toast.makeText(CentersActivity.this, "Network error " + code, Toast.LENGTH_SHORT).show();
             }
         });
 
