@@ -123,7 +123,7 @@ public class CenterListFragment extends Fragment {
                 }
                 @Override
                 public void onFail(int code) {
-
+                    Toast.makeText(getActivity(), "Network error " + code, Toast.LENGTH_SHORT).show();
                 }
             });
         }

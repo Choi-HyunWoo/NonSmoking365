@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by HYUNWOO on 2015-11-14.
  */
 public class POI {
-    //String id;
+    String id;
     String name;
     String telNo;
     String frontLat;
@@ -30,18 +30,15 @@ public class POI {
     }
 
     public double getLatitude() {
-        return (Double.parseDouble(frontLat) + Double.parseDouble(noorLat)) / 2;
+        return Double.parseDouble(frontLat);
     }
 
     public double getLongitude() {
-        return (Double.parseDouble(frontLon) + Double.parseDouble(noorLon)) / 2;
+        return Double.parseDouble(frontLon);
     }
 
     public String getAddress() {
         return upperAddrName + " " + middleAddrName + " " + lowerAddrName + " " + detailAddrName;
     }
 
-    public double getLatitudeL1() {
-        return 0;
-    }
 }

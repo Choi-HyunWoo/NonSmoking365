@@ -43,6 +43,6 @@ public class CentersItemView extends FrameLayout{
     }
     public void setCentersItem(final POI item) {
         centersNameView.setText(item.name);
-        distanceView.setText(item.distance);
+        distanceView.setText(item.distance + "km");
     }
 }

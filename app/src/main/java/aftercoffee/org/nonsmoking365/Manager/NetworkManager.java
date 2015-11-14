@@ -213,6 +213,7 @@ public class NetworkManager {
         params.put("centerLon", my_lon);
         params.put("radius", radius);
         params.put("reqCoordType", "WGS84GEO");
+        params.put("resCoordType", "WGS84GEO");
 
         client.get(context, FIND_POI_URL, headers, params, new TextHttpResponseHandler() {
             @Override
