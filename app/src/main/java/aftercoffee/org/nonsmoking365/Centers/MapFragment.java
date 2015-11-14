@@ -37,46 +37,45 @@ import aftercoffee.org.nonsmoking365.R;
 public class MapFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM_LATITUDE = "latitude";
-    private static final String ARG_PARAM_LONGTITUDE = "longtitude";
+    private static final String DESTINATION_LATITUDE = "destination_latitude";
+    private static final String DESTINATION_LONGTITUDE = "destination_longtitude";
+
 
     // TODO: Rename and change types of parameters
-    private double mParam1;
-    private double mParam2;
+    private double des_lat;         // 목적지 위도
+    private double des_lon;         // 목적지 경도
 
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param des_lat Parameter 1. 목적지 위도
+     * @param des_lon Parameter 2. 목적지 경도
      * @return A new instance of fragment MapFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MapFragment newInstance(double param1, double param2) {
+    public static MapFragment newInstance(double des_lat, double des_lon) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
-        args.putDouble(ARG_PARAM_LATITUDE, param1);
-        args.putDouble(ARG_PARAM_LONGTITUDE, param2);
+        args.putDouble(DESTINATION_LATITUDE, des_lat);
+        args.putDouble(DESTINATION_LONGTITUDE, des_lon);
         fragment.setArguments(args);
         return fragment;
     }
 
     public MapFragment() {
-        // Required empty public constructor
+        this.setHasOptionsMenu(true);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getDouble(ARG_PARAM_LATITUDE);
-            mParam2 = getArguments().getDouble(ARG_PARAM_LONGTITUDE);
+            des_lat = getArguments().getDouble(DESTINATION_LATITUDE);
+            des_lon = getArguments().getDouble(DESTINATION_LONGTITUDE);
         }
     }
-
-    //
 
     TMapView mapView;
     LocationManager mLM;
