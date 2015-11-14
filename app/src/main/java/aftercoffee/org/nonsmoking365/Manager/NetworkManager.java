@@ -205,13 +205,13 @@ public class NetworkManager {
 
     // 보건소 리스트 받아오기
     private static final String FIND_POI_URL = "https://apis.skplanetx.com/tmap/pois/search/around";
-    public void findPOI(Context context, final OnResultListener<SearchPOIInfo> listener) {
+    public void findPOI(Context context, double my_lat, double my_lon, int radius, final OnResultListener<SearchPOIInfo> listener) {
         RequestParams params = new RequestParams();
         params.put("version", 1);
         params.put("categories", "보건소");
-        params.put("centerLat", 37.566535);
-        params.put("centerLon", 126.977969);
-        params.put("radius", 10);                   // 3km
+        params.put("centerLat", my_lat);
+        params.put("centerLon", my_lon);
+        params.put("radius", radius);
         params.put("reqCoordType", "WGS84GEO");
 
         client.get(context, FIND_POI_URL, headers, params, new TextHttpResponseHandler() {

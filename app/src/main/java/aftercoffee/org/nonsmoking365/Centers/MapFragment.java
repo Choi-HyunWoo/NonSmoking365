@@ -127,7 +127,6 @@ public class MapFragment extends Fragment {
             mListener.onLocationChanged(location);
         }
         mLM.requestSingleUpdate(mProvider, mListener, null);
-        //mLM.requestLocationUpdates(mProvider, 2000, 10, mListener);
         Message msg = mHandler.obtainMessage(MESSAGE_TIMEOUT_LOCATION_UPDATE);
         mHandler.sendMessageDelayed(msg, TIMEOUT_LOCATION_UPDATE);
     }
@@ -230,18 +229,6 @@ public class MapFragment extends Fragment {
         mapView.setIconVisibility(true);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        registerLocationListener();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        unregisterLocationListener();
-    }
-
     // Map을 어떻게 보여줄지 정의
     public void setUpMap() {
         // 저장해둔 Location이 있다면
@@ -262,4 +249,17 @@ public class MapFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
+    // Life cycle
+    @Override
+    public void onStart() {
+        super.onStart();
+        registerLocationListener();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterLocationListener();
+    }
 }
