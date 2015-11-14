@@ -5,6 +5,6 @@
         android:id="@+id/action_startTime_reset"
         android:orderInCategory="100"
         android:title="start_time_reset"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:icon="@drawable/icon_cigarette"/>
 </menu>

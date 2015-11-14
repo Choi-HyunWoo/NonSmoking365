@@ -3,6 +3,7 @@ package aftercoffee.org.nonsmoking365.Notice;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -59,7 +60,7 @@ public class NoticeActivity extends AppCompatActivity {
 
             @Override
             public void onFail(int code) {
-                Toast.makeText(NoticeActivity.this, "Network error : "+code, Toast.LENGTH_SHORT).show();
+                Log.d("NoticeActivity ", "network error/" + code);
             }
         });
     }

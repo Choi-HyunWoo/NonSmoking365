@@ -21,6 +21,9 @@ public class CentersItemAdapter extends BaseAdapter {
         items.add(item);
         notifyDataSetChanged();
     }
+    public void clear() {
+        items.clear();
+    }
 
     @Override
     public int getCount() {

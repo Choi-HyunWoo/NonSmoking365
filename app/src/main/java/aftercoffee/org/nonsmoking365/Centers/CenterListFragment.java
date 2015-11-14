@@ -16,7 +16,10 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +96,7 @@ public class CenterListFragment extends Fragment {
         mHandler.removeMessages(MESSAGE_TIMEOUT_LOCATION_UPDATE);
     }
 
+
     // 위치정보 받아오기 Timeout 처리
     private static final int MESSAGE_TIMEOUT_LOCATION_UPDATE = 1;
     private static final int TIMEOUT_LOCATION_UPDATE = 60 * 1000;
@@ -107,7 +111,6 @@ public class CenterListFragment extends Fragment {
         }
     };
 
-    Location cacheLocation;
     // Application이 Location Service로부터 위치와 관련된 정보를 수신하기 위해 사용하는 interface
     LocationListener mListener = new LocationListener() {
         @Override
@@ -123,7 +126,7 @@ public class CenterListFragment extends Fragment {
                 }
                 @Override
                 public void onFail(int code) {
-                    Toast.makeText(getActivity(), "Network error " + code, Toast.LENGTH_SHORT).show();
+                    Log.d("CenterListFragment ", "network error/" + code);
                 }
             });
         }
@@ -154,10 +157,19 @@ public class CenterListFragment extends Fragment {
 
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_count_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home :
                 getActivity().finish();
+                break;
+            case R.id.action_goto_provider :
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));        // 위치정보 설정으로 이동
                 break;
         }
         return super.onOptionsItemSelected(item);

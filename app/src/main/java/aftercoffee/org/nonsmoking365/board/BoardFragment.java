@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,7 +94,7 @@ public class BoardFragment extends Fragment {
 
                             @Override
                             public void onFail(int code) {
-                                Toast.makeText(getContext(), "Network error : " + code, Toast.LENGTH_SHORT).show();
+                                Log.d("BoardFragment lastscroll ", "network error/" + code);
                                 isUpdate = false;
                             }
                         });
@@ -147,7 +148,7 @@ public class BoardFragment extends Fragment {
 
             @Override
             public void onFail(int code) {
-                Toast.makeText(getContext(), "Network error : "+code, Toast.LENGTH_SHORT).show();
+                Log.d("BoardFragment getboard ", "network error/" + code);
             }
         });
     }
