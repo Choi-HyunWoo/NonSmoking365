@@ -15,7 +15,6 @@ public class CountGridAdapter extends BaseAdapter {
     public static final int COUNT_ITEMS_START_POSITION = 0;
     public static final int COUNT_ITEMS_MAX_POSITION = 29;
     ArrayList<CountItem> items = new ArrayList<>();
-    Long countStartTime;
 
     // get saved CountItemMode and add to list
     public void initCount() {
@@ -26,6 +25,16 @@ public class CountGridAdapter extends BaseAdapter {
             items.add(c);
         }
         notifyDataSetChanged();
+    }
+
+    public void setModeO(int position) {
+        PropertyManager.getInstance().setCountItemMode(position, CountItem.MODE_O);
+        initCount();
+    }
+
+    public void setModeX(int position) {
+        PropertyManager.getInstance().setCountItemMode(position, CountItem.MODE_X);
+        initCount();
     }
 
     public void setModeOn(int position) {
@@ -40,28 +49,11 @@ public class CountGridAdapter extends BaseAdapter {
             return false;
     }
 
-    public void nonSmokingSuccess(int position) {
-        if (position == COUNT_ITEMS_START_POSITION) {
-            countStartTime = System.currentTimeMillis();
-            PropertyManager.getInstance().setCountStartTime(countStartTime);
-        }
-        PropertyManager.getInstance().setCountItemMode(position,CountItem.MODE_O);
-        initCount();
-    }
-
-    public void nonSmokingFailed (int position) {
-        if (position == COUNT_ITEMS_START_POSITION) {
-            countStartTime = System.currentTimeMillis();
-            PropertyManager.getInstance().setCountStartTime(countStartTime);
-        }
-        PropertyManager.getInstance().setCountItemMode(position,CountItem.MODE_X);
-        initCount();
-    }
-
     public void nonSmokingCountReset() {
-        countStartTime = 0L;
-        PropertyManager.getInstance().setCountStartTime(countStartTime);
-        PropertyManager.getInstance().setCountItemReset();
+        PropertyManager.getInstance().setCountItemMode(0, CountItem.MODE_ON);
+        for (int i=1; i<30; i++) {
+            PropertyManager.getInstance().setCountItemMode(i, CountItem.MODE_OFF);
+        }
         initCount();
     }
 
