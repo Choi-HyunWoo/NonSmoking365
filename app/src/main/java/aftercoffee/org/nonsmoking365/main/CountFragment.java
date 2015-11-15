@@ -3,6 +3,7 @@ package aftercoffee.org.nonsmoking365.main;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import aftercoffee.org.nonsmoking365.CountResultActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -93,7 +95,7 @@ public class CountFragment extends Fragment {
          *  - RESET 버튼 : SP에 저장해두었던 내용들이 리셋되고 뷰를 갱신한다.
          *                 startTime = -1     ...SP에 저장
          *                 GridView setting이 0번인덱스만 ON으로, 나머진 OFF로. Adapter에서 바꾸고 SP에도 저장
-         *  - START 버튼 : animation 을 넣어서 이쁘게 만들지?.. 미구현
+         *  - START 버튼 : 애니메이션을 넣어서 만들지?.. 미구현
          *
          *
          */
@@ -139,11 +141,20 @@ public class CountFragment extends Fragment {
                         dlg.show();
                         break;
                     case CountItem.MODE_OFF :
+                        // 카운트 남은시간 알림
                         Toast.makeText(getActivity(), "다음 카운트까지 " + getRestTime()[0] + "시간 " + getRestTime()[1] + " 분 " + getRestTime()[2] + " 초 남았습니다.", Toast.LENGTH_SHORT).show();
                         break;
                     case CountItem.MODE_O :
+                        // 카운트 결과창으로
+                        Intent intent = new Intent(getActivity(), CountResultActivity.class);
+                        // putExtra .. 성공횟수, 실패횟수, 전체횟수...
+                        startActivity(intent);
                         break;
                     case CountItem.MODE_X :
+                        // 카운트 결과창으로
+                        intent = new Intent(getActivity(), CountResultActivity.class);
+                        // putExtra .. 성공횟수, 실패횟수, 전체횟수...
+                        startActivity(intent);
                         break;
                     default:
                         break;
