@@ -162,6 +162,7 @@ public class CountFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -272,7 +273,7 @@ public class CountFragment extends Fragment {
                 // 금연 카운트 정지 (reset)
                 startTime = -1;                             // 시작시간을 -1로
                 setStartTime(startTime);                    // SP에 저장
-                mAdapter.nonSmokingCountReset();            // GridView에 보여지는 내용을 초기화 상태로
+                mAdapter.resetCount();                      // SP의 내용을 reset하고, GridView에 보여지는 Item을 reset
                 mHandler.removeCallbacks(countRunnable);    // Handler 정지
 
                 // NOTICE RESET, set TextView

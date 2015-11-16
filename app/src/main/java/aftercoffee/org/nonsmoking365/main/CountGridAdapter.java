@@ -49,7 +49,7 @@ public class CountGridAdapter extends BaseAdapter {
             return false;
     }
 
-    public void nonSmokingCountReset() {
+    public void resetCount() {
         PropertyManager.getInstance().setCountItemMode(0, CountItem.MODE_ON);
         for (int i=1; i<30; i++) {
             PropertyManager.getInstance().setCountItemMode(i, CountItem.MODE_OFF);

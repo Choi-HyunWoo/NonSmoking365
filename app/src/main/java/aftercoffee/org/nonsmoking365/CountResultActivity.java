@@ -32,6 +32,12 @@ public class CountResultActivity extends AppCompatActivity {
     List<ImageView> characterList;
     ImageView img;
 
+    private static final int CHARACTER_IMG_WIDTH  = 60;     // dp
+    private static final int CHARACTER_IMG_HEIGHT = 60;     // dp
+    private static final int GRIDVIEW_WIDTH = 300;
+    private static final int GRIDVIEW_SPACING = 1;
+    private static final int GRIDVIEW_TOP_MARGIN = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,18 +46,40 @@ public class CountResultActivity extends AppCompatActivity {
 
         // 캐릭터 이미지뷰를 담을 List
         // characterList = new ArrayList<ImageView>();
-        img = new ImageView(this);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.leftMargin = 200;
-        params.topMargin = 200;
-        layoutBase.addView(img, params);
-
-        img.setImageResource(R.drawable.ani_man_idle);
-
+        for(int row=0 ; row<6; row++) {               // row
+            for(int col=0; col<5; col++) {            // col
+                img = new ImageView(this);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                // xPos
+                params.leftMargin = getWindowCenterPosX() - setDpToPixel(GRIDVIEW_WIDTH/2)
+                        + setDpToPixel(GRIDVIEW_SPACING)
+                        + setDpToPixel(col * (CHARACTER_IMG_WIDTH + GRIDVIEW_SPACING));
+                // yPos
+                params.topMargin = setDpToPixel(GRIDVIEW_TOP_MARGIN)
+                        + setDpToPixel(GRIDVIEW_SPACING)
+                        + setDpToPixel(row * (CHARACTER_IMG_HEIGHT + GRIDVIEW_SPACING));
+                layoutBase.addView(img, params);
+                img.setImageResource(R.drawable.ani_man_idle);
+            }
+        }
+/*
         AnimationDrawable d = (AnimationDrawable) img.getDrawable();
         d.setOneShot(false);
         d.start();
+*/
+    }
 
+    private int getWindowCenterPosX() {             // return pixel position value
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels/2;
+    }
+
+    private int setDpToPixel(int dpValue) {
+        //dpValue = 5; // margin in dips
+        float d = this.getResources().getDisplayMetrics().density;
+        int margin = (int) (dpValue * d); // margin in pixels
+        return margin;
     }
 
     @Override
@@ -59,23 +87,8 @@ public class CountResultActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
         //moveToRight(img);
-        moveViewToScreenCenter(img);
+        //moveViewToScreenCenter(img);
     }
-
-    private void moveToRight(ImageView view)
-    {
-        TranslateAnimation anim = new TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 3f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f);
-        anim.setDuration(3000);
-        anim.setFillAfter(true);
-        anim.setRepeatMode(Animation.RESTART);
-        view.startAnimation(anim);
-    }
-
-
 
     private void moveViewToScreenCenter(ImageView view)
     {

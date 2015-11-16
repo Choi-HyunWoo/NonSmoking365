@@ -10,44 +10,34 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="카운트 남은시간"
         android:id="@+id/text_countRestTime"
         android:layout_gravity="center_horizontal" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:text="카운트 시작일"
-                android:id="@+id/text_countStartDate" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:text="카운트 N회차"
-                android:textColor="#FF0000"
-                android:id="@+id/text_countPosition" />
-        </LinearLayout>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="초기화"
-            android:id="@+id/btn_reset"
-            android:layout_gravity="right" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_color_border"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="카운트 시작일"
+            android:id="@+id/text_countStartDate" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="카운트 N회차"
+            android:textColor="#FF0000"
+            android:id="@+id/text_countPosition" />
     </LinearLayout>
 
 
