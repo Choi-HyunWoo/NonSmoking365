@@ -154,7 +154,11 @@ public class CountFragment extends Fragment {
                         break;
                     case CountItem.MODE_OFF :
                         // 카운트 남은시간 알림
-                        Toast.makeText(getActivity(), "다음 카운트까지 " + getRestTime()[0] + "시간 " + getRestTime()[1] + " 분 " + getRestTime()[2] + " 초 남았습니다.", Toast.LENGTH_SHORT).show();
+                        if (startTime != -1) {
+                            Toast.makeText(getActivity(), "다음 카운트까지 " + getRestTime()[0] + "시간 " + getRestTime()[1] + " 분 " + getRestTime()[2] + " 초 남았습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "1일차 버튼부터 카운트를 진행하세요!", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case CountItem.MODE_O :
                         // 카운트 결과창으로
@@ -228,6 +232,13 @@ public class CountFragment extends Fragment {
         return restTimeArray;
     }
 
+    // 카운트가 정지 상태일 때 TextView 출력
+    private void setTextCountStop() {
+        countRestView.setText("");
+        countStartView.setText("1일차 버튼을 눌러 금연 카운트를 시작해 주세요");
+        countPositionView.setText("");
+    }
+
     // 핸들러
     Handler mHandler = new Handler();
     private static final int TIME_INTERVAL = 1000;
@@ -259,14 +270,22 @@ public class CountFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mHandler.removeCallbacks(countRunnable);
-        mHandler.post(countRunnable);
+        if (startTime != -1) {
+            mHandler.post(countRunnable);
+        } else {
+            setTextCountStop();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mHandler.removeCallbacks(countRunnable);
-        mHandler.post(countRunnable);
+        if (startTime != -1) {
+            mHandler.post(countRunnable);
+        } else {
+            setTextCountStop();
+        }
     }
 
     @Override
@@ -297,14 +316,14 @@ public class CountFragment extends Fragment {
                 mAdapter.resetCount();                      // SP의 내용을 reset하고, GridView에 보여지는 Item을 reset
                 PropertyManager.getInstance().setCountSuccess(0);
                 PropertyManager.getInstance().setCountFailure(0);
+
                 mHandler.removeCallbacks(countRunnable);    // Handler 정지
 
                 // NOTICE RESET, set TextView
                 Toast.makeText(getActivity(), "금연 카운트가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
-                countRestView.setText("");
-                countStartView.setText("금연 카운트를 시작해 주세요");
-                countPositionView.setText("");
 
+                // 정지상태에 보여줄 text로!
+                setTextCountStop();
                 return true;
         }
         return super.onOptionsItemSelected(item);

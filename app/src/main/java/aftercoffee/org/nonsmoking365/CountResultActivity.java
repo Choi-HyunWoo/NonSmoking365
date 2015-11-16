@@ -63,12 +63,9 @@ public class CountResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count_result);
-        ColorDrawable actionBarColor = new ColorDrawable();
-        actionBarColor.setColor(0x555555);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
         actionBar.setElevation(0);
-        actionBar.setBackgroundDrawable(actionBarColor);
 
 
         // get info
