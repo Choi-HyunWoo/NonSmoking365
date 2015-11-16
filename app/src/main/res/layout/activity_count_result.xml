@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout"
     android:background="@color/colorPrimary"
     tools:context="aftercoffee.org.nonsmoking365.CountResultActivity">
 
-<!--
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/image_character"
-        android:src="@drawable/ani_man_idle"
-        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/text_info"
+        android:text="성공!"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:layout_above="@+id/text_result"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재까지 성공 N일 실패 N일 금연율 N%"
+        android:id="@+id/text_result"
+        android:textColor="@color/colorWhite"
+        android:layout_above="@+id/text_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="조금 더 노력합시다"
+        android:id="@+id/text_message"
+        android:textColor="@color/colorWhite"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
--->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="N일차 금연 결과"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/text_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
 
 </RelativeLayout>

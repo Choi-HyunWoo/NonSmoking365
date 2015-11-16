@@ -52,7 +52,6 @@ public class CountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         View view = inflater.inflate(R.layout.fragment_count, container, false);
 
         // View initialize
@@ -102,6 +101,9 @@ public class CountFragment extends Fragment {
 
         /// APP 구동시 INIT (SP)
         startTime = getStartTime(); // startTime을 SP에서 가져옴
+        if (startTime == -1) {
+            mAdapter.resetCount();  // 카운트중이지 않다면 reset
+        }
         mAdapter.initCount();       // List를 clear하고 SP에서 가져온 ITEM MODE들을 바탕으로 뷰 초기화.
 
         // Count Btn Click Listener
@@ -111,6 +113,7 @@ public class CountFragment extends Fragment {
                 CountItem c = (CountItem) mAdapter.getItem(position);
                 switch (c.itemMode) {
                     case CountItem.MODE_ON :
+                        // 카운팅
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("금연 카운트");
                         builder.setMessage((position + 1) + "일차 금연에 성공하셨습니까?");
@@ -123,6 +126,8 @@ public class CountFragment extends Fragment {
                                     setStartTime(startTime);                    // SP에 저장
                                     mHandler.post(countRunnable);               // Handler 구동 시작
                                 }
+                                // 저장된 성공 횟수를 1 증가
+                                PropertyManager.getInstance().setCountSuccess(PropertyManager.getInstance().getCountSuccess()+1);
                                 mAdapter.setModeO(position);
                             }
                         });
@@ -134,6 +139,8 @@ public class CountFragment extends Fragment {
                                     setStartTime(startTime);                    // SP에 저장
                                     mHandler.post(countRunnable);               // Handler 구동 시작
                                 }
+                                // 저장된 실패 횟수를 1 증가
+                                PropertyManager.getInstance().setCountFailure(PropertyManager.getInstance().getCountFailure() + 1);
                                 mAdapter.setModeX(position);
                             }
                         });
@@ -147,13 +154,15 @@ public class CountFragment extends Fragment {
                     case CountItem.MODE_O :
                         // 카운트 결과창으로
                         Intent intent = new Intent(getActivity(), CountResultActivity.class);
-                        // putExtra .. 성공횟수, 실패횟수, 전체횟수...
+                        intent.putExtra("clickPosition", position);
+                        intent.putExtra("clickDayInfo", CountResultActivity.IS_SUCCESS);
                         startActivity(intent);
                         break;
                     case CountItem.MODE_X :
                         // 카운트 결과창으로
                         intent = new Intent(getActivity(), CountResultActivity.class);
-                        // putExtra .. 성공횟수, 실패횟수, 전체횟수...
+                        intent.putExtra("clickPosition", position);
+                        intent.putExtra("clickDayInfo", CountResultActivity.IS_FAILURE);
                         startActivity(intent);
                         break;
                     default:
@@ -198,11 +207,11 @@ public class CountFragment extends Fragment {
 
     // 내일 자정(다음 카운트)까지 남은 시간 계산
     // 현재 시간에서 다음 자정까지의 기간(countRestTerm)을 구하고, 시/분/초 단위로 쪼갠다.
-    private int[] getRestTime() {
+    private int[] getRestTime() {           // return Hours, Minutes, Seconds
         int[] restTimeArray = new int[3];
         long countRestTime = getNextMidnight() - System.currentTimeMillis();
         restTimeArray[0] = (int) countRestTime / (60 * 60 * 1000);                                                  // restHours
-        restTimeArray[1] = (int) countRestTime / (60 * 1000) - (restTimeArray[0] * 60);                             // restMinites
+        restTimeArray[1] = (int) countRestTime / (60 * 1000) - (restTimeArray[0] * 60);                             // restMinutes
         restTimeArray[2] = (int) countRestTime / 1000 - (restTimeArray[0] * 60 * 60) - (restTimeArray[1] * 60);     // restSeconds
         return restTimeArray;
     }
@@ -274,6 +283,8 @@ public class CountFragment extends Fragment {
                 startTime = -1;                             // 시작시간을 -1로
                 setStartTime(startTime);                    // SP에 저장
                 mAdapter.resetCount();                      // SP의 내용을 reset하고, GridView에 보여지는 Item을 reset
+                PropertyManager.getInstance().setCountSuccess(0);
+                PropertyManager.getInstance().setCountFailure(0);
                 mHandler.removeCallbacks(countRunnable);    // Handler 정지
 
                 // NOTICE RESET, set TextView

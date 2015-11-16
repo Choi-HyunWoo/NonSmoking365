@@ -45,8 +45,8 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     /* CountItem mode keys */
     public static final String KEY_COUNT_ITEM_POSITION = "countitem_position:";         // + position
     public static final String KEY_COUNT_START_TIME = "count_start_time";
-    public static final String KEY_COUNT_TODAY_POS = "today_count_position";            // 카운트상에서의 현재 위치
-    public static final String KEY_COUNT_IS_COUNTING = "is_counting";                   // 현재 카운트중인지에 대한 정보
+    public static final String KEY_COUNT_SUCCESS = "count_success";
+    public static final String KEY_COUNT_FAILURE = "count_failure";
 
 
     public void setId(String id) {
@@ -66,7 +66,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     }
 
 
-    /* Choice next activity */
+    /* Information about when the Application is first launched */
     public void setPreviewCheck (Boolean check) {
         mEditor.putBoolean(KEY_LAUNCH_PREVIEW_CHECK, check);
         mEditor.commit();
@@ -83,7 +83,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     }
 
 
-    /* Basis info set */
+    /* Basis info setting */
     public void setBasisMotto(String motto) {
         mEditor.putString(KEY_BASISINFO_MOTTO, motto);
         mEditor.commit();
@@ -109,7 +109,8 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor.commit();
     }
 
-    /* get BasisInfo */
+
+    /* get Basis info */
     public String getBasisMotto() {
         return mPrefs.getString(KEY_BASISINFO_MOTTO, "금연 목표를 입력해 주세요");
     }
@@ -130,7 +131,6 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     }
 
 
-
     /* CountItems Reset */
     public void setCountItemReset() {
         setCountItemMode(0, CountItem.MODE_ON);
@@ -147,22 +147,35 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor.putLong(KEY_COUNT_START_TIME, countStartTime);
         mEditor.commit();
     }
-    public void setIsCounting (boolean isCounting) {
-        mEditor.putBoolean(KEY_COUNT_IS_COUNTING, isCounting);
-        mEditor.commit();
-    }
 
     /* get CountItem mode */
     public int getCountItemMode(int position) {
         return mPrefs.getInt(KEY_COUNT_ITEM_POSITION + position, 0);
     }
     public Long getCountStartTime() {
-        return mPrefs.getLong(KEY_COUNT_START_TIME, 0L);
-    }
-    public Boolean getIsCounting() {
-        return mPrefs.getBoolean(KEY_COUNT_IS_COUNTING, false);
+        return mPrefs.getLong(KEY_COUNT_START_TIME, -1);
     }
 
+    /* set Count info */
+    public void setCountSuccess(int successCount) {
+        mEditor.putInt(KEY_COUNT_SUCCESS, successCount);
+        mEditor.commit();
+    }
+    public void setCountFailure(int failureCount) {
+        mEditor.putInt(KEY_COUNT_FAILURE, failureCount);
+        mEditor.commit();
+    }
+
+    /* get Count info */
+    public int getCountSuccess() {
+        return mPrefs.getInt(KEY_COUNT_SUCCESS, 0);
+    }
+    public int getCountFailure() {
+        return mPrefs.getInt(KEY_COUNT_FAILURE, 0);
+    }
+
+
+    //..
     public boolean isBackupSync() {
         return mPrefs.getBoolean("perf_sync", false);
     }
