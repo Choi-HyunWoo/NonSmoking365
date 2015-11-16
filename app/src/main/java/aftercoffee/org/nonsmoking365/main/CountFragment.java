@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ import aftercoffee.org.nonsmoking365.R;
  */
 public class CountFragment extends Fragment {
 
+    LinearLayout layout;
     GridView countGridView;
     CountGridAdapter mAdapter;
     TextView countStartView;
@@ -55,6 +59,7 @@ public class CountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_count, container, false);
 
         // View initialize
+        layout = (LinearLayout)view.findViewById(R.id.layout);
         countGridView = (GridView) view.findViewById(R.id.gridView);
         mAdapter = new CountGridAdapter();
         countGridView.setAdapter(mAdapter);
@@ -171,6 +176,13 @@ public class CountFragment extends Fragment {
             }
         });
 
+        Button btn = (Button)view.findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter.setAllOn();
+            }
+        });
 
         return view;
     }

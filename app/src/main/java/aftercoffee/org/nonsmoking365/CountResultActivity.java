@@ -1,15 +1,31 @@
 package aftercoffee.org.nonsmoking365;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
@@ -27,121 +43,128 @@ public class CountResultActivity extends AppCompatActivity {
     public static final int IS_SUCCESS = 1;
     public static final int IS_FAILURE = 0;
 
+    // get from intent
     int clickPosition;
     int clickDayInfo;
+    float viewXpos;
+    float viewYpos;
 
     RelativeLayout layout;
-    List<ImageView> characterList;
     ImageView img;
-    TextView titleView, infoView, resultView;
+    TextView titleView, infoView, resultView, messageView;
+    AnimationDrawable animationDrawable;
+
+    class Position {
+        int x;
+        int y;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count_result);
+        ColorDrawable actionBarColor = new ColorDrawable();
+        actionBarColor.setColor(0x555555);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
         actionBar.setElevation(0);
+        actionBar.setBackgroundDrawable(actionBarColor);
 
+
+        // get info
         Intent intent = getIntent();
         clickPosition = intent.getIntExtra("clickPosition", -1);
         clickDayInfo = intent.getIntExtra("clickDayInfo", -1);
 
-        // View init
+        // View initialize
         layout = (RelativeLayout) findViewById(R.id.layout);
         titleView = (TextView)findViewById(R.id.text_title);
         infoView = (TextView)findViewById(R.id.text_info);
         resultView = (TextView)findViewById(R.id.text_result);
+        messageView = (TextView)findViewById(R.id.text_message);
 
-        titleView.setText((clickPosition+1)+"일차 금연 결과");
-        if (clickDayInfo == IS_SUCCESS) {
-            infoView.setText("성공!");
-        } else {
-            infoView.setText("실패!");
-        }
-
-        int successCount = PropertyManager.getInstance().getCountSuccess();
-        int failureCount = PropertyManager.getInstance().getCountFailure();
-        int totalCount = successCount + failureCount;
-        int resultPercentage = (successCount + failureCount) / totalCount * 100;
-        resultView.setText("현재까지\n성공 : "+successCount+"일\n실패 : "+failureCount+"일\n금연 성공률 : "+resultPercentage+"%");
-
-
-        // 캐릭터 이미지뷰를 담을 List
-        // characterList = new ArrayList<ImageView>();
-
-        // Image 배치 TEST
+        // Image position initialize
+        List<Position> imagePositionList = new ArrayList<Position>();
         for(int row=0 ; row<6; row++) {               // row
-            for(int col=0; col<5; col++) {            // col
-                img = new ImageView(this);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            for (int col = 0; col < 5; col++) {       // col
+                Position position = new Position();
                 // xPos
-                params.leftMargin = getWindowCenterPosX()
-                        - setDpToPixel(GRIDVIEW_WIDTH/2)
+                position.x = getWindowCenterPosX()
+                        - setDpToPixel(GRIDVIEW_WIDTH / 2)
                         + setDpToPixel(GRIDVIEW_SPACING)
                         + setDpToPixel(col * (CHARACTER_IMG_WIDTH + GRIDVIEW_SPACING));
                 // yPos
-                params.topMargin = setDpToPixel(GRIDVIEW_TOP_MARGIN)
+                position.y = setDpToPixel(GRIDVIEW_TOP_MARGIN)
                         + setDpToPixel(GRIDVIEW_SPACING)
                         + setDpToPixel(row * (CHARACTER_IMG_HEIGHT + GRIDVIEW_SPACING));
-                layout.addView(img, params);
-                img.setImageResource(R.drawable.ani_man_idle);
+                imagePositionList.add(position);
             }
         }
 
-/*
-        AnimationDrawable d = (AnimationDrawable) img.getDrawable();
-        d.setOneShot(false);
-        d.start();
-*/
+        // click된 position에 Image 배치
+        img = new ImageView(this);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.leftMargin = imagePositionList.get(clickPosition).x;
+        params.topMargin = imagePositionList.get(clickPosition).y;
+        layout.addView(img, params);
+
+        // 결과 보여주기
+        titleView.setText((clickPosition+1)+"일차 금연 결과");
+        if (clickDayInfo == IS_SUCCESS) {
+            infoView.setText("성공!");
+            img.setImageResource(R.drawable.ani_man_idle);
+        } else {
+            infoView.setTextColor(Color.RED);
+            infoView.setText("실패!");
+            layout.setBackgroundResource(R.color.color555555);
+            img.setImageResource(R.drawable.ani_smoker_smoke);
+        }
+        int successCount = PropertyManager.getInstance().getCountSuccess();
+        int failureCount = PropertyManager.getInstance().getCountFailure();
+        int totalCount = successCount + failureCount;
+        int resultPercentage = (successCount * 100) / totalCount;
+        resultView.setText("현재까지\n성공 : " + successCount + "일\n실패 : " + failureCount + "일\n금연 성공률 : " + resultPercentage + "%");
+
+
+        // Frame Animation set
+        animationDrawable = (AnimationDrawable) img.getDrawable();
+        animationDrawable.setOneShot(false);
+        animationDrawable.start();
+
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        // Move character image to center
+        AnimatorSet moveToCenter = new AnimatorSet();
+        ObjectAnimator moveX = ObjectAnimator.ofFloat(img, "x", img.getX(), layout.getWidth()/2 - img.getWidth()/2);
+        ObjectAnimator moveY = ObjectAnimator.ofFloat(img, "y", img.getY(), layout.getHeight()/2 - img.getHeight() / 2);
+        moveToCenter.playTogether(moveX, moveY);
+        moveToCenter.setDuration(1000);
+        moveToCenter.start();
 
-        //moveToRight(img);
-        //moveViewToScreenCenter(img);
+        // TextView alpha Animation
+        AlphaAnimation alpha = new AlphaAnimation(0.0f, 1.0f);
+        alpha.setStartOffset(1000);
+        alpha.setDuration(1000);
+        titleView.setAnimation(alpha);
+        infoView.setAnimation(alpha);
+        resultView.setAnimation(alpha);
+        messageView.setAnimation(alpha);
+        alpha.start();
     }
 
-    private int getWindowStatusBarHeight() {
-        RelativeLayout layout = (RelativeLayout)findViewById(R.id.layout);
-        DisplayMetrics dm = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.heightPixels - layout.getMeasuredHeight();
-    }
-
+    // 클릭된 ImageView의 위치 계산 Methods
     private int getWindowCenterPosX() {             // return pixel position value
         DisplayMetrics dm = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels/2;
     }
-
     private int setDpToPixel(int dpValue) {
         //dpValue = 5; // margin in dips
         float d = this.getResources().getDisplayMetrics().density;
         int margin = (int) (dpValue * d); // margin in pixels
         return margin;
-    }
-
-
-
-    private void moveViewToScreenCenter(ImageView view)
-    {
-        //RelativeLayout root = (RelativeLayout) findViewById( R.id.layout);
-        DisplayMetrics dm = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        //int statusBarOffset = dm.heightPixels - root.getMeasuredHeight();
-
-        int originalPos[] = new int[2];
-        view.getLocationOnScreen( originalPos );
-
-        int xDest = dm.widthPixels/2 - (view.getMeasuredWidth()/2);
-        int yDest = dm.heightPixels/2 - (view.getMeasuredHeight()/2);
-
-        TranslateAnimation anim = new TranslateAnimation( 0, xDest - originalPos[0] , 0, yDest - originalPos[1] );
-        anim.setDuration(1000);
-        anim.setFillAfter(true);
-        view.startAnimation(anim);
     }
 }

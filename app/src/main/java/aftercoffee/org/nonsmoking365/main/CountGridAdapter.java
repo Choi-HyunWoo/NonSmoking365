@@ -57,6 +57,14 @@ public class CountGridAdapter extends BaseAdapter {
         initCount();
     }
 
+    // TEST
+    public void setAllOn() {
+        for (int i=0; i<30; i++) {
+            PropertyManager.getInstance().setCountItemMode(i, CountItem.MODE_ON);
+        }
+        initCount();
+    }
+
 
     @Override
     public int getCount() {

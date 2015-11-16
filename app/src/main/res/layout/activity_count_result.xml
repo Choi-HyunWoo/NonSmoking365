@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="N일차 금연 결과"
+        android:textStyle="bold"
         android:textColor="@color/colorWhite"
         android:id="@+id/text_title"
         android:layout_alignParentTop="true"
