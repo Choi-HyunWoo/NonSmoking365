@@ -1,6 +1,8 @@
 package aftercoffee.org.nonsmoking365.main;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,8 +44,8 @@ public class ProgressFragment extends Fragment {
 
     TextView gradeView, mottoView, timeView, savedMoneyView, statusView;
 
-    int packPrice, numOfCigar, oneDaySaved, currentSaved;
-    String startDateStr;
+    int packPrice, numOfCigar, currentSaved;
+    long startTime;
     long nonSmokingTime;
 
     public ProgressFragment() {
@@ -74,7 +76,7 @@ public class ProgressFragment extends Fragment {
         mottoView.setText(motto);
 
         // 금연 진행 시간, 절약 금액, 건강 상태 (Handler)
-        startDateStr = PropertyManager.getInstance().getBasisStartDate();
+        startTime = PropertyManager.getInstance().getBasisStartTime();
         packPrice = Integer.parseInt(PropertyManager.getInstance().getBasisPackPrice());
         numOfCigar = Integer.parseInt(PropertyManager.getInstance().getBasisNumOfCigar());
         mHandler.removeCallbacks(updateRunnable);
@@ -125,14 +127,19 @@ public class ProgressFragment extends Fragment {
         @Override
         public void run() {
             // 시간 계산
+            nonSmokingTime = System.currentTimeMillis() - startTime;
+            /*
             try {
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date startDate = sdf.parse(startDateStr);       // String > Date 변환
                 long startTime = startDate.getTime();           // Date > long (Millisec)
-                nonSmokingTime = System.currentTimeMillis() - startTime;
+
+                nonSmokingTime = System.currentTimeMillis() - startDateStr;
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            */
 
             // 뷰 설정
             if (nonSmokingTime > 0) {
@@ -215,7 +222,25 @@ public class ProgressFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_startTime_reset :
                 // Dialog 띄운 후 현재시간으로 리셋
-                Toast.makeText(getActivity(), "시간리셋", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("금연 중 담배를 피셨습니까?");
+                builder.setMessage("금연 시작 시간을 현재 시간부터로 변경합니다.");
+                builder.setNeutralButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "지금부터 금연합시다!", Toast.LENGTH_SHORT).show();
+                        startTime = System.currentTimeMillis();
+                        PropertyManager.getInstance().setBasisStartTime(startTime);
+                    }
+                });
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dlg = builder.create();
+                dlg.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

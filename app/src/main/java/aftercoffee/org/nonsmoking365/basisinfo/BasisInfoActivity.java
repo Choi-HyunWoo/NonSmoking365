@@ -17,7 +17,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import aftercoffee.org.nonsmoking365.main.MainActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
@@ -43,7 +45,8 @@ public class BasisInfoActivity extends AppCompatActivity {
 
     /* Basis info */
     String motto;
-    String startDate;
+    long startTime;
+    String startTimeToString;
     String numOfCigar;
     String packPrice;
     String gender;                              // male , female
@@ -91,14 +94,15 @@ public class BasisInfoActivity extends AppCompatActivity {
         // MODE_MODIFY 일 경우 저장해둔 기초정보 데이터를 화면에 표시
         if (startMode == MODE_MODIFY) {
             motto = PropertyManager.getInstance().getBasisMotto();
-            startDate = PropertyManager.getInstance().getBasisStartDate();
+            startTime = PropertyManager.getInstance().getBasisStartTime();
+            startTimeToString = timeToString(startTime);
             numOfCigar = PropertyManager.getInstance().getBasisNumOfCigar();
             packPrice = PropertyManager.getInstance().getBasisPackPrice();
             gender = PropertyManager.getInstance().getBasisGender();
             birthDate = PropertyManager.getInstance().getBasisBirthDate();
 
             mottoView.setText(motto);
-            startDateBtn.setText(startDate);
+            startDateBtn.setText(startTimeToString);
             numOfCigarView.setText(numOfCigar);
             packPriceView.setText(packPrice);
             if (gender.equals("male")) {
@@ -134,6 +138,7 @@ public class BasisInfoActivity extends AppCompatActivity {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
 
+        // Keyboard 컨트롤
         imm = (InputMethodManager) getSystemService(BasisInfoActivity.this.INPUT_METHOD_SERVICE);
 
         // 시작 날짜 선택
@@ -141,7 +146,19 @@ public class BasisInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 imm.hideSoftInputFromWindow(BasisInfoActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, startDateSetListener, year, month, day);
+                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(year, monthOfYear, dayOfMonth);
+                        c.set(Calendar.MINUTE, 0);
+                        c.set(Calendar.SECOND, 0);
+                        c.set(Calendar.MILLISECOND, 0);
+                        startTime = c.getTimeInMillis();
+                        startTimeToString = timeToString(startTime);
+                        startDateBtn.setText(startTimeToString);
+                    }
+                }, year, month, day);
                 dlg.show();
             }
         });
@@ -151,7 +168,14 @@ public class BasisInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 imm.hideSoftInputFromWindow(BasisInfoActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, birthDateSetListener, year, month, day);
+                DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        String msg = String.format("%d-%d-%d", year,monthOfYear+1, dayOfMonth);
+                        birthDate = msg;
+                        birthDateBtn.setText(msg);
+                    }
+                }, year, month, day);
                 if (Build.VERSION.SDK_INT >= 11) {
                     /**
                      * (On API levels under 11 where getDatePicker() and setCalendarViewShown() are not available it does not matter - there's no CalendarView in the dialog anyway.)
@@ -178,7 +202,7 @@ public class BasisInfoActivity extends AppCompatActivity {
                 // 1. 입력된 부분이 빠진곳이 있는지 체크
                 if (TextUtils.isEmpty(motto)) {
                     Toast.makeText(BasisInfoActivity.this, "금연 목표를 입력해 주세요", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(startDate)) {
+                } else if (TextUtils.isEmpty(startTimeToString)) {
                     Toast.makeText(BasisInfoActivity.this, "금연 시작일을 지정해 주세요", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(numOfCigar)) {
                     Toast.makeText(BasisInfoActivity.this, "1일 흡연량을 입력해 주세요", Toast.LENGTH_SHORT).show();
@@ -192,7 +216,7 @@ public class BasisInfoActivity extends AppCompatActivity {
                 else {        // 모두 제대로 작성되었다면
                     // 2. 입력사항을 SharedPreferences에 저장
                     PropertyManager.getInstance().setBasisMotto(motto);
-                    PropertyManager.getInstance().setBasisStartDate(startDate);
+                    PropertyManager.getInstance().setBasisStartTime(startTime);
                     PropertyManager.getInstance().setBasisNumOfCigar(numOfCigar);
                     PropertyManager.getInstance().setBasisPackPrice(packPrice);
                     PropertyManager.getInstance().setBasisGender(gender);
@@ -213,24 +237,12 @@ public class BasisInfoActivity extends AppCompatActivity {
         });
     }
 
-
-    /* DatePickerDialog의 결과값을 받을때 호출 */
-    private DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            String msg = String.format("%d-%d-%d", year, monthOfYear+1, dayOfMonth);
-            startDate = msg;
-            startDateBtn.setText(msg);
-        }
-    };
-    private DatePickerDialog.OnDateSetListener birthDateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            String msg = String.format("%d-%d-%d", year,monthOfYear+1, dayOfMonth);
-            birthDate = msg;
-            birthDateBtn.setText(msg);
-        }
-    };
+    private String timeToString (long time) {
+        Calendar calendar = Calendar.getInstance(Locale.KOREA);
+        calendar.setTimeInMillis(time);
+        String timeToString = String.format("%d-%d-%d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return timeToString;
+    }
 
 
     @Override

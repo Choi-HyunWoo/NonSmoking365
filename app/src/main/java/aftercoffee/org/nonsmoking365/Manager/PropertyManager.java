@@ -36,7 +36,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
 
     /* Basis info keys */
     public static final String KEY_BASISINFO_MOTTO = "basisInfo_motto";
-    public static final String KEY_BASISINFO_START_DATE = "basisInfo_startDate";
+    public static final String KEY_BASISINFO_START_TIME = "basisInfo_startTime";
     public static final String KEY_BASISINFO_NUM_OF_CIGAR = "basisInfo_numOfCigar";
     public static final String KEY_BASISINFO_PACK_PRICE = "basisInfo_packPrice";
     public static final String KEY_BASISINFO_GENDER = "basisInfo_gender";
@@ -88,8 +88,8 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor.putString(KEY_BASISINFO_MOTTO, motto);
         mEditor.commit();
     }
-    public void setBasisStartDate(String startDate) {
-        mEditor.putString(KEY_BASISINFO_START_DATE, startDate);
+    public void setBasisStartTime(long startTime) {
+        mEditor.putLong(KEY_BASISINFO_START_TIME, startTime);
         mEditor.commit();
     }
     public void setBasisNumOfCigar(String numOfCigar) {
@@ -114,8 +114,8 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public String getBasisMotto() {
         return mPrefs.getString(KEY_BASISINFO_MOTTO, "금연 목표를 입력해 주세요");
     }
-    public String getBasisStartDate() {
-        return mPrefs.getString(KEY_BASISINFO_START_DATE, "");
+    public long getBasisStartTime() {
+        return mPrefs.getLong(KEY_BASISINFO_START_TIME, 0);
     }
     public String getBasisNumOfCigar() {
         return mPrefs.getString(KEY_BASISINFO_NUM_OF_CIGAR, "");

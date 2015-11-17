@@ -50,19 +50,14 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_options, container, false);
 
+        // View Initialize
         userProfileImageView = (ImageView)v.findViewById(R.id.image_userProfileImage);
         userNicknameView = (TextView)v.findViewById(R.id.text_userNickname);
         loginBtnForm = (LinearLayout)v.findViewById(R.id.loginBtnForm);
         questionBtnForm = (LinearLayout)v.findViewById(R.id.questionBtnForm);
         withdrawBtnForm = (LinearLayout)v.findViewById(R.id.withdrawBtnForm);
         emptyBottomForm = (LinearLayout)v.findViewById(R.id.emptyBottomForm);
-
-        userProfileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        // Imageloader options setting
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.icon_image_add)
                 .showImageForEmptyUri(R.drawable.icon_cigarette)
@@ -70,13 +65,16 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-                .displayer(new SimpleBitmapDisplayer())
+                .displayer(new SimpleBitmapDisplayer())         // RoundedBitmapDisplayer()로
                 .build();
-        if (logined) {
-            // ImageLoader.getInstance().displayImage( /* 서버에서 받아온 imageurl */, userProfileImageView, options);
-        } else {
-            ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
-        }
+
+
+        userProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         userNicknameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +83,8 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         });
 
 
-        // Buttons setting
+
+        // Etc option buttons setting
         loginBtn = (Button)v.findViewById(R.id.btn_login);
         loginBtn.setOnClickListener(this);
         Button btn;
@@ -113,17 +112,22 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         setViewLogined();
     }
 
+
     // 로그인 시 변화될 부분들
     private void setViewLogined() {
-        // 로그인 상태
         if (logined) {
+            // 로그인 상태
+            // ImageLoader.getInstance().displayImage( /* 서버에서 받아온 imageurl */, userProfileImageView, options);
+            userNicknameView.setText("닉네임");
             loginBtn.setText("로그아웃");
             questionBtnForm.setVisibility(View.VISIBLE);
             withdrawBtnForm.setVisibility(View.VISIBLE);
             emptyBottomForm.setVisibility(View.GONE);
         }
-        // 로그아웃 상태
         else {
+            // 로그아웃 상태
+            ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
+            userNicknameView.setText("로그인 해주세요");
             loginBtn.setText("로그인");
             questionBtnForm.setVisibility(View.GONE);
             withdrawBtnForm.setVisibility(View.GONE);
