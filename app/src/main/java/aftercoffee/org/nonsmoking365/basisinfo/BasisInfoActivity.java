@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -48,21 +49,27 @@ public class BasisInfoActivity extends AppCompatActivity {
     String gender;                              // male , female
     String birthDate;
 
+    InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basis_info);
-        /** START MODE SETTING */
-        // getIntent로 이전 화면이 Preview라면(MODE_INIT이 전달됬다면) , 기초정보 최초의 입력 모드일것이다.
+        /** START MODE SETTING
+         * 사용자가 App을 최초로 켰을 때 Basis info창이 뜬 경우 >> START_MODE = MODE_INIT
+         * 사용자가 설정 화면에서 기초정보 수정으로 접근한 경우 >> START_MODE = MODE_MODIFY
+         * */
+        // getIntent로 이전 화면이 Preview라면 (MODE_INIT이 전달됬다면) , 기초정보 최초의 입력 모드일것이다.
         Intent data = getIntent();
         startMode = data.getIntExtra(START_MODE, 0);
-        // 기초정보 최초의 입력 전에 App이 껐다 켜진 경우를 대비.
-        // SharedPreference의 BasisInfo가 최초로 입력되었는지 확인 후 startMode를 INIT상태로 변경
+        /** (ISSUE) 기초정보 최초 입력 시, 입력을 안하고 App을 껏다 켠 경우 >> 기초정보를 안받아버림,
+         *  SharedPreference에서 BasisInfo가 최초로 입력되었는지 확인 후 startMode를 INIT상태로 변경
+         */
         if (!PropertyManager.getInstance().getBasisInfoCheck()) {
             startMode = MODE_INIT;
         }
 
+        // Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
         if (startMode == MODE_INIT) {
@@ -73,7 +80,7 @@ public class BasisInfoActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // View init
+        // View initialize
         mottoView = (EditText)findViewById(R.id.edit_motto);
         startDateBtn = (Button)findViewById(R.id.btn_startDate);
         numOfCigarView = (EditText)findViewById(R.id.edit_numOfCigar);
@@ -81,7 +88,7 @@ public class BasisInfoActivity extends AppCompatActivity {
         birthDateBtn = (Button)findViewById(R.id.btn_birthDate);
         genderView = (RadioGroup)findViewById(R.id.radiogroup_gender);
 
-        // "기초정보 수정" 일경우 임시 변수에 데이터를 저장하고 , 화면에 표시
+        // MODE_MODIFY 일 경우 저장해둔 기초정보 데이터를 화면에 표시
         if (startMode == MODE_MODIFY) {
             motto = PropertyManager.getInstance().getBasisMotto();
             startDate = PropertyManager.getInstance().getBasisStartDate();
@@ -126,25 +133,32 @@ public class BasisInfoActivity extends AppCompatActivity {
         day= calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+
+        imm = (InputMethodManager) getSystemService(BasisInfoActivity.this.INPUT_METHOD_SERVICE);
+
         // 시작 날짜 선택
         startDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imm.hideSoftInputFromWindow(BasisInfoActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, startDateSetListener, year, month, day);
                 dlg.show();
             }
         });
+
         // 생년 월일 선택
         birthDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imm.hideSoftInputFromWindow(BasisInfoActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 DatePickerDialog dlg = new DatePickerDialog(BasisInfoActivity.this, birthDateSetListener, year, month, day);
                 if (Build.VERSION.SDK_INT >= 11) {
+                    /**
+                     * (On API levels under 11 where getDatePicker() and setCalendarViewShown() are not available it does not matter - there's no CalendarView in the dialog anyway.)
+                     */
+                    dlg.getDatePicker().setCalendarViewShown(false);
                     dlg.getDatePicker().setMaxDate(System.currentTimeMillis());
                 }
-                /**
-                 * (On API levels under 11 where getDatePicker() and setCalendarViewShown() are not available it does not matter - there's no CalendarView in the dialog anyway.)
-                 */
                 dlg.show();
             }
         });
