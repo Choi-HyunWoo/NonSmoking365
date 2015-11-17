@@ -8,6 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.AlarmActivity;
@@ -29,35 +37,93 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    ImageView userProfileImageView;
+    TextView userNicknameView;
+    Button loginBtn, questionBtn, withdrawBtn;
+    LinearLayout loginBtnForm, questionBtnForm, withdrawBtnForm, emptyBottomForm;
+
+    DisplayImageOptions options;
+    boolean logined = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_options, container, false);
 
-        Button btn;
-        btn = (Button)v.findViewById(R.id.btn_login);
-        btn.setOnClickListener(this);
+        userProfileImageView = (ImageView)v.findViewById(R.id.image_userProfileImage);
+        userNicknameView = (TextView)v.findViewById(R.id.text_userNickname);
+        loginBtnForm = (LinearLayout)v.findViewById(R.id.loginBtnForm);
+        questionBtnForm = (LinearLayout)v.findViewById(R.id.questionBtnForm);
+        withdrawBtnForm = (LinearLayout)v.findViewById(R.id.withdrawBtnForm);
+        emptyBottomForm = (LinearLayout)v.findViewById(R.id.emptyBottomForm);
 
+        userProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.icon_image_add)
+                .showImageForEmptyUri(R.drawable.icon_cigarette)
+                .showImageOnFail(R.drawable.icon_cigarette)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .build();
+        if (logined) {
+            // ImageLoader.getInstance().displayImage( /* 서버에서 받아온 imageurl */, userProfileImageView, options);
+        } else {
+            ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
+        }
+        userNicknameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        // Buttons setting
+        loginBtn = (Button)v.findViewById(R.id.btn_login);
+        loginBtn.setOnClickListener(this);
+        Button btn;
         btn = (Button)v.findViewById(R.id.btn_basisInfo);
         btn.setOnClickListener(this);
-
         btn = (Button)v.findViewById(R.id.btn_alarm);
         btn.setOnClickListener(this);
-
         btn = (Button)v.findViewById(R.id.btn_notice);
         btn.setOnClickListener(this);
-
-        btn = (Button)v.findViewById(R.id.btn_question);
-        btn.setOnClickListener(this);
-
-        btn = (Button)v.findViewById(R.id.btn_withdraw);
-        btn.setOnClickListener(this);
-
+        questionBtn = (Button)v.findViewById(R.id.btn_question);
+        questionBtn.setOnClickListener(this);
+        withdrawBtn = (Button)v.findViewById(R.id.btn_withdraw);
+        withdrawBtn.setOnClickListener(this);
         btn = (Button)v.findViewById(R.id.btn_versionInfo);
         btn.setOnClickListener(this);
 
+
+        setViewLogined();
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setViewLogined();
+    }
+
+    // 로그인 시 변화될 부분들
+    private void setViewLogined() {
+        if (logined) {
+            questionBtnForm.setVisibility(View.VISIBLE);
+            withdrawBtnForm.setVisibility(View.VISIBLE);
+            emptyBottomForm.setVisibility(View.GONE);
+        } else {
+            questionBtnForm.setVisibility(View.GONE);
+            withdrawBtnForm.setVisibility(View.GONE);
+            emptyBottomForm.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -81,7 +147,9 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), QuestionActivity.class));
                 break;
             case R.id.btn_withdraw:
-                startActivity(new Intent(getActivity(), WithdrawActivity.class));
+                //startActivity(new Intent(getActivity(), WithdrawActivity.class));
+                if (logined) logined = false;
+                else logined = true;
                 break;
             case R.id.btn_versionInfo:
                 startActivity(new Intent(getActivity(), VersionInfoActivity.class));
