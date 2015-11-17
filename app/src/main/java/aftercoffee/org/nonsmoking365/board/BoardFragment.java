@@ -94,7 +94,7 @@ public class BoardFragment extends Fragment {
 
                             @Override
                             public void onFail(int code) {
-                                Log.d("BoardFragment lastscroll ", "network error/" + code);
+                                Log.d("BoardFragment Last ", "network error/" + code);
                                 isUpdate = false;
                             }
                         });

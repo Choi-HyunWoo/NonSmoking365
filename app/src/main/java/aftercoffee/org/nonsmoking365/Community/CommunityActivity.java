@@ -6,6 +6,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import aftercoffee.org.nonsmoking365.Community.CommunityBoardFragment;
+import aftercoffee.org.nonsmoking365.Community.CommunityContentsFragment;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -35,8 +37,19 @@ public class CommunityActivity extends AppCompatActivity {
         });
 
 
+        if (savedInstanceState == null) {
+            //getSupportFragmentManager().beginTransaction().add(R.id.container, new CommunityBoardFragment()).commit();
+        }
     }
 
+    public void pushCommunityBoardContentsFragment() {
+        //getSupportFragmentManager().beginTransaction().replace(R.id.container, new CommunityContentsFragment())
+    }
+
+
+    public void popFragment() {
+        getSupportFragmentManager().popBackStack();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
