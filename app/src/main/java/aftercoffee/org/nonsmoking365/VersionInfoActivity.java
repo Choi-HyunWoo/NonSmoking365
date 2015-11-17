@@ -25,7 +25,7 @@ public class VersionInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VersionInfoActivity.this, AccessTermsActivity.class);
-//                intent.putExtra();
+                intent.putExtra(AccessTermsActivity.EXTRA_FROMWHERE, AccessTermsActivity.FROM_VERSIONINFO);
                 startActivity(intent);
             }
         });

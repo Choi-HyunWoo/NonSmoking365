@@ -115,11 +115,16 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
 
     // 로그인 시 변화될 부분들
     private void setViewLogined() {
+        // 로그인 상태
         if (logined) {
+            loginBtn.setText("로그아웃");
             questionBtnForm.setVisibility(View.VISIBLE);
             withdrawBtnForm.setVisibility(View.VISIBLE);
             emptyBottomForm.setVisibility(View.GONE);
-        } else {
+        }
+        // 로그아웃 상태
+        else {
+            loginBtn.setText("로그인");
             questionBtnForm.setVisibility(View.GONE);
             withdrawBtnForm.setVisibility(View.GONE);
             emptyBottomForm.setVisibility(View.VISIBLE);

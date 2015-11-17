@@ -18,7 +18,11 @@ public class AccessTermsActivity extends AppCompatActivity {
     public static final String MESSAGE_AGREE = "agree";
     public static final String MESSAGE_DISAGREE = "disagree";
 
-    Button btn;
+    Button agreeBtn, disagreeBtn, okBtn;
+
+    public static final String EXTRA_FROMWHERE = "fromWhere";
+    public static final int FROM_SIGNUP = 1;
+    public static final int FROM_VERSIONINFO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,12 @@ public class AccessTermsActivity extends AppCompatActivity {
         actionBar.setTitle("이용 약관");
         actionBar.setElevation(0);
 
-        btn = (Button)findViewById(R.id.btn_agree);
-        btn.setOnClickListener(new View.OnClickListener() {
+        // View initialize
+        agreeBtn = (Button)findViewById(R.id.btn_agree);
+        disagreeBtn = (Button)findViewById(R.id.btn_disagree);
+        okBtn = (Button)findViewById(R.id.btn_ok);
+
+        agreeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent data = new Intent();
@@ -39,8 +47,7 @@ public class AccessTermsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        btn = (Button)findViewById(R.id.btn_disagree);
-        btn.setOnClickListener(new View.OnClickListener() {
+        disagreeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent data = new Intent();
@@ -49,6 +56,26 @@ public class AccessTermsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+        Intent intent = getIntent();
+        int fromwhere = intent.getIntExtra(EXTRA_FROMWHERE, 0);
+        if (fromwhere == FROM_SIGNUP) {
+            okBtn.setVisibility(View.GONE);
+            agreeBtn.setVisibility(View.VISIBLE);
+            disagreeBtn.setVisibility(View.VISIBLE);
+        } else {
+            okBtn.setVisibility(View.VISIBLE);
+            agreeBtn.setVisibility(View.GONE);
+            disagreeBtn.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

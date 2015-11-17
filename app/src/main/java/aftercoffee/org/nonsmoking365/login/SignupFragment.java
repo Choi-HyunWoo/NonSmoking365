@@ -66,7 +66,7 @@ public class SignupFragment extends Fragment {
             public void onClick(View v) {
                 accessTermsCheckBox.setChecked(false);
                 Intent intent = new Intent(getActivity(), AccessTermsActivity.class);
-                intent.putExtra("s", "s");
+                intent.putExtra(AccessTermsActivity.EXTRA_FROMWHERE, AccessTermsActivity.FROM_SIGNUP);
                 startActivityForResult(intent, REQUEST_ACCESS_TERMS);
             }
         });
