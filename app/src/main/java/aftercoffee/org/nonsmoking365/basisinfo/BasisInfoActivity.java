@@ -150,9 +150,7 @@ public class BasisInfoActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         Calendar c = Calendar.getInstance();
-                        c.set(year, monthOfYear, dayOfMonth);
-                        c.set(Calendar.MINUTE, 0);
-                        c.set(Calendar.SECOND, 0);
+                        c.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
                         c.set(Calendar.MILLISECOND, 0);
                         startTime = c.getTimeInMillis();
                         startTimeToString = timeToString(startTime);

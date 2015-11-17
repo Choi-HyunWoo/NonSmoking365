@@ -20,6 +20,7 @@
 
     <!-- ProgressFragment -->
     <string name="progress_text_grade">회원 등급</string>
+    <string name="progress_text_motto_info">나의 금연 다짐</string>
     <string name="progress_text_default_motto">금연 목표를 입력해 주세요</string>
     <string name="progress_text_banner1">에서 금연 성공 하고 120%의 </string>
     <string name="progress_text_banner2">금연 성공 포상금의 주인공이 되세요!</string>

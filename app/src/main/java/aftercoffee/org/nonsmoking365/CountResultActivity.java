@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
@@ -46,8 +47,6 @@ public class CountResultActivity extends AppCompatActivity {
     // get from intent
     int clickPosition;
     int clickDayInfo;
-    float viewXpos;
-    float viewYpos;
 
     RelativeLayout layout;
     ImageView img;
@@ -64,6 +63,7 @@ public class CountResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count_result);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
         actionBar.setElevation(0);
 
@@ -163,5 +163,15 @@ public class CountResultActivity extends AppCompatActivity {
         float d = this.getResources().getDisplayMetrics().density;
         int margin = (int) (dpValue * d); // margin in pixels
         return margin;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home :
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

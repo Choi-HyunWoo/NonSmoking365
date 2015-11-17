@@ -19,10 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.Community.CommunityActivity;
@@ -79,6 +75,14 @@ public class ProgressFragment extends Fragment {
         startTime = PropertyManager.getInstance().getBasisStartTime();
         packPrice = Integer.parseInt(PropertyManager.getInstance().getBasisPackPrice());
         numOfCigar = Integer.parseInt(PropertyManager.getInstance().getBasisNumOfCigar());
+        savedMoneyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (nonSmokingTime > 0) {
+                    Toast.makeText(getActivity(), "절약 금액은 한시간마다 업데이트 됩니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
 
@@ -128,18 +132,6 @@ public class ProgressFragment extends Fragment {
         public void run() {
             // 시간 계산
             nonSmokingTime = System.currentTimeMillis() - startTime;
-            /*
-            try {
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date startDate = sdf.parse(startDateStr);       // String > Date 변환
-                long startTime = startDate.getTime();           // Date > long (Millisec)
-
-                nonSmokingTime = System.currentTimeMillis() - startDateStr;
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            */
 
             // 뷰 설정
             if (nonSmokingTime > 0) {
@@ -152,8 +144,8 @@ public class ProgressFragment extends Fragment {
                 timeView.setText(s);
 
                 // 절약금액
-                currentSaved = packPrice/20 * numOfCigar * nonSmokingDays;
-                savedMoneyView.setText(currentSaved+" 원 절약");
+                currentSaved = (int)((float)packPrice/20 * ((float)nonSmokingHours/24) * (float)numOfCigar);          // 한시간마다 업데이트
+                savedMoneyView.setText("담배값 "+currentSaved+" 원 절약중");
 
                 // 건강 상태 (12단계 등급)
                 if (nonSmokingTime > 15*TIME_YEAR) {

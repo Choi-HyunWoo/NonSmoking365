@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/btn_normal_border"
+            android:textColor="@color/selector_text_color_black_to_white"
             android:text="@string/basis_btn_datepick"
             android:id="@+id/btn_startDate" />
     </LinearLayout>
@@ -146,6 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/btn_normal_border"
+            android:textColor="@color/selector_text_color_black_to_white"
             android:text="@string/basis_btn_datepick"
             android:id="@+id/btn_birthDate" />
     </LinearLayout>
