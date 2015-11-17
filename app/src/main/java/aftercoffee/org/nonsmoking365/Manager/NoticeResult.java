@@ -2,10 +2,6 @@ package aftercoffee.org.nonsmoking365.Manager;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import aftercoffee.org.nonsmoking365.Manager.JSONParsing;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
 
 /**
