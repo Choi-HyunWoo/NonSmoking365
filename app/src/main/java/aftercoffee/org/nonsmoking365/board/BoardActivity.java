@@ -23,12 +23,8 @@ public class BoardActivity extends AppCompatActivity {
         }
     }
 
-    public void pushBoardContentsFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new BoardContentsFragment()).addToBackStack(null).commit();
-    }
-
-    public void pushBoardCommentsFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new BoardCommentsFragment()).addToBackStack(null).commit();
+    public void pushBoardContentsFragment(String selectedDocID) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, BoardContentsFragment.newInstance(selectedDocID)).addToBackStack(null).commit();
     }
 
     public void popFragment() {

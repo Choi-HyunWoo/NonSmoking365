@@ -54,8 +54,6 @@
         </activity>
         <activity android:name=".AccessTermsActivity" >
         </activity>
-        <activity android:name=".CommentsActivity" >
-        </activity>
         <activity
             android:name=".Community.CommunityActivity"
             android:label="@string/title_activity_community"

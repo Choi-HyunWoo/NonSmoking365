@@ -117,11 +117,6 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                // MelonResult result = gson.fromJson(responseString, MelonResult.class);
-                // JSONParsing interface 생성 (parsing 메소드)
-                // JSON 구조화된 데이터 클래스들을 생성.
-                // 받을 데이터의 최상위 데이터 클래스를 ~~~Result 클래스로 정의, parse 메소드에서 하위클래스의 객체를 생성하면서 parsing 해나갈 것.
-                // listener.onSuccess(result.melon);
                 BoardResult result = gson.fromJson(responseString, BoardResult.class);
                 listener.onSuccess(result.board);
             }

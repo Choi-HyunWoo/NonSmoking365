@@ -6,8 +6,8 @@ package aftercoffee.org.nonsmoking365.board;
 public class Comments{
     String _id;
     int seq;
-    String content;
     String user_id;
+    String content;
     String created;
 
     @Override

@@ -71,28 +71,31 @@ public class BoardFragment extends Fragment {
                         NetworkManager.getInstance().getBoardData(getContext(), BOARD_PAGE_DISPLAY, startPage, new NetworkManager.OnResultListener<Board>() {
                             @Override
                             public void onSuccess(Board result) {
+                                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+
                                 for (Docs d : result.docsList) {
                                     if (d.category.equals("warning")) {
                                         BoardWarningItem b = new BoardWarningItem();
-                                        b._id = d.id;
+                                        b._id = d._id;
                                         b.title = d.title;
                                         b.contents = d.content;
                                         b.titleImg = R.drawable.sample;
                                         mAdapter.add(b);
                                     } else if (d.category.equals("tip")) {
                                         BoardTipsItem b = new BoardTipsItem();
-                                        b._id = d.id;
+                                        b._id = d._id;
                                         b.title = d.title;
                                         b.contents = d.content;
                                         b.titleImg = R.drawable.sample;
                                         mAdapter.add(b);
                                     } else {
                                         BoardAdItem b = new BoardAdItem();
-                                        b._id = d.id;
+                                        b._id = d._id;
                                         b.adImg = R.drawable.sample;
                                         mAdapter.add(b);
                                     }
                                 }
+
                                 isUpdate = false;
                             }
 
@@ -112,10 +115,12 @@ public class BoardFragment extends Fragment {
         listView.setAdapter(mAdapter);
         getBoard();     // 최초 가져오기
 
+        // 게시글 목록에서 선택 시, 해당 게시글로 이동
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((BoardActivity)getActivity()).pushBoardContentsFragment();
+                selectedDocID = mAdapter.getDocID(position-1);
+                ((BoardActivity)getActivity()).pushBoardContentsFragment(selectedDocID);
             }
         });
 
@@ -126,31 +131,34 @@ public class BoardFragment extends Fragment {
         NetworkManager.getInstance().getBoardData(getContext(), BOARD_PAGE_DISPLAY, 0, new NetworkManager.OnResultListener<Board>() {
             @Override
             public void onSuccess(Board result) {
+                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+
                 mAdapter.setTotalCount(result.count);
                 mAdapter.clear();
                 for (Docs d : result.docsList) {
                     if (d.category.equals("warning")) {
                         BoardWarningItem b = new BoardWarningItem();
-                        b._id = d.id;
+                        b._id = d._id;
                         b.title = d.title;
                         b.contents = d.content;
                         b.titleImg = R.drawable.sample;
                         mAdapter.add(b);
                     } else if (d.category.equals("tip")) {
                         BoardTipsItem b = new BoardTipsItem();
-                        b._id = d.id;
+                        b._id = d._id;
                         b.title = d.title;
                         b.contents = d.content;
                         b.titleImg = R.drawable.sample;
                         mAdapter.add(b);
                     } else {
                         BoardAdItem b = new BoardAdItem();
-                        b._id = d.id;
+                        b._id = d._id;
                         b.adImg = R.drawable.sample;
                         mAdapter.add(b);
                     }
                 }
                 refreshView.onRefreshComplete();            // Refresh 완료
+
             }
 
             @Override

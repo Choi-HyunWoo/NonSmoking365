@@ -13,10 +13,10 @@ import java.util.List;
 public class BoardItemAdapter extends BaseAdapter {
     List<BoardItem> items  = new ArrayList<BoardItem>();
 
-    private static final int VIEW_TYPE_COUNT = 3;
-    private static final int TYPE_INDEX_WARNING = 1;
-    private static final int TYPE_INDEX_TIPS = 2;
-    private static final int TYPE_INDEX_AD = 3;
+    public static final int VIEW_TYPE_COUNT = 3;
+    public static final int TYPE_INDEX_WARNING = 1;
+    public static final int TYPE_INDEX_TIPS = 2;
+    public static final int TYPE_INDEX_AD = 3;
 
 
     int totalCount;
@@ -33,6 +33,25 @@ public class BoardItemAdapter extends BaseAdapter {
             return items.size() + 1;
         }
         return -1;
+    }
+
+    public String getDocID(int position) {
+        switch (getItemViewType(position)) {
+            case TYPE_INDEX_WARNING : {
+                BoardWarningItem b = (BoardWarningItem) items.get(position);
+                return b._id;
+            }
+            case TYPE_INDEX_TIPS : {
+                BoardTipsItem b = (BoardTipsItem) items.get(position);
+                return b._id;
+            }
+            case TYPE_INDEX_AD : {
+                BoardAdItem b = (BoardAdItem) items.get(position);
+                return b._id;
+            }
+            default:
+                return null;
+        }
     }
 
     public void add(BoardItem item) {

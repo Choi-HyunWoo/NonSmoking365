@@ -11,6 +11,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
@@ -50,6 +54,11 @@ public class BoardContentsFragment extends Fragment {
         this.setHasOptionsMenu(true);
     }
 
+    TextView titleView, contentView;
+    Button likeBtn;
+    ListView commentListView;
+    ArrayAdapter<String> mAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +71,11 @@ public class BoardContentsFragment extends Fragment {
         NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<Docs>() {
             @Override
             public void onSuccess(Docs result) {
-                Toast.makeText(getActivity(), result.title+result.category+result.content, Toast.LENGTH_SHORT).show();
+                titleView.setText(result.title);
+                contentView.setText(result.content);
+                for (int i=0; i<result.commentsList.size(); i++) {
+                    mAdapter.add(result.commentsList.get(i).content);
+                }
             }
 
             @Override
@@ -77,11 +90,12 @@ public class BoardContentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_contents, container, false);
-
-
-
-
-
+        titleView = (TextView)view.findViewById(R.id.text_title);
+        contentView = (TextView)view.findViewById(R.id.text_content);
+        commentListView = (ListView)view.findViewById(R.id.list_comment);
+        likeBtn = (Button)view.findViewById(R.id.btn_like);
+        mAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+        commentListView.setAdapter(mAdapter);
 
 
 
