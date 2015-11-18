@@ -76,18 +76,20 @@ public class NetworkManager {
         headers[1] = new BasicHeader("appKey", "7bf0afee-4fea-3563-97f5-c993e7af68e1");
     }
 
-    public HttpClient getHttpClient() {
-        return client.getHttpClient();
-    }
-
     public interface OnResultListener<T> {
         public void onSuccess(T result);
         public void onFail(int code);
     }
 
-    Handler mHadler = new Handler(Looper.getMainLooper());
+    // UniversalImageloader setting
+    public HttpClient getHttpClient() {
+        return client.getHttpClient();
+    }
+
+
 
     ///////////////////////////////////////////////////////////////////////////////Sample
+    Handler mHadler = new Handler(Looper.getMainLooper());
     public void login(String userid, String password, final OnResultListener<String> listener) {
         mHadler.postDelayed(new Runnable() {
             @Override
@@ -98,12 +100,14 @@ public class NetworkManager {
     }
     ///////////////////////////////////////////////////////////////////////////////
 
-
     // Server URL
     private static final String SERVER = "http://52.68.247.34:3000";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
-    // 금연 정보 글목록 get
+    /** 금연 정보 게시판
+     *
+     */
+    // 금연 정보 글 목록 get
     private static final String BOARD_URL = SERVER + "/infos";
     public void getBoardData(Context context, int perPage, int page, final OnResultListener<Board> listener) {
         RequestParams params = new RequestParams();        // param 설정
@@ -122,7 +126,7 @@ public class NetworkManager {
             }
         });
     }
-
+    // 금연 정보 글 선택시, 선택한 ID로 해당 글의 content, comments get
     public void getBoardContentAndComments(Context context, String docID, final OnResultListener<Docs> listener) {
         RequestParams params = new RequestParams();
         client.get(context, BOARD_URL + "/" + docID, params, new TextHttpResponseHandler() {
@@ -138,8 +142,30 @@ public class NetworkManager {
             }
         });
     }
+    // 정보글에 좋아요 클릭 시 post
+    public void postBoardLike(Context context, String docID, String userID, final OnResultListener<LikesResult> listener) {
+        RequestParams params = new RequestParams();
+        params.put("_id", "5642ca1d6461fe348bf67f96");
+        client.post(context, "http://52.68.247.34:3000/infos/564bcfc96e4f754a6843581f/likes", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
 
-    // 공지사항 get
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //Docs result = gson.fromJson(responseString, Docs.class);
+                LikesResult result = gson.fromJson(responseString, LikesResult.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+
+
+    /** 공지사항
+     *
+     */
+    // 공지사항 글 목록, 내용 get
     private static final String NOTICE_URL = SERVER + "/notices";
     public void getNoticeData (Context context, final OnResultListener<Notice> listener) {
         client.get(context, NOTICE_URL, new TextHttpResponseHandler() {
@@ -156,7 +182,10 @@ public class NetworkManager {
     }
 
 
-    // 문의하기 post
+    /** 문의하기
+     *
+     */
+    // 문의하기 글 제목, 내용 post
     private static final String QUESTION_URL = SERVER + "/questions";
     public void postQuestionData (Context context, String user_id, String title, String content, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
@@ -196,6 +225,9 @@ public class NetworkManager {
     }
     */
 
+    /** 회원가입
+     *
+     */
     // 회원가입 post
     private static final String USERS_URL = SERVER + "/users";
     public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
@@ -215,6 +247,9 @@ public class NetworkManager {
         });
     }
 
+    /** T Map
+     *  보건소 리스트 받아오기
+     */
     // 보건소 리스트 받아오기
     private static final String FIND_POI_URL = "https://apis.skplanetx.com/tmap/pois/search/around";
     public void findPOI(Context context, double my_lat, double my_lon, int radius, final OnResultListener<SearchPOIInfo> listener) {
@@ -240,6 +275,7 @@ public class NetworkManager {
             }
         });
     }
+
 
     // 접속 끊기
     public void cancelAll(Context context) {

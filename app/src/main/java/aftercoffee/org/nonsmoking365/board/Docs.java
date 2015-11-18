@@ -17,6 +17,8 @@ public class Docs {
     @SerializedName("image_ids")
     List<Image> image_ids;
 
+    List<String> like_ids;
+
     @SerializedName("comments")
     List<Comments> commentsList;
 

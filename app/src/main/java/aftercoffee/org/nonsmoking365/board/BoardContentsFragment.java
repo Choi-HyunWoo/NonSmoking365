@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import aftercoffee.org.nonsmoking365.Manager.LikesResult;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -81,6 +82,7 @@ public class BoardContentsFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("글 내용");
 
+        // 글 내용 가져오기
         NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<Docs>() {
             @Override
             public void onSuccess(Docs result) {
@@ -116,7 +118,23 @@ public class BoardContentsFragment extends Fragment {
         commentListView.setAdapter(mAdapter);
 
 
+        // 좋아요 버튼이 눌린 경우
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkManager.getInstance().postBoardLike(getContext(), docID, "5642ca1d6461fe348bf67f96", new NetworkManager.OnResultListener<LikesResult>() {
+                    @Override
+                    public void onSuccess(LikesResult result) {
+                        Toast.makeText(getActivity(), ""+result.likes, Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onFail(int code) {
+                        Log.d("BoardContent Likes ", "network error/" + code);
+                    }
+                });
+            }
+        });
 
 
         return view;
