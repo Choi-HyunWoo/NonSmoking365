@@ -14,7 +14,8 @@ public class Docs {
     String title;
     String content;
     // int __v;                 // 몽고에서 자동으로 만들어주능거
-    // int image_ids;
+    @SerializedName("image_ids")
+    List<Image> image_ids;
 
     @SerializedName("comments")
     List<Comments> commentsList;

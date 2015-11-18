@@ -13,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
@@ -31,8 +35,6 @@ public class BoardContentsFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String docID;
-
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -49,12 +51,23 @@ public class BoardContentsFragment extends Fragment {
         return fragment;
     }
 
+    DisplayImageOptions options;
     public BoardContentsFragment() {
         // Required empty public constructor
         this.setHasOptionsMenu(true);
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.icon_image_add)
+                .showImageForEmptyUri(R.drawable.icon_cigarette)
+                .showImageOnFail(R.drawable.icon_cigarette)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+//                .displayer(new RoundedBitmapDisplayer(50))
+                .build();
     }
 
-    TextView titleView, contentView;
+    TextView titleView, contentView, categoryView;
+    ImageView imageView;
     Button likeBtn;
     ListView commentListView;
     ArrayAdapter<String> mAdapter;
@@ -72,7 +85,10 @@ public class BoardContentsFragment extends Fragment {
             @Override
             public void onSuccess(Docs result) {
                 titleView.setText(result.title);
+                // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
+                ImageLoader.getInstance().displayImage(result.image_ids.get(0).uri, imageView, options);
                 contentView.setText(result.content);
+                categoryView.setText(result.category);                  // 한글로 수정할것
                 for (int i=0; i<result.commentsList.size(); i++) {
                     mAdapter.add(result.commentsList.get(i).content);
                 }
@@ -91,7 +107,9 @@ public class BoardContentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_contents, container, false);
         titleView = (TextView)view.findViewById(R.id.text_title);
+        imageView = (ImageView)view.findViewById(R.id.image_content);
         contentView = (TextView)view.findViewById(R.id.text_content);
+        categoryView = (TextView)view.findViewById(R.id.text_category);
         commentListView = (ListView)view.findViewById(R.id.list_comment);
         likeBtn = (Button)view.findViewById(R.id.btn_like);
         mAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);

@@ -11,9 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="글제목"
+        android:text=""
         android:id="@+id/text_title"
         android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/text_category"
+        android:layout_gravity="right" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -25,14 +32,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="글내용"
+        android:text=""
         android:id="@+id/text_content" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="좋아요"
         android:id="@+id/btn_like" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="댓글" />
 
     <ListView
         android:layout_width="match_parent"

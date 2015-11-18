@@ -71,8 +71,6 @@ public class BoardFragment extends Fragment {
                         NetworkManager.getInstance().getBoardData(getContext(), BOARD_PAGE_DISPLAY, startPage, new NetworkManager.OnResultListener<Board>() {
                             @Override
                             public void onSuccess(Board result) {
-                                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
-
                                 for (Docs d : result.docsList) {
                                     if (d.category.equals("warning")) {
                                         BoardWarningItem b = new BoardWarningItem();
@@ -131,8 +129,6 @@ public class BoardFragment extends Fragment {
         NetworkManager.getInstance().getBoardData(getContext(), BOARD_PAGE_DISPLAY, 0, new NetworkManager.OnResultListener<Board>() {
             @Override
             public void onSuccess(Board result) {
-                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
-
                 mAdapter.setTotalCount(result.count);
                 mAdapter.clear();
                 for (Docs d : result.docsList) {
