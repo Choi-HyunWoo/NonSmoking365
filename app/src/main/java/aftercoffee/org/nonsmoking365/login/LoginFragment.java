@@ -61,19 +61,24 @@ public class LoginFragment extends Fragment {
                 email = emailView.getText().toString();
                 password = passwordView.getText().toString();
 
-                /** id, password 검사할 것 **/
-                NetworkManager.getInstance().postLogin(getContext(), email, password, new NetworkManager.OnResultListener<LoginResult>() {
+                NetworkManager.getInstance().postLogin(getContext(), email, password, new NetworkManager.OnResultListener<String>() {
                     @Override
-                    public void onSuccess(LoginResult result) {
-                        if (autoLoginCheckView.isChecked()) {
-                            PropertyManager.getInstance().setId(email);
-                            PropertyManager.getInstance().setPassword(password);
+                    public void onSuccess(String result) {
+                        if (result.equals("ok")) {
+                            if (autoLoginCheckView.isChecked()) {
+                                PropertyManager.getInstance().setId(email);
+                                PropertyManager.getInstance().setPassword(password);
+                            }
+                            Toast.makeText(getActivity(), "로그인 성공!" + result, Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        } else {
+                            Toast.makeText(getActivity(), "로그인 실패!" + result, Toast.LENGTH_SHORT).show();
                         }
-                        getActivity().finish();
                     }
+
                     @Override
                     public void onFail(int code) {
-                        Toast.makeText(getActivity(), "로그인 실패!"+code, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "연결 실패"+code, Toast.LENGTH_SHORT).show();
                     }
                 });
             /*

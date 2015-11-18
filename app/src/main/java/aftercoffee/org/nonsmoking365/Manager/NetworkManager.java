@@ -108,7 +108,7 @@ public class NetworkManager {
      *
      */
     private static final String LOGIN_URL = SERVER + "/login";
-    public void postLogin(Context context, String userEmail, String password, final OnResultListener<LoginResult> listener) {
+    public void postLogin(Context context, String userEmail, String password, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("email", userEmail);
         params.put("password", password);
@@ -120,8 +120,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                LoginResult result = gson.fromJson(responseString, LoginResult.class);
-                listener.onSuccess(result);
+                listener.onSuccess(responseString);
             }
         });
     }
