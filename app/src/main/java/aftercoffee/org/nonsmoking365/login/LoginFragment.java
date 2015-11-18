@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import aftercoffee.org.nonsmoking365.Manager.LoginResult;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.R;
@@ -30,6 +31,8 @@ public class LoginFragment extends Fragment {
     CheckBox autoLoginCheckView;
     TextView findView;
 
+    String email;
+    String password;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -55,18 +58,32 @@ public class LoginFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String id = emailView.getText().toString();
-                final String password = passwordView.getText().toString();
+                email = emailView.getText().toString();
+                password = passwordView.getText().toString();
 
                 /** id, password 검사할 것 **/
-
+                NetworkManager.getInstance().postLogin(getContext(), email, password, new NetworkManager.OnResultListener<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult result) {
+                        if (autoLoginCheckView.isChecked()) {
+                            PropertyManager.getInstance().setId(email);
+                            PropertyManager.getInstance().setPassword(password);
+                        }
+                        getActivity().finish();
+                    }
+                    @Override
+                    public void onFail(int code) {
+                        Toast.makeText(getActivity(), "로그인 실패!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            /*
                 NetworkManager.getInstance().login(id, password, new NetworkManager.OnResultListener<String>() {
                     @Override
                     public void onSuccess(String result) {
                         if (result.equals("ok")) {
                             // 자동 로그인이 설정되있다면 SP에 저장
                             if (autoLoginCheckView.isChecked()) {
-                                PropertyManager.getInstance().setId(id);
+                                PropertyManager.getInstance().setId(ex);
                                 PropertyManager.getInstance().setPassword(password);
                             }
                             getActivity().finish();
@@ -82,6 +99,7 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getActivity(), "CONNECTION FAIL", Toast.LENGTH_SHORT).show();
                     }
                 });
+            */
             }
         });
 

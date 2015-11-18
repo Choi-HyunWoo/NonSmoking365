@@ -104,6 +104,29 @@ public class NetworkManager {
     private static final String SERVER = "http://52.68.247.34:3000";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
+    /** 로그인
+     *
+     */
+    private static final String LOGIN_URL = SERVER + "/users";
+    public void postLogin(Context context, String userEmail, String password, final OnResultListener<LoginResult> listener) {
+        RequestParams params = new RequestParams();
+        params.put("email", userEmail);
+        params.put("password", password);
+        client.post(context, LOGIN_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                LoginResult result = gson.fromJson(responseString, LoginResult.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+
+
     /** 금연 정보 게시판
      *
      */
@@ -145,8 +168,8 @@ public class NetworkManager {
     // 정보글에 좋아요 클릭 시 post
     public void postBoardLike(Context context, String docID, String userID, final OnResultListener<LikesResult> listener) {
         RequestParams params = new RequestParams();
-        params.put("_id", "5642ca1d6461fe348bf67f96");
-        client.post(context, "http://52.68.247.34:3000/infos/564bcfc96e4f754a6843581f/likes", params, new TextHttpResponseHandler() {
+        params.put("_id", userID);
+        client.post(context, BOARD_URL+"/" + docID + "/likes", params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -160,7 +183,6 @@ public class NetworkManager {
             }
         });
     }
-
 
     /** 공지사항
      *

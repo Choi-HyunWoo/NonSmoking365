@@ -6,6 +6,7 @@ import android.speech.tts.TextToSpeechService;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -88,11 +89,14 @@ public class BoardContentsFragment extends Fragment {
             public void onSuccess(Docs result) {
                 titleView.setText(result.title);
                 // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
-                ImageLoader.getInstance().displayImage(result.image_ids.get(0).uri, imageView, options);
+                if (result.image_ids.size() != 0)
+                    ImageLoader.getInstance().displayImage(result.image_ids.get(0).uri, imageView, options);
                 contentView.setText(result.content);
                 categoryView.setText(result.category);                  // 한글로 수정할것
-                for (int i=0; i<result.commentsList.size(); i++) {
-                    mAdapter.add(result.commentsList.get(i).content);
+                if (result.commentsList.size() != 0) {
+                    for (int i=0; i<result.commentsList.size(); i++) {
+                        mAdapter.add(result.commentsList.get(i).content);
+                    }
                 }
             }
 
