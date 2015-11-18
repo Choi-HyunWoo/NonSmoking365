@@ -73,7 +73,7 @@ public class LoginFragment extends Fragment {
                     }
                     @Override
                     public void onFail(int code) {
-                        Toast.makeText(getActivity(), "로그인 실패!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "로그인 실패!"+code, Toast.LENGTH_SHORT).show();
                     }
                 });
             /*

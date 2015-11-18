@@ -107,7 +107,7 @@ public class NetworkManager {
     /** 로그인
      *
      */
-    private static final String LOGIN_URL = SERVER + "/users";
+    private static final String LOGIN_URL = SERVER + "/login";
     public void postLogin(Context context, String userEmail, String password, final OnResultListener<LoginResult> listener) {
         RequestParams params = new RequestParams();
         params.put("email", userEmail);
