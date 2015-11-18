@@ -30,6 +30,7 @@ public class BoardFragment extends Fragment {
     PullToRefreshListView refreshView;
     BoardItemAdapter mAdapter;
     boolean isUpdate = false;
+    String selectedDocID;
 
     public BoardFragment() {
         // Required empty public constructor
@@ -73,18 +74,21 @@ public class BoardFragment extends Fragment {
                                 for (Docs d : result.docsList) {
                                     if (d.category.equals("warning")) {
                                         BoardWarningItem b = new BoardWarningItem();
+                                        b._id = d.id;
                                         b.title = d.title;
                                         b.contents = d.content;
                                         b.titleImg = R.drawable.sample;
                                         mAdapter.add(b);
                                     } else if (d.category.equals("tip")) {
                                         BoardTipsItem b = new BoardTipsItem();
+                                        b._id = d.id;
                                         b.title = d.title;
                                         b.contents = d.content;
                                         b.titleImg = R.drawable.sample;
                                         mAdapter.add(b);
                                     } else {
                                         BoardAdItem b = new BoardAdItem();
+                                        b._id = d.id;
                                         b.adImg = R.drawable.sample;
                                         mAdapter.add(b);
                                     }
@@ -127,18 +131,21 @@ public class BoardFragment extends Fragment {
                 for (Docs d : result.docsList) {
                     if (d.category.equals("warning")) {
                         BoardWarningItem b = new BoardWarningItem();
+                        b._id = d.id;
                         b.title = d.title;
                         b.contents = d.content;
                         b.titleImg = R.drawable.sample;
                         mAdapter.add(b);
                     } else if (d.category.equals("tip")) {
                         BoardTipsItem b = new BoardTipsItem();
+                        b._id = d.id;
                         b.title = d.title;
                         b.contents = d.content;
                         b.titleImg = R.drawable.sample;
                         mAdapter.add(b);
                     } else {
                         BoardAdItem b = new BoardAdItem();
+                        b._id = d.id;
                         b.adImg = R.drawable.sample;
                         mAdapter.add(b);
                     }

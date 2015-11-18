@@ -28,6 +28,7 @@ import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.Notice.Image;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
 import aftercoffee.org.nonsmoking365.board.Board;
+import aftercoffee.org.nonsmoking365.board.Docs;
 
 /**
  * Created by Tacademy on 2015-11-03.
@@ -102,7 +103,7 @@ public class NetworkManager {
     private static final String SERVER = "http://52.68.247.34:3000";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
-    // 금연 정보 get
+    // 금연 정보 글목록 get
     private static final String BOARD_URL = SERVER + "/infos";
     public void getBoardData(Context context, int perPage, int page, final OnResultListener<Board> listener) {
         RequestParams params = new RequestParams();        // param 설정
@@ -123,6 +124,22 @@ public class NetworkManager {
                 // listener.onSuccess(result.melon);
                 BoardResult result = gson.fromJson(responseString, BoardResult.class);
                 listener.onSuccess(result.board);
+            }
+        });
+    }
+
+    public void getBoardContentAndComments(Context context, String docID, final OnResultListener<Docs> listener) {
+        RequestParams params = new RequestParams();
+        client.get(context, BOARD_URL + "/" + docID, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Docs result = gson.fromJson(responseString, Docs.class);
+                listener.onSuccess(result);
             }
         });
     }

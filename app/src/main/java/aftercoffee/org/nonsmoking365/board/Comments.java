@@ -10,7 +10,6 @@ public class Comments{
     String user_id;
     String created;
 
-
     @Override
     public String toString() {
         return content;
