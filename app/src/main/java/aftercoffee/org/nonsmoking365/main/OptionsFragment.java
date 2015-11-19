@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.AlarmActivity;
@@ -152,9 +153,10 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onSuccess(String result) {
                             Toast.makeText(getActivity(), "로그아웃 되었습니다." + result, Toast.LENGTH_SHORT).show();
-                            UserManager.getInstance().setLoginState(false);
-                            isLogined = false;
-                            setViewLogined();
+                            PropertyManager.getInstance().setAutoLogin(false);      // 자동 로그인 끄기
+                            UserManager.getInstance().setLoginState(false);         // 로그인 상태 false
+                            isLogined = false;      // 변수 갱신후
+                            setViewLogined();       // 뷰 갱신
                         }
                         @Override
                         public void onFail(int code) {

@@ -72,8 +72,9 @@ public class LoginFragment extends Fragment {
                         public void onSuccess(String result) {
                             if (result.equals("ok")) {
                                 if (autoLoginCheckView.isChecked()) {
-                                    //PropertyManager.getInstance().setAutoLoginId(email);
-                                    //PropertyManager.getInstance().setAutoLoginPassword(password);
+                                    PropertyManager.getInstance().setAutoLogin(true);
+                                    PropertyManager.getInstance().setAutoLoginId(email);
+                                    PropertyManager.getInstance().setAutoLoginPassword(password);
                                 }
                                 UserManager.getInstance().setLoginState(true);
                                 UserManager.getInstance().setUserEmail(email);

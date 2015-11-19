@@ -5,7 +5,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 
+import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.main.MainActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
@@ -29,18 +33,50 @@ public class SplashActivity extends AppCompatActivity {
         // 화면 선택
         isPreviewChecked = PropertyManager.getInstance().getPreviewCheck();
         isBasisInfoFilledIn = PropertyManager.getInstance().getBasisInfoCheck();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!isPreviewChecked) {
-                    goPreview();
-                } else if (!isBasisInfoFilledIn) {
-                    goBasisInfo();
-                } else {
-                    goMain();
+
+
+        // 자동 로그인 상태 확인
+        boolean autoLogin = PropertyManager.getInstance().getAutoLogin();
+        // 자동로그인 ON
+        if (autoLogin) {
+            String id = PropertyManager.getInstance().getAutoLoginId();
+            String password = PropertyManager.getInstance().getAutoLoginPassword();
+            NetworkManager.getInstance().login(this, id, password, new NetworkManager.OnResultListener<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    if (result.equals("ok")) {
+                        UserManager.getInstance().setLoginState(true);
+                        goMain();
+                    } else {
+                        UserManager.getInstance().setLoginState(false);
+                        goMain();
+                    }
                 }
-            }
-        }, 2000);
+                @Override
+                public void onFail(int code) {
+                    Log.d("Network error/splash", ""+code);
+                }
+            });
+        }
+        // 자동로그인 OFF
+        else {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    choiceNextActivity();
+                }
+            }, 2000);
+        }
+    }
+
+    private void choiceNextActivity() {
+        if (!isPreviewChecked) {
+            goPreview();
+        } else if (!isBasisInfoFilledIn) {
+            goBasisInfo();
+        } else {
+            goMain();
+        }
     }
 
     private void goPreview() {

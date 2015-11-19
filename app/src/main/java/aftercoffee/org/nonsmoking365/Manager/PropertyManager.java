@@ -27,8 +27,9 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     }
 
     /* Auto Login Checked */
-    public static final String KEY_ID = "id";
-    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_AUTO_LOGIN = "auto_login";
+    public static final String KEY_AUTO_ID = "auto_id";
+    public static final String KEY_AUTO_PASSWORD = "auto_password";
 
     /* Launch check Keys */
     public static final String KEY_LAUNCH_PREVIEW_CHECK = "isPreviewChecked";
@@ -49,20 +50,28 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public static final String KEY_COUNT_FAILURE = "count_failure";
 
 
-    public void setId(String id) {
-        mEditor.putString(KEY_ID, id);
+    // 자동 로그인 설정
+    public void setAutoLogin(boolean isAutoLogin) {
+        mEditor.putBoolean(KEY_AUTO_LOGIN, isAutoLogin);
         mEditor.commit();
     }
-    public String getId() {
-        return mPrefs.getString(KEY_ID, "");
+    public boolean getAutoLogin() {
+        return mPrefs.getBoolean(KEY_AUTO_LOGIN, false);
+    }
+    public void setAutoLoginId(String id) {
+        mEditor.putString(KEY_AUTO_ID, id);
+        mEditor.commit();
+    }
+    public String getAutoLoginId() {
+        return mPrefs.getString(KEY_AUTO_ID, "");
     }
 
-    public void setPassword(String password) {
-        mEditor.putString(KEY_PASSWORD, password);
+    public void setAutoLoginPassword(String password) {
+        mEditor.putString(KEY_AUTO_PASSWORD, password);
         mEditor.commit();
     }
-    public String getPassword() {
-        return mPrefs.getString(KEY_PASSWORD, "");
+    public String getAutoLoginPassword() {
+        return mPrefs.getString(KEY_AUTO_PASSWORD, "");
     }
 
 
