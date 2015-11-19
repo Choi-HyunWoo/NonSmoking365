@@ -16,6 +16,8 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import aftercoffee.org.nonsmoking365.Data.Board;
+import aftercoffee.org.nonsmoking365.Data.BoardDocs;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -70,7 +72,7 @@ public class BoardFragment extends Fragment {
                             @Override
                             public void onSuccess(Board result) {
                                 if (result != null) {
-                                    for (Docs d : result.docsList) {
+                                    for (BoardDocs d : result.docsList) {
                                         if (d.category.equals("warning")) {
                                             BoardWarningItem b = new BoardWarningItem();
                                             b._id = d._id;
@@ -131,7 +133,7 @@ public class BoardFragment extends Fragment {
                 mAdapter.setTotalCount(result.count);
                 mAdapter.clear();
                 if (result != null) {
-                    for (Docs d : result.docsList) {
+                    for (BoardDocs d : result.docsList) {
                         if (d.category.equals("warning")) {
                             BoardWarningItem b = new BoardWarningItem();
                             b._id = d._id;

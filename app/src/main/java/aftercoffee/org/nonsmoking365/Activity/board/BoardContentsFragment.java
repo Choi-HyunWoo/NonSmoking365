@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import aftercoffee.org.nonsmoking365.Data.BoardDocs;
 import aftercoffee.org.nonsmoking365.Data.LikesResult;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
@@ -86,9 +87,9 @@ public class BoardContentsFragment extends Fragment {
         actionBar.setTitle("글 내용");
 
         // 글 내용 가져오기
-        NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<Docs>() {
+        NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<BoardDocs>() {
             @Override
-            public void onSuccess(Docs result) {
+            public void onSuccess(BoardDocs result) {
                 titleView.setText(result.title);
                 // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
                 if (result.image_ids.size() != 0)

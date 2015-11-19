@@ -28,9 +28,9 @@ import aftercoffee.org.nonsmoking365.Data.LoginResult;
 import aftercoffee.org.nonsmoking365.Data.NoticeResult;
 import aftercoffee.org.nonsmoking365.Data.POIResult;
 import aftercoffee.org.nonsmoking365.MyApplication;
-import aftercoffee.org.nonsmoking365.Activity.notice.Notice;
-import aftercoffee.org.nonsmoking365.Activity.board.Board;
-import aftercoffee.org.nonsmoking365.Activity.board.Docs;
+import aftercoffee.org.nonsmoking365.Data.Notice;
+import aftercoffee.org.nonsmoking365.Data.Board;
+import aftercoffee.org.nonsmoking365.Data.BoardDocs;
 import aftercoffee.org.nonsmoking365.Data.Login;
 
 /**
@@ -177,7 +177,7 @@ public class NetworkManager {
         });
     }
     // 금연 정보 글 선택시, 선택한 ID로 해당 글의 content, comments get
-    public void getBoardContentAndComments(Context context, String docID, final OnResultListener<Docs> listener) {
+    public void getBoardContentAndComments(Context context, String docID, final OnResultListener<BoardDocs> listener) {
         RequestParams params = new RequestParams();
         client.get(context, BOARD_URL + "/" + docID, params, new TextHttpResponseHandler() {
             @Override
@@ -187,7 +187,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Docs result = gson.fromJson(responseString, Docs.class);
+                BoardDocs result = gson.fromJson(responseString, BoardDocs.class);
                 listener.onSuccess(result);
             }
         });
@@ -204,7 +204,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //Docs result = gson.fromJson(responseString, Docs.class);
+                //NoticeDocs result = gson.fromJson(responseString, NoticeDocs.class);
                 LikesResult result = gson.fromJson(responseString, LikesResult.class);
                 listener.onSuccess(result);
             }

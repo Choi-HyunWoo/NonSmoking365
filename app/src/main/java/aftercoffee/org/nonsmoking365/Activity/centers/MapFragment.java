@@ -141,14 +141,6 @@ public class MapFragment extends Fragment {
             }
         });
 
-        Button btn = (Button)view.findViewById(R.id.btn_current);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerLocationListener();
-            }
-        });
-
         return view;
     }
 

@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
+import aftercoffee.org.nonsmoking365.Data.Notice;
+import aftercoffee.org.nonsmoking365.Data.NoticeDocs;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -46,7 +48,7 @@ public class NoticeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Notice result) {
                 int count=0;
-                for (Docs d : result.docsList) {
+                for (NoticeDocs d : result.docsList) {
                     String createdDate = d.created.substring(0, d.created.indexOf("T"));
                     if (d.image_ids.size() != 0) {
                         /* mAdapter.add(String createdDate, String title, String content, String imageUrl) */
