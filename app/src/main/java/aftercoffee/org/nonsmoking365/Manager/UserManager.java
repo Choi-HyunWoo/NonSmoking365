@@ -47,8 +47,8 @@ public class UserManager {
     public void setUser_id(String _id) {
         this._id = _id;
     }
-    public void getUser_id(String _id) {
-        this._id = _id;
+    public String getUser_id() {
+        return this._id;
     }
     public void setUserNickname(String nickname) {
         this.nickname = nickname;

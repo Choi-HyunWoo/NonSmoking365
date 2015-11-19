@@ -9,6 +9,7 @@ public class Comments {
     //public String user_id;
     public String content;
     public String created;
+    public User user_id;
 
     @Override
     public String toString() {

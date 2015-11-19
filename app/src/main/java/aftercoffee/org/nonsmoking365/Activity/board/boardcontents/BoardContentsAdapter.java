@@ -15,7 +15,8 @@ public class BoardContentsAdapter extends BaseAdapter {
     List<BoardCommentItem> items = new ArrayList<BoardCommentItem>();
 
     public void addComment (BoardCommentItem item) {
-
+        items.add(item);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -75,9 +75,6 @@ public class BoardContentsFragment extends Fragment {
                 .build();
     }
 
-    TextView titleView, contentView, categoryView;
-    ImageView imageView;
-    Button likeBtn;
     ListView listView;                  // 글내용 (헤더) + 댓글 (리스트)
     BoardContentsAdapter mAdapter;
 
@@ -90,30 +87,6 @@ public class BoardContentsFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("글 내용");
         isLogined = UserManager.getInstance().getLoginState();
-
-        // 글 내용과 댓글들 가져오기
-        NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<BoardDocs>() {
-            @Override
-            public void onSuccess(BoardDocs result) {
-                titleView.setText(result.title);
-                // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
-                if (result.image_ids.size() != 0)
-                    ImageLoader.getInstance().displayImage(result.image_ids.get(0).uri, imageView, options);
-                contentView.setText(result.content);
-                categoryView.setText(result.category);                  // 한글로 수정할것
-                if (result.commentsList.size() != 0) {
-                    for (int i=0; i<result.commentsList.size(); i++) {
-                        // 댓글 추가
-                        // mAdapter.add(result.commentsList.get(i).content);
-                    }
-                }
-            }
-
-            @Override
-            public void onFail(int code) {
-                Log.d("BoardContent Load ", "network error/" + code);
-            }
-        });
     }
 
     @Override
@@ -121,39 +94,52 @@ public class BoardContentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_contents, container, false);
-        // Initialize views
-        titleView = (TextView)view.findViewById(R.id.text_title);
-        imageView = (ImageView)view.findViewById(R.id.image_content);
-        contentView = (TextView)view.findViewById(R.id.text_content);
-        categoryView = (TextView)view.findViewById(R.id.text_category);
         listView = (ListView)view.findViewById(R.id.list_comment);
 
-        // ListView settings
-        BoardContentsItemView contentView = new BoardContentsItemView(getContext());
-        listView.addHeaderView(contentView, null, false);
-        mAdapter = new BoardContentsAdapter();
-        listView.setAdapter(mAdapter);
-
-
-        // 좋아요 버튼
-        likeBtn = (Button)view.findViewById(R.id.btn_like);
-        likeBtn.setOnClickListener(new View.OnClickListener() {
+        // 글 내용과 댓글들 가져오기
+        NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<BoardDocs>() {
             @Override
-            public void onClick(View v) {
-                NetworkManager.getInstance().postBoardLike(getContext(), docID, "5642ca1d6461fe348bf67f96", new NetworkManager.OnResultListener<LikesResult>() {
-                    @Override
-                    public void onSuccess(LikesResult result) {
-                        Toast.makeText(getActivity(), ""+result.likes, Toast.LENGTH_SHORT).show();
-                    }
+            public void onSuccess(BoardDocs result) {
+                // 글 내용 담기
+                BoardContentsItemView contentView = new BoardContentsItemView(getContext(), docID);
+                BoardContentsItem contents = new BoardContentsItem();         // 글 내용 (헤더)
+                contents.title = result.title;
+                contents.content = result.content;
+                contents.likes = result.like_ids.size();
+                if (result.image_ids.size() != 0)
+                    contents.imageURL = result.image_ids.get(0).uri;
+                contentView.setContentItem(contents);
 
-                    @Override
-                    public void onFail(int code) {
-                        Log.d("BoardContent Likes ", "network error/" + code);
+                // ListView settings
+                listView.addHeaderView(contentView, null, false);
+                mAdapter = new BoardContentsAdapter();
+                listView.setAdapter(mAdapter);
+
+                // 댓글 추가하기
+                if (result.commentsList.size() != 0) {
+                    for (int i = 0; i < result.commentsList.size(); i++) {
+                        // 댓글 추가
+                        BoardCommentItem comment = new BoardCommentItem();
+                        // 프로필사진 <<
+                        comment.nickname = result.commentsList.get(i).user_id.nick;
+                        comment.content = result.commentsList.get(i).content;
+                        comment.date = result.commentsList.get(i).created;
+                        mAdapter.addComment(comment);
                     }
-                });
+                }
+                /*
+                // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
+                if (result.image_ids.size() != 0)
+                    ImageLoader.getInstance().displayImage(result.image_ids.get(0).uri, imageView, options);
+                categoryView.setText(result.category);                  // 한글로 수정할것
+                */
+            }
+
+            @Override
+            public void onFail(int code) {
+                Log.d("BoardContent Load ", "network error/" + code);
             }
         });
-
 
         return view;
     }
