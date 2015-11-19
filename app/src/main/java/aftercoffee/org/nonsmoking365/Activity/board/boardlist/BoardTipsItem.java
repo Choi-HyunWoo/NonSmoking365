@@ -1,9 +1,9 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardlist;
 
 /**
  * Created by Tacademy on 2015-11-09.
  */
-public class BoardWarningItem implements BoardItem {
+public class BoardTipsItem implements BoardItem {
     String _id;
     int titleImg;
     String title;

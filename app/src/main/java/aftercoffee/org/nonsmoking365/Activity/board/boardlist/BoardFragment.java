@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardlist;
 
 
 import android.os.Bundle;
@@ -16,15 +16,19 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import aftercoffee.org.nonsmoking365.Activity.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.Data.Board;
 import aftercoffee.org.nonsmoking365.Data.BoardDocs;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BoardFragment extends Fragment {
+
+    boolean isLogined;
 
     ListView listView;
     PullToRefreshListView refreshView;
@@ -167,6 +171,19 @@ public class BoardFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 로그인 정보 가져오기
+        isLogined = UserManager.getInstance().getLoginState();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 로그인 정보 가져오기
+        isLogined = UserManager.getInstance().getLoginState();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

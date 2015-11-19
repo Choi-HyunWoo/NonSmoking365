@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardlist;
 
 /**
  * Created by Tacademy on 2015-11-03.

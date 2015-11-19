@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardlist;
 
 import android.content.Context;
 import android.view.View;
@@ -12,8 +12,8 @@ import aftercoffee.org.nonsmoking365.R;
 /**
  * Created by Tacademy on 2015-11-09.
  */
-public class BoardWarningItemView extends FrameLayout {
-    public BoardWarningItemView(Context context) {
+public class BoardTipsItemView extends FrameLayout {
+    public BoardTipsItemView(Context context) {
         super(context);
         init();
     }
@@ -26,7 +26,7 @@ public class BoardWarningItemView extends FrameLayout {
     Button shareBtn;
 
     public void init() {
-        inflate(getContext(), R.layout.view_board_warning_item, this);
+        inflate(getContext(), R.layout.view_board_tips_item, this);
 
         titleImageView = (ImageView)findViewById(R.id.image_title);
         titleTextView = (TextView)findViewById(R.id.text_title);
@@ -44,7 +44,7 @@ public class BoardWarningItemView extends FrameLayout {
         });
     }
 
-    public void setBoardItem(BoardWarningItem item) {
+    public void setBoardItem(BoardTipsItem item) {
         titleImageView.setBackgroundResource(item.titleImg);
         titleTextView.setText(item.title);
         contentsTextView.setText(item.contents);

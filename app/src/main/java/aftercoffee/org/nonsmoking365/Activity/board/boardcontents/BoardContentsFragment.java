@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardcontents;
 
 
 import android.os.Bundle;
@@ -19,15 +19,19 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import aftercoffee.org.nonsmoking365.Activity.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.Data.BoardDocs;
 import aftercoffee.org.nonsmoking365.Data.LikesResult;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BoardContentsFragment extends Fragment {
+
+    boolean isLogined;
 
     /**
      * 글 선택 시, 글 내용을 가져오는 화면
@@ -74,7 +78,7 @@ public class BoardContentsFragment extends Fragment {
     TextView titleView, contentView, categoryView;
     ImageView imageView;
     Button likeBtn;
-    ListView commentListView;
+    ListView listView;                  // 글내용 (헤더) + 댓글 (리스트)
     BoardContentsAdapter mAdapter;
 
     @Override
@@ -85,8 +89,9 @@ public class BoardContentsFragment extends Fragment {
         }
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("글 내용");
+        isLogined = UserManager.getInstance().getLoginState();
 
-        // 글 내용 가져오기
+        // 글 내용과 댓글들 가져오기
         NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<BoardDocs>() {
             @Override
             public void onSuccess(BoardDocs result) {
@@ -116,17 +121,22 @@ public class BoardContentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_contents, container, false);
+        // Initialize views
         titleView = (TextView)view.findViewById(R.id.text_title);
         imageView = (ImageView)view.findViewById(R.id.image_content);
         contentView = (TextView)view.findViewById(R.id.text_content);
         categoryView = (TextView)view.findViewById(R.id.text_category);
-        commentListView = (ListView)view.findViewById(R.id.list_comment);
-        likeBtn = (Button)view.findViewById(R.id.btn_like);
+        listView = (ListView)view.findViewById(R.id.list_comment);
+
+        // ListView settings
+        BoardContentsItemView contentView = new BoardContentsItemView(getContext());
+        listView.addHeaderView(contentView, null, false);
         mAdapter = new BoardContentsAdapter();
-        commentListView.setAdapter(mAdapter);
+        listView.setAdapter(mAdapter);
 
 
         // 좋아요 버튼
+        likeBtn = (Button)view.findViewById(R.id.btn_like);
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +156,12 @@ public class BoardContentsFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isLogined = UserManager.getInstance().getLoginState();
     }
 
     @Override

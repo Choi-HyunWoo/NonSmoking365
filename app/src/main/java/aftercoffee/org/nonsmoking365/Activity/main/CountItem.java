@@ -10,9 +10,4 @@ public class CountItem {
     public static final int MODE_X = 4;
 
     int itemMode;
-
-    //
-    int position;
-
-    long clickedTime;
 }

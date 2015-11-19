@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardcontents;
 
 import android.view.View;
 import android.view.ViewGroup;

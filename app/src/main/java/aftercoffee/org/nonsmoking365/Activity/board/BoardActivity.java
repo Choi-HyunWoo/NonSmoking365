@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import aftercoffee.org.nonsmoking365.Activity.board.boardcontents.BoardContentsFragment;
+import aftercoffee.org.nonsmoking365.Activity.board.boardlist.BoardFragment;
 import aftercoffee.org.nonsmoking365.R;
 
 public class BoardActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Activity.board;
+package aftercoffee.org.nonsmoking365.Activity.board.boardlist;
 
 import android.content.Context;
 import android.widget.FrameLayout;
