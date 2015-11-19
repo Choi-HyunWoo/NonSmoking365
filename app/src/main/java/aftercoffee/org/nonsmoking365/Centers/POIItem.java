@@ -1,7 +1,5 @@
 package aftercoffee.org.nonsmoking365.Centers;
 
-import com.skp.Tmap.TMapPOIItem;
-
 /**
  * Created by HYUNWOO on 2015-11-14.
  */

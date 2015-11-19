@@ -1,4 +1,6 @@
-package aftercoffee.org.nonsmoking365.login;
+package aftercoffee.org.nonsmoking365.Data;
+
+import aftercoffee.org.nonsmoking365.Data.User;
 
 /**
  * Created by Tacademy on 2015-11-19.

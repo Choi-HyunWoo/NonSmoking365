@@ -31,7 +31,7 @@ import aftercoffee.org.nonsmoking365.MyApplication;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
 import aftercoffee.org.nonsmoking365.board.Board;
 import aftercoffee.org.nonsmoking365.board.Docs;
-import aftercoffee.org.nonsmoking365.login.Login;
+import aftercoffee.org.nonsmoking365.Data.Login;
 
 /**
  * Created by Tacademy on 2015-11-03.
