@@ -1,8 +1,6 @@
 package aftercoffee.org.nonsmoking365.Manager;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -23,9 +21,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-import aftercoffee.org.nonsmoking365.Centers.SearchPOIInfo;
+import aftercoffee.org.nonsmoking365.Data.SearchPOIInfo;
+import aftercoffee.org.nonsmoking365.Data.BoardResult;
+import aftercoffee.org.nonsmoking365.Data.LikesResult;
+import aftercoffee.org.nonsmoking365.Data.LoginResult;
+import aftercoffee.org.nonsmoking365.Data.NoticeResult;
+import aftercoffee.org.nonsmoking365.Data.POIResult;
 import aftercoffee.org.nonsmoking365.MyApplication;
-import aftercoffee.org.nonsmoking365.Notice.Image;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
 import aftercoffee.org.nonsmoking365.board.Board;
 import aftercoffee.org.nonsmoking365.board.Docs;

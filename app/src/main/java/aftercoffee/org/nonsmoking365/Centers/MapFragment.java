@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -34,7 +33,6 @@ import android.widget.Toast;
 
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapMarkerItem;
-import com.skp.Tmap.TMapMarkerItem2;
 import com.skp.Tmap.TMapPOIItem;
 import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapPolyLine;
@@ -42,6 +40,8 @@ import com.skp.Tmap.TMapView;
 
 import java.util.ArrayList;
 
+import aftercoffee.org.nonsmoking365.Data.POI;
+import aftercoffee.org.nonsmoking365.Data.SearchPOIInfo;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 

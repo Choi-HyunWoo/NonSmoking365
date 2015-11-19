@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Centers;
+package aftercoffee.org.nonsmoking365.Data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,19 +6,19 @@ import com.google.gson.annotations.SerializedName;
  * Created by HYUNWOO on 2015-11-14.
  */
 public class POI {
-    String id;
-    String name;
-    String telNo;
-    String frontLat;
-    String frontLon;
-    String noorLat;
-    String noorLon;
-    String upperAddrName;
-    String middleAddrName;
-    String lowerAddrName;
-    String detailAddrName;
+    public String id;
+    public String name;
+    public String telNo;
+    public String frontLat;
+    public String frontLon;
+    public String noorLat;
+    public String noorLon;
+    public String upperAddrName;
+    public String middleAddrName;
+    public String lowerAddrName;
+    public String detailAddrName;
     @SerializedName("radius")
-    String distance;
+    public String distance;
 
     @Override
     public String toString() {

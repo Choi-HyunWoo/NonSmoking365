@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Centers;
+package aftercoffee.org.nonsmoking365.Data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public class POIS {
     @SerializedName("poi")
-    List<POI> poilist;
+    public List<POI> poilist;
 }

@@ -1,0 +1,12 @@
+package aftercoffee.org.nonsmoking365.Data;
+
+/**
+ * Created by Tacademy on 2015-11-13.
+ */
+public class Image {
+    public String _id;
+    //public int seq;
+    public String name;
+    public String uri;
+    //public int __v;
+}

@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import aftercoffee.org.nonsmoking365.Data.Image;
+
 /**
  * Created by Tacademy on 2015-11-11.
  */

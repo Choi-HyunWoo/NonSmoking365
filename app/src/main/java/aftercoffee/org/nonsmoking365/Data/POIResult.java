@@ -1,6 +1,4 @@
-package aftercoffee.org.nonsmoking365.Manager;
-
-import aftercoffee.org.nonsmoking365.Centers.SearchPOIInfo;
+package aftercoffee.org.nonsmoking365.Data;
 
 /**
  * Created by HYUNWOO on 2015-11-14.

@@ -7,7 +7,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,13 +22,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.skp.Tmap.TMapView;
-
+import aftercoffee.org.nonsmoking365.Data.POI;
+import aftercoffee.org.nonsmoking365.Data.SearchPOIInfo;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 

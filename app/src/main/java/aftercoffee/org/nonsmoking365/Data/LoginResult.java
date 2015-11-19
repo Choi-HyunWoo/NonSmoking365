@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.Manager;
+package aftercoffee.org.nonsmoking365.Data;
 
 import aftercoffee.org.nonsmoking365.login.Login;
 

@@ -1,14 +1,12 @@
 package aftercoffee.org.nonsmoking365.Centers;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import aftercoffee.org.nonsmoking365.Data.POI;
 import aftercoffee.org.nonsmoking365.R;
 
 /**
