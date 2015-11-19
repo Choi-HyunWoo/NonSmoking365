@@ -119,6 +119,7 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 listener.onSuccess(responseString);
@@ -126,8 +127,28 @@ public class NetworkManager {
         });
     }
 
+    /** 회원가입
+     *
+     */
+    // 회원가입 post
+    private static final String USERS_URL = SERVER + "/users";
+    public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+        params.put("password", password);
+        params.put("nick", nickname);
+        client.post(context, USERS_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
 
-
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
 
     /** 금연 정보 게시판
      *
@@ -222,48 +243,6 @@ public class NetworkManager {
                 listener.onFail(statusCode);
             }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                listener.onSuccess(responseString);
-            }
-        });
-    }
-
-
-    /*
-    public void login (Context context, String email, String password, final OnResultListener<String> listener) {
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("password", password);
-        client.post(context, USERS_URL, params, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
-            }
-        });
-    }
-    */
-
-    /** 회원가입
-     *
-     */
-    // 회원가입 post
-    private static final String USERS_URL = SERVER + "/users";
-    public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("password", password);
-        params.put("nick", nickname);
-        client.post(context, USERS_URL, params, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                listener.onFail(statusCode);
-            }
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 listener.onSuccess(responseString);
