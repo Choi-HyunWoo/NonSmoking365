@@ -3,7 +3,7 @@ package aftercoffee.org.nonsmoking365.Manager;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import aftercoffee.org.nonsmoking365.main.CountItem;
+import aftercoffee.org.nonsmoking365.Activity.main.CountItem;
 import aftercoffee.org.nonsmoking365.MyApplication;
 
 /**

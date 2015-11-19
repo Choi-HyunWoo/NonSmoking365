@@ -2,10 +2,7 @@ package aftercoffee.org.nonsmoking365.Data;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import aftercoffee.org.nonsmoking365.board.Board;
+import aftercoffee.org.nonsmoking365.Activity.board.Board;
 
 /**
  * Created by Tacademy on 2015-11-11.

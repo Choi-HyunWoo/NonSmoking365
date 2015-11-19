@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:id="@+id/container"
-    tools:context="aftercoffee.org.nonsmoking365.Centers.CentersActivity">
+    tools:context="aftercoffee.org.nonsmoking365.Activity.centers.CentersActivity">
 
 </RelativeLayout>

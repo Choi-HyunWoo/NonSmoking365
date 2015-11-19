@@ -28,9 +28,9 @@ import aftercoffee.org.nonsmoking365.Data.LoginResult;
 import aftercoffee.org.nonsmoking365.Data.NoticeResult;
 import aftercoffee.org.nonsmoking365.Data.POIResult;
 import aftercoffee.org.nonsmoking365.MyApplication;
-import aftercoffee.org.nonsmoking365.Notice.Notice;
-import aftercoffee.org.nonsmoking365.board.Board;
-import aftercoffee.org.nonsmoking365.board.Docs;
+import aftercoffee.org.nonsmoking365.Activity.notice.Notice;
+import aftercoffee.org.nonsmoking365.Activity.board.Board;
+import aftercoffee.org.nonsmoking365.Activity.board.Docs;
 import aftercoffee.org.nonsmoking365.Data.Login;
 
 /**

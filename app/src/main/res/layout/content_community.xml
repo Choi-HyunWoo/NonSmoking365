@@ -10,6 +10,6 @@
     android:background="@color/colorWhite"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_community"
-    tools:context="aftercoffee.org.nonsmoking365.Community.CommunityActivity">
+    tools:context="aftercoffee.org.nonsmoking365.Activity.community.CommunityActivity">
 
 </RelativeLayout>

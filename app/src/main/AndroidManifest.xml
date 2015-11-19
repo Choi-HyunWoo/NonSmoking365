@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:theme="@style/FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,38 +30,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreviewActivity" >
+        <activity android:name=".Activity.PreviewActivity" >
         </activity>
-        <activity android:name=".BasisInfoActivity" >
+        <activity android:name=".Activity.BasisInfoActivity" >
         </activity>
-        <activity android:name=".main.MainActivity" >
+        <activity android:name=".Activity.main.MainActivity" >
         </activity>
-        <activity android:name=".Centers.CentersActivity" >
+        <activity android:name=".Activity.centers.CentersActivity" >
         </activity>
-        <activity android:name=".board.BoardActivity" >
+        <activity android:name=".Activity.board.BoardActivity" >
         </activity>
-        <activity android:name=".login.LoginActivity" >
+        <activity android:name=".Activity.login.LoginActivity" >
         </activity>
-        <activity android:name=".Notice.NoticeActivity" >
+        <activity android:name=".Activity.notice.NoticeActivity" >
         </activity>
-        <activity android:name=".AlarmActivity" >
+        <activity android:name=".Activity.AlarmActivity" >
         </activity>
-        <activity android:name=".Question.QuestionActivity" >
+        <activity android:name=".Activity.question.QuestionActivity" >
         </activity>
-        <activity android:name=".WithdrawActivity" >
+        <activity android:name=".Activity.WithdrawActivity" >
         </activity>
-        <activity android:name=".VersionInfoActivity" >
+        <activity android:name=".Activity.VersionInfoActivity" >
         </activity>
-        <activity android:name=".AccessTermsActivity" >
+        <activity android:name=".Activity.AccessTermsActivity" >
         </activity>
         <activity
-            android:name=".Community.CommunityActivity"
+            android:name=".Activity.community.CommunityActivity"
             android:label="@string/title_activity_community"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".ServiceInfoActivity" >
+        <activity android:name=".Activity.ServiceInfoActivity" >
         </activity>
-        <activity android:name=".CountResultActivity" >
+        <activity android:name=".Activity.CountResultActivity" >
         </activity>
     </application>
 

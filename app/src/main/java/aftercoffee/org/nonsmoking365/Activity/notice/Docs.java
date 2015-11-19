@@ -1,0 +1,26 @@
+package aftercoffee.org.nonsmoking365.Activity.notice;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import aftercoffee.org.nonsmoking365.Data.Image;
+
+/**
+ * Created by Tacademy on 2015-11-11.
+ */
+public class Docs /*implements JSONParsing*/ {
+    /**
+     * 공지사항 item
+     */
+    String _id;
+    int seq;
+    String title;
+    String content;
+//    Boolean isAlarm;
+//    int __v;
+    @SerializedName("image_ids")
+    List<Image> image_ids;
+    String created;
+
+}
