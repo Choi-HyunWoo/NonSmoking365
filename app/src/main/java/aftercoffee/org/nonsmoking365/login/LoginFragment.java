@@ -54,6 +54,9 @@ public class LoginFragment extends Fragment {
         passwordView = (EditText)v.findViewById(R.id.edit_password);
         autoLoginCheckView = (CheckBox)v.findViewById(R.id.checkBox_autologin);
 
+        emailView.setText(UserManager.getInstance().getUserEmail());
+        passwordView.setText(UserManager.getInstance().getUserPassword());
+
         // Login Button clicked
         btn = (Button)v.findViewById(R.id.btn_login);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -69,10 +72,12 @@ public class LoginFragment extends Fragment {
                         public void onSuccess(String result) {
                             if (result.equals("ok")) {
                                 if (autoLoginCheckView.isChecked()) {
-                                    PropertyManager.getInstance().setId(email);
-                                    PropertyManager.getInstance().setPassword(password);
+                                    //PropertyManager.getInstance().setAutoLoginId(email);
+                                    //PropertyManager.getInstance().setAutoLoginPassword(password);
                                 }
                                 UserManager.getInstance().setLoginState(true);
+                                UserManager.getInstance().setUserEmail(email);
+                                UserManager.getInstance().setUserPassword(password);
                                 Toast.makeText(getActivity(), "로그인 성공!", Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
                             } else {
