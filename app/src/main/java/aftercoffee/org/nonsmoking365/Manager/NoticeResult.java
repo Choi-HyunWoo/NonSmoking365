@@ -9,5 +9,5 @@ import aftercoffee.org.nonsmoking365.Notice.Notice;
  */
 public class NoticeResult {
     @SerializedName("data")
-    Notice notice;
+    public Notice notice;
 }

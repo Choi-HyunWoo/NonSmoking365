@@ -29,6 +29,7 @@ import aftercoffee.org.nonsmoking365.Notice.Image;
 import aftercoffee.org.nonsmoking365.Notice.Notice;
 import aftercoffee.org.nonsmoking365.board.Board;
 import aftercoffee.org.nonsmoking365.board.Docs;
+import aftercoffee.org.nonsmoking365.login.Login;
 
 /**
  * Created by Tacademy on 2015-11-03.
@@ -95,7 +96,7 @@ public class NetworkManager {
      *
      */
     private static final String LOGIN_URL = SERVER + "/login";
-    public void login(Context context, String userEmail, String password, final OnResultListener<String> listener) {
+    public void login(Context context, String userEmail, String password, final OnResultListener<Login> listener) {
         RequestParams params = new RequestParams();
         params.put("username", userEmail);
         params.put("password", password);
@@ -107,7 +108,8 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                listener.onSuccess(responseString);
+                LoginResult result = gson.fromJson(responseString, LoginResult.class);
+                listener.onSuccess(result.data);
             }
         });
     }

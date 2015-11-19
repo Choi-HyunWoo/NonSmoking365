@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.basisinfo;
+package aftercoffee.org.nonsmoking365;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -17,13 +17,11 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import aftercoffee.org.nonsmoking365.main.MainActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
-import aftercoffee.org.nonsmoking365.R;
 
 public class BasisInfoActivity extends AppCompatActivity {
 

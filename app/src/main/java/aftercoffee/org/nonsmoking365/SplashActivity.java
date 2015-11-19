@@ -5,12 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 
-import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
-import aftercoffee.org.nonsmoking365.Manager.UserManager;
-import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.main.MainActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 
@@ -41,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         if (autoLogin) {
             String id = PropertyManager.getInstance().getAutoLoginId();
             String password = PropertyManager.getInstance().getAutoLoginPassword();
+            /*
             NetworkManager.getInstance().login(this, id, password, new NetworkManager.OnResultListener<String>() {
                 @Override
                 public void onSuccess(String result) {
@@ -57,6 +53,7 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("Network error/splash", ""+code);
                 }
             });
+            */
         }
         // 자동로그인 OFF
         else {

@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
@@ -23,7 +22,7 @@ import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.AlarmActivity;
-import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
+import aftercoffee.org.nonsmoking365.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.login.LoginActivity;
 import aftercoffee.org.nonsmoking365.Notice.NoticeActivity;
 import aftercoffee.org.nonsmoking365.Question.QuestionActivity;
@@ -124,7 +123,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         if (isLogined) {
             // 로그인 상태
             // ImageLoader.getInstance().displayImage( /* 서버에서 받아온 imageurl */, userProfileImageView, options);
-            userNicknameView.setText("닉네임");
+            userNicknameView.setText(UserManager.getInstance().getUserNickname());
             loginBtn.setText("로그아웃");
             questionBtnForm.setVisibility(View.VISIBLE);
             withdrawBtnForm.setVisibility(View.VISIBLE);

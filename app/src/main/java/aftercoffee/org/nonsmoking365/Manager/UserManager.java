@@ -38,11 +38,18 @@ public class UserManager {
     }
 
     // User info
+    String _id;
     String nickname;
     String email;
     String password;
     String profileImageURL;
 
+    public void setUser_id(String _id) {
+        this._id = _id;
+    }
+    public void getUser_id(String _id) {
+        this._id = _id;
+    }
     public void setUserNickname(String nickname) {
         this.nickname = nickname;
     }

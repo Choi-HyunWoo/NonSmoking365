@@ -13,6 +13,6 @@ import aftercoffee.org.nonsmoking365.board.Board;
 public class BoardResult {
 
     @SerializedName("data")
-    Board board;
+    public Board board;
 
 }

@@ -32,7 +32,7 @@
         </activity>
         <activity android:name=".PreviewActivity" >
         </activity>
-        <activity android:name=".basisinfo.BasisInfoActivity" >
+        <activity android:name=".BasisInfoActivity" >
         </activity>
         <activity android:name=".main.MainActivity" >
         </activity>

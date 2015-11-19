@@ -67,27 +67,30 @@ public class LoginFragment extends Fragment {
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     Toast.makeText(getActivity(), "아이디와 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    NetworkManager.getInstance().login(getContext(), email, password, new NetworkManager.OnResultListener<String>() {
+                    NetworkManager.getInstance().login(getContext(), email, password, new NetworkManager.OnResultListener<Login>() {
                         @Override
-                        public void onSuccess(String result) {
-                            if (result.equals("ok")) {
+                        public void onSuccess(Login result) {
+                            if (result.status.equals("ok")) {
                                 if (autoLoginCheckView.isChecked()) {
                                     PropertyManager.getInstance().setAutoLogin(true);
                                     PropertyManager.getInstance().setAutoLoginId(email);
                                     PropertyManager.getInstance().setAutoLoginPassword(password);
                                 }
                                 UserManager.getInstance().setLoginState(true);
-                                UserManager.getInstance().setUserEmail(email);
-                                UserManager.getInstance().setUserPassword(password);
+                                UserManager.getInstance().setUser_id(result.user._id);
+                                UserManager.getInstance().setUserEmail(result.user.email);
+                                UserManager.getInstance().setUserPassword(result.user.password);
+                                UserManager.getInstance().setUserNickname(result.user.nick);
                                 Toast.makeText(getActivity(), "로그인 성공!", Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
                             } else {
                                 Toast.makeText(getActivity(), "로그인 실패, 아이디와 비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();
                             }
                         }
+
                         @Override
                         public void onFail(int code) {
-                            Toast.makeText(getActivity(), "연결 실패" + code, Toast.LENGTH_SHORT).show();
+
                         }
                     });
                 }

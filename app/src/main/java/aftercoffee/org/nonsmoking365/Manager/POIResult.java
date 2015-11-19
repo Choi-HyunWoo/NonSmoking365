@@ -6,5 +6,5 @@ import aftercoffee.org.nonsmoking365.Centers.SearchPOIInfo;
  * Created by HYUNWOO on 2015-11-14.
  */
 public class POIResult {
-    SearchPOIInfo searchPoiInfo;
+    public SearchPOIInfo searchPoiInfo;
 }

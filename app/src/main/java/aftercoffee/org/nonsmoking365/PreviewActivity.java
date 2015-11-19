@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 
 public class PreviewActivity extends AppCompatActivity {
