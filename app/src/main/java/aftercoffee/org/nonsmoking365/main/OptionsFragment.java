@@ -43,7 +43,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     LinearLayout loginBtnForm, questionBtnForm, withdrawBtnForm, emptyBottomForm;
 
     DisplayImageOptions options;
-    boolean logined = true;
+    boolean logined = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

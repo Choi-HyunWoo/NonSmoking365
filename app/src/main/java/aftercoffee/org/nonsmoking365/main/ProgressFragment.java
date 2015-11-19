@@ -144,7 +144,9 @@ public class ProgressFragment extends Fragment {
                 timeView.setText(s);
 
                 // 절약금액
-                currentSaved = (int)((float)packPrice/20 * ((float)nonSmokingHours/24) * (float)numOfCigar);          // 한시간마다 업데이트
+                currentSaved = (int)
+                          ((float)packPrice/20 * numOfCigar * nonSmokingDays                    // 한 개비 가격 * 1일 흡연량(개비) * 금연날짜
+                        + ((float)packPrice/20 * (float)numOfCigar/24) * nonSmokingHours);      // 한 개비 가격 * 시간당 흡연량(개비) * 금연시간
                 savedMoneyView.setText("담배값 "+currentSaved+" 원 절약중");
 
                 // 건강 상태 (12단계 등급)

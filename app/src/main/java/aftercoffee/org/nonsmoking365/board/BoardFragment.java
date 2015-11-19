@@ -71,29 +71,30 @@ public class BoardFragment extends Fragment {
                         NetworkManager.getInstance().getBoardData(getContext(), BOARD_PAGE_DISPLAY, startPage, new NetworkManager.OnResultListener<Board>() {
                             @Override
                             public void onSuccess(Board result) {
-                                for (Docs d : result.docsList) {
-                                    if (d.category.equals("warning")) {
-                                        BoardWarningItem b = new BoardWarningItem();
-                                        b._id = d._id;
-                                        b.title = d.title;
-                                        b.contents = d.content;
-                                        b.titleImg = R.drawable.sample;
-                                        mAdapter.add(b);
-                                    } else if (d.category.equals("tip")) {
-                                        BoardTipsItem b = new BoardTipsItem();
-                                        b._id = d._id;
-                                        b.title = d.title;
-                                        b.contents = d.content;
-                                        b.titleImg = R.drawable.sample;
-                                        mAdapter.add(b);
-                                    } else {
-                                        BoardAdItem b = new BoardAdItem();
-                                        b._id = d._id;
-                                        b.adImg = R.drawable.sample;
-                                        mAdapter.add(b);
+                                if (result != null) {
+                                    for (Docs d : result.docsList) {
+                                        if (d.category.equals("warning")) {
+                                            BoardWarningItem b = new BoardWarningItem();
+                                            b._id = d._id;
+                                            b.title = d.title;
+                                            b.contents = d.content;
+                                            b.titleImg = R.drawable.sample;
+                                            mAdapter.add(b);
+                                        } else if (d.category.equals("tip")) {
+                                            BoardTipsItem b = new BoardTipsItem();
+                                            b._id = d._id;
+                                            b.title = d.title;
+                                            b.contents = d.content;
+                                            b.titleImg = R.drawable.sample;
+                                            mAdapter.add(b);
+                                        } else {
+                                            BoardAdItem b = new BoardAdItem();
+                                            b._id = d._id;
+                                            b.adImg = R.drawable.sample;
+                                            mAdapter.add(b);
+                                        }
                                     }
                                 }
-
                                 isUpdate = false;
                             }
 
@@ -131,26 +132,28 @@ public class BoardFragment extends Fragment {
             public void onSuccess(Board result) {
                 mAdapter.setTotalCount(result.count);
                 mAdapter.clear();
-                for (Docs d : result.docsList) {
-                    if (d.category.equals("warning")) {
-                        BoardWarningItem b = new BoardWarningItem();
-                        b._id = d._id;
-                        b.title = d.title;
-                        b.contents = d.content;
-                        b.titleImg = R.drawable.sample;
-                        mAdapter.add(b);
-                    } else if (d.category.equals("tip")) {
-                        BoardTipsItem b = new BoardTipsItem();
-                        b._id = d._id;
-                        b.title = d.title;
-                        b.contents = d.content;
-                        b.titleImg = R.drawable.sample;
-                        mAdapter.add(b);
-                    } else {
-                        BoardAdItem b = new BoardAdItem();
-                        b._id = d._id;
-                        b.adImg = R.drawable.sample;
-                        mAdapter.add(b);
+                if (result != null) {
+                    for (Docs d : result.docsList) {
+                        if (d.category.equals("warning")) {
+                            BoardWarningItem b = new BoardWarningItem();
+                            b._id = d._id;
+                            b.title = d.title;
+                            b.contents = d.content;
+                            b.titleImg = R.drawable.sample;
+                            mAdapter.add(b);
+                        } else if (d.category.equals("tip")) {
+                            BoardTipsItem b = new BoardTipsItem();
+                            b._id = d._id;
+                            b.title = d.title;
+                            b.contents = d.content;
+                            b.titleImg = R.drawable.sample;
+                            mAdapter.add(b);
+                        } else {
+                            BoardAdItem b = new BoardAdItem();
+                            b._id = d._id;
+                            b.adImg = R.drawable.sample;
+                            mAdapter.add(b);
+                        }
                     }
                 }
                 refreshView.onRefreshComplete();            // Refresh 완료

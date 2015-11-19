@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +51,6 @@ public class LoginFragment extends Fragment {
         findView = (TextView)v.findViewById(R.id.text_find);
         emailView = (EditText)v.findViewById(R.id.edit_email);
         passwordView = (EditText)v.findViewById(R.id.edit_password);
-
         autoLoginCheckView = (CheckBox)v.findViewById(R.id.checkBox_autologin);
 
         // Login Button clicked
@@ -60,51 +60,47 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 email = emailView.getText().toString();
                 password = passwordView.getText().toString();
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(getActivity(), "아이디와 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    NetworkManager.getInstance().login(getContext(), email, password, new NetworkManager.OnResultListener<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if (result.equals("ok")) {
+                                if (autoLoginCheckView.isChecked()) {
+                                    PropertyManager.getInstance().setId(email);
+                                    PropertyManager.getInstance().setPassword(password);
+                                }
+                                Toast.makeText(getActivity(), "로그인 성공!", Toast.LENGTH_SHORT).show();
+                                getActivity().finish();
+                            } else {
+                                Toast.makeText(getActivity(), "로그인 실패, 아이디와 비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onFail(int code) {
+                            Toast.makeText(getActivity(), "연결 실패" + code, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
 
-                NetworkManager.getInstance().postLogin(getContext(), email, password, new NetworkManager.OnResultListener<String>() {
+        // logout
+        btn = (Button)v.findViewById(R.id.btn_logout);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkManager.getInstance().logout(getContext(), new NetworkManager.OnResultListener<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        if (result.equals("ok")) {
-                            if (autoLoginCheckView.isChecked()) {
-                                PropertyManager.getInstance().setId(email);
-                                PropertyManager.getInstance().setPassword(password);
-                            }
-                            Toast.makeText(getActivity(), "로그인 성공!" + result, Toast.LENGTH_SHORT).show();
-                            getActivity().finish();
-                        } else {
-                            Toast.makeText(getActivity(), "로그인 실패!" + result, Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getActivity(), "로그아웃 되었습니다."+result, Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onFail(int code) {
                         Toast.makeText(getActivity(), "연결 실패"+code, Toast.LENGTH_SHORT).show();
                     }
                 });
-            /*
-                NetworkManager.getInstance().login(id, password, new NetworkManager.OnResultListener<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        if (result.equals("ok")) {
-                            // 자동 로그인이 설정되있다면 SP에 저장
-                            if (autoLoginCheckView.isChecked()) {
-                                PropertyManager.getInstance().setId(ex);
-                                PropertyManager.getInstance().setPassword(password);
-                            }
-                            getActivity().finish();
-                        } else {
-                            // ...
-                            Toast.makeText(getActivity(), "로그인 실패!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int code) {
-                        // ...
-                        Toast.makeText(getActivity(), "CONNECTION FAIL", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            */
             }
         });
 

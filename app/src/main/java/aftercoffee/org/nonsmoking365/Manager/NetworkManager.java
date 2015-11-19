@@ -87,19 +87,6 @@ public class NetworkManager {
     }
 
 
-
-    ///////////////////////////////////////////////////////////////////////////////Sample
-    Handler mHadler = new Handler(Looper.getMainLooper());
-    public void login(String userid, String password, final OnResultListener<String> listener) {
-        mHadler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                listener.onSuccess("ok");
-            }
-        }, 1000);
-    }
-    ///////////////////////////////////////////////////////////////////////////////
-
     // Server URL
     private static final String SERVER = "http://52.68.247.34:3000";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
@@ -108,9 +95,9 @@ public class NetworkManager {
      *
      */
     private static final String LOGIN_URL = SERVER + "/login";
-    public void postLogin(Context context, String userEmail, String password, final OnResultListener<String> listener) {
+    public void login(Context context, String userEmail, String password, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
-        params.put("email", userEmail);
+        params.put("username", userEmail);
         params.put("password", password);
         client.post(context, LOGIN_URL, params, new TextHttpResponseHandler() {
             @Override
@@ -124,6 +111,22 @@ public class NetworkManager {
             }
         });
     }
+
+    private static final String LOGOUT_URL = SERVER + "/logout";
+    public void logout(Context context, final OnResultListener<String> listener) {
+        client.get(context, LOGOUT_URL, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+
 
 
     /** 금연 정보 게시판
