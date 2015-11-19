@@ -31,20 +31,23 @@ import aftercoffee.org.nonsmoking365.R;
  */
 public class BoardContentsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_DOCID = "selected_docID";
-
-    // TODO: Rename and change types of parameters
-    private String docID;
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param selectedDocID Selected doc ID.
-     * @return A new instance of fragment BlankFragment.
+     * 글 선택 시, 글 내용을 가져오는 화면
+     * 선택된 글의 ID를 fragment parameter로 가져와서 글 Data를 서버에서 받아올 것.
+
+     * <Layout>
+     * 글 내용 , 댓글 리스트 , 댓글 적는 란이 있다.
+     * (글 내용은 댓글 리스트의 HeaderView로 붙일 것)
+     * 글 내용 [HeaderView] ; 글 title, 글 content, 카테고리, 좋아요 Button, 공유하기 Button
+     * 댓글 리스트 [ListView]
+     * 댓글 적는 란 [EditText], 등록 버튼 [Button]
      */
-    // TODO: Rename and change types and number of parameters
+
+    // The fragment initialization parameter
+    // 선택된 글의 ID
+    private static final String ARG_DOCID = "selected_docID";
+    private String docID;       // Board List 에서 선택된 글의 ID
+
     public static BoardContentsFragment newInstance(String selectedDocID) {
         BoardContentsFragment fragment = new BoardContentsFragment();
         Bundle args = new Bundle();
@@ -54,8 +57,10 @@ public class BoardContentsFragment extends Fragment {
     }
 
     DisplayImageOptions options;
+
     public BoardContentsFragment() {
         // Required empty public constructor
+        // Universal ImageLoader의 option을 초기화
         this.setHasOptionsMenu(true);
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.icon_image_add)
@@ -72,7 +77,7 @@ public class BoardContentsFragment extends Fragment {
     ImageView imageView;
     Button likeBtn;
     ListView commentListView;
-    ArrayAdapter<String> mAdapter;
+    BoardContentsAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +100,8 @@ public class BoardContentsFragment extends Fragment {
                 categoryView.setText(result.category);                  // 한글로 수정할것
                 if (result.commentsList.size() != 0) {
                     for (int i=0; i<result.commentsList.size(); i++) {
-                        mAdapter.add(result.commentsList.get(i).content);
+                        // 댓글 추가
+                        // mAdapter.add(result.commentsList.get(i).content);
                     }
                 }
             }
@@ -118,11 +124,11 @@ public class BoardContentsFragment extends Fragment {
         categoryView = (TextView)view.findViewById(R.id.text_category);
         commentListView = (ListView)view.findViewById(R.id.list_comment);
         likeBtn = (Button)view.findViewById(R.id.btn_like);
-        mAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+        mAdapter = new BoardContentsAdapter();
         commentListView.setAdapter(mAdapter);
 
 
-        // 좋아요 버튼이 눌린 경우
+        // 좋아요 버튼
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
