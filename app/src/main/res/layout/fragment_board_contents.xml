@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
     tools:context="aftercoffee.org.nonsmoking365.board.BoardContentsFragment">
 
@@ -11,14 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
+        android:text="글 제목"
         android:id="@+id/text_title"
         android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="카테고리"
         android:id="@+id/text_category"
         android:layout_gravity="right" />
 
@@ -32,19 +31,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
+        android:text="글 내용"
         android:id="@+id/text_content" />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="좋아요"
-        android:id="@+id/btn_like" />
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="좋아요"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/btn_color_border"
+            android:id="@+id/btn_like" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="공유하기"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/btn_color_border"
+            android:id="@+id/btn_share" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         android:text="댓글" />
 
     <ListView
