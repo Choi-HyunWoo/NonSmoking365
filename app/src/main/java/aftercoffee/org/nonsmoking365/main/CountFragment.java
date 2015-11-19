@@ -31,12 +31,15 @@ import java.util.Locale;
 
 import aftercoffee.org.nonsmoking365.CountResultActivity;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CountFragment extends Fragment {
+
+    boolean isLogined;
 
     LinearLayout layout;
     GridView countGridView;
@@ -57,6 +60,7 @@ public class CountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_count, container, false);
+        isLogined = UserManager.getInstance().getLoginState();
 
         // View initialize
         layout = (LinearLayout)view.findViewById(R.id.layout);
@@ -280,6 +284,7 @@ public class CountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        isLogined = UserManager.getInstance().getLoginState();
         mHandler.removeCallbacks(countRunnable);
         if (startTime != -1) {
             mHandler.post(countRunnable);

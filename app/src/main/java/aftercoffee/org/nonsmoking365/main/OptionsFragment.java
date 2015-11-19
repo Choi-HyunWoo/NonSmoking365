@@ -11,12 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.AlarmActivity;
 import aftercoffee.org.nonsmoking365.basisinfo.BasisInfoActivity;
@@ -32,6 +35,7 @@ import aftercoffee.org.nonsmoking365.WithdrawActivity;
  */
 public class OptionsFragment extends Fragment implements View.OnClickListener {
 
+    boolean isLogined;
 
     public OptionsFragment() {
         // Required empty public constructor
@@ -43,12 +47,12 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     LinearLayout loginBtnForm, questionBtnForm, withdrawBtnForm, emptyBottomForm;
 
     DisplayImageOptions options;
-    boolean logined = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_options, container, false);
+        isLogined = UserManager.getInstance().getLoginState();
 
         // View Initialize
         userProfileImageView = (ImageView)v.findViewById(R.id.image_userProfileImage);
@@ -72,17 +76,16 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         userProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 프로필 사진 변경
 
             }
         });
         userNicknameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 닉네임 변경
             }
         });
-
-
 
         // Etc option buttons setting
         loginBtn = (Button)v.findViewById(R.id.btn_login);
@@ -109,13 +112,15 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        isLogined = UserManager.getInstance().getLoginState();
         setViewLogined();
     }
 
 
     // 로그인 시 변화될 부분들
+    // create, resume 시에 부르자..
     private void setViewLogined() {
-        if (logined) {
+        if (isLogined) {
             // 로그인 상태
             // ImageLoader.getInstance().displayImage( /* 서버에서 받아온 imageurl */, userProfileImageView, options);
             userNicknameView.setText("닉네임");
@@ -135,11 +140,33 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    // Buttons Listener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                // 로그인 상태일 때 (로그아웃 버튼)
+                if (isLogined) {
+                    // 로그아웃 처리
+                    NetworkManager.getInstance().logout(getContext(), new NetworkManager.OnResultListener<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Toast.makeText(getActivity(), "로그아웃 되었습니다." + result, Toast.LENGTH_SHORT).show();
+                            UserManager.getInstance().setLoginState(false);
+                            isLogined = false;
+                            setViewLogined();
+                        }
+                        @Override
+                        public void onFail(int code) {
+                            Toast.makeText(getActivity(), "연결 실패"+code, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                // 로그아웃 상태일 때 (로그인 버튼)
+                else {
+                    // 로그인 화면으로
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
                 break;
             case R.id.btn_basisInfo:
                 Intent intent = new Intent(getActivity(), BasisInfoActivity.class);
@@ -156,9 +183,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), QuestionActivity.class));
                 break;
             case R.id.btn_withdraw:
-                //startActivity(new Intent(getActivity(), WithdrawActivity.class));
-                if (logined) logined = false;
-                else logined = true;
+                startActivity(new Intent(getActivity(), WithdrawActivity.class));
                 break;
             case R.id.btn_versionInfo:
                 startActivity(new Intent(getActivity(), VersionInfoActivity.class));

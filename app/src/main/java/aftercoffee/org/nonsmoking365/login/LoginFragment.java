@@ -19,6 +19,7 @@ import android.widget.Toast;
 import aftercoffee.org.nonsmoking365.Manager.LoginResult;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
 
@@ -71,6 +72,7 @@ public class LoginFragment extends Fragment {
                                     PropertyManager.getInstance().setId(email);
                                     PropertyManager.getInstance().setPassword(password);
                                 }
+                                UserManager.getInstance().setLoginState(true);
                                 Toast.makeText(getActivity(), "로그인 성공!", Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
                             } else {
@@ -86,23 +88,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // logout
-        btn = (Button)v.findViewById(R.id.btn_logout);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetworkManager.getInstance().logout(getContext(), new NetworkManager.OnResultListener<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Toast.makeText(getActivity(), "로그아웃 되었습니다."+result, Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onFail(int code) {
-                        Toast.makeText(getActivity(), "연결 실패"+code, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
         // Facebook login clicked
         btn = (Button)v.findViewById(R.id.btn_facebook);

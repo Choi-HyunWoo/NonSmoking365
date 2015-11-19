@@ -10,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     TabHost tabHost;
     ViewPager pager;
     TabsAdapter mAdapter;
+    boolean isLogined;
 
     private static final String TAB_TAG = "currentTab";
     private static final String TAB_ID_PROGRESS = "tab_progress";
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("금연 진행 현황");
         actionBar.setElevation(0);
+        isLogined = UserManager.getInstance().getLoginState();
 
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
         tabHost.setup();
@@ -103,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         mAdapter.onSaveInstanceState(outState);
         outState.putString(TAB_TAG, tabHost.getCurrentTabTag());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isLogined = UserManager.getInstance().getLoginState();
     }
 
     @Override

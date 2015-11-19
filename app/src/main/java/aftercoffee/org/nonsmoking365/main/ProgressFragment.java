@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.Community.CommunityActivity;
 import aftercoffee.org.nonsmoking365.ServiceInfoActivity;
@@ -31,6 +32,8 @@ import aftercoffee.org.nonsmoking365.Centers.CentersActivity;
  * A simple {@link Fragment} subclass.
  */
 public class ProgressFragment extends Fragment {
+
+    boolean isLogined;
 
     private static final long TIME_SEC = 1000;
     private static final long TIME_MIN = 60 * TIME_SEC;
@@ -55,6 +58,7 @@ public class ProgressFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
+        isLogined = UserManager.getInstance().getLoginState();
 
         // Initialize view
         gradeView = (TextView)view.findViewById(R.id.text_gradeView);
@@ -65,7 +69,11 @@ public class ProgressFragment extends Fragment {
 
         // 회원 등급
         /** 회원 등급 Network에서 받아와서 처리할 것 */
-        gradeView.setText("일반 회원");
+        if (isLogined) {
+            gradeView.setText("일반 회원");
+        } else {
+            gradeView.setText("비회원");
+        }
 
         // 금연 목표
         String motto = PropertyManager.getInstance().getBasisMotto();
@@ -121,7 +129,21 @@ public class ProgressFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // 로그인 / 비로그인 구분
+        setViewLogined();
+
         return view;
+    }
+
+    // 로그인 시 변화될 부분들
+    // create, resume 시에 부르자..
+    private void setViewLogined() {
+        if (isLogined) {
+            gradeView.setText("일반 회원");
+        } else {
+            gradeView.setText("비회원");
+        }
     }
 
     Handler mHandler = new Handler();
@@ -201,6 +223,8 @@ public class ProgressFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        isLogined = UserManager.getInstance().getLoginState();
+        setViewLogined();
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
     }
