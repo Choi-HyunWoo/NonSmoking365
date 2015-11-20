@@ -30,6 +30,7 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
+        // GCM으로부터 이 함수를 통해 메세지를 받는다. 이때 전송한 SenderID와 Set 타입의 데이터 컬렉션 형태로 받게된다.
         String message = data.getString("message");
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
