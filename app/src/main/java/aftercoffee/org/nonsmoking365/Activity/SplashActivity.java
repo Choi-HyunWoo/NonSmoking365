@@ -5,9 +5,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.Activity.main.MainActivity;
+import aftercoffee.org.nonsmoking365.Data.Login;
+import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
+import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -37,24 +42,33 @@ public class SplashActivity extends AppCompatActivity {
         if (autoLogin) {
             String id = PropertyManager.getInstance().getAutoLoginId();
             String password = PropertyManager.getInstance().getAutoLoginPassword();
-            /*
-            NetworkManager.getInstance().login(this, id, password, new NetworkManager.OnResultListener<String>() {
+
+            NetworkManager.getInstance().login(this, id, password, new NetworkManager.OnResultListener<Login>() {
                 @Override
-                public void onSuccess(String result) {
-                    if (result.equals("ok")) {
+                public void onSuccess(Login result) {
+                    if (result.status.equals("ok")) {
+                        // 자동 로그인 성공 >> 유저 정보 저장
                         UserManager.getInstance().setLoginState(true);
-                        goMain();
+                        UserManager.getInstance().setUser_id(result.user._id);
+                        UserManager.getInstance().setUserEmail(result.user.email);
+                        UserManager.getInstance().setUserPassword(result.user.password);
+                        UserManager.getInstance().setUserNickname(result.user.nick);
+                        choiceNextActivity();
                     } else {
+                        // 자동 로그인 실패 >> 비회원으로 접속
                         UserManager.getInstance().setLoginState(false);
-                        goMain();
+                        choiceNextActivity();
                     }
                 }
+
                 @Override
                 public void onFail(int code) {
-                    Log.d("Network error/splash", ""+code);
+                    // 서버와의 연결 실패 >> 로그 띄우고 비회원으로 접속
+                    UserManager.getInstance().setLoginState(false);
+                    Log.d("Network error/splash", "" + code);
+                    choiceNextActivity();
                 }
             });
-            */
         }
         // 자동로그인 OFF
         else {

@@ -26,6 +26,9 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor = mPrefs.edit();
     }
 
+    /* GCM Token */
+    private static final String REG_ID = "regToken";
+
     /* Auto Login Checked */
     public static final String KEY_AUTO_LOGIN = "auto_login";
     public static final String KEY_AUTO_ID = "auto_id";
@@ -48,6 +51,17 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public static final String KEY_COUNT_START_TIME = "count_start_time";
     public static final String KEY_COUNT_SUCCESS = "count_success";
     public static final String KEY_COUNT_FAILURE = "count_failure";
+
+
+    // GCM token
+    public void setRegistrationToken(String regId) {
+        mEditor.putString(REG_ID, regId);
+        mEditor.commit();
+    }
+
+    public String getRegistrationToken() {
+        return mPrefs.getString(REG_ID, "");
+    }
 
 
     // 자동 로그인 설정

@@ -1,7 +1,16 @@
 package aftercoffee.org.nonsmoking365.Activity.main;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,21 +18,31 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
+import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.RegistrationIntentService;
+import aftercoffee.org.nonsmoking365.ServerUtilities;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabHost tabHost;
-    ViewPager pager;
-    TabsAdapter mAdapter;
-    boolean isLogined;
+    // GCM
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     private static final String TAB_TAG = "currentTab";
     private static final String TAB_ID_PROGRESS = "tab_progress";
     private static final String TAB_ID_COUNT = "tab_count";
     private static final String TAB_ID_SETTINGS = "tab_settings";
+
+    TabHost tabHost;
+    ViewPager pager;
+    TabsAdapter mAdapter;
+    boolean isLogined;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("금연 진행 현황");
         actionBar.setElevation(0);
+
+        // GCM
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                doRealStart();
+            }
+        };
+        setUpIfNeeded();
+
+        //
         isLogined = UserManager.getInstance().getLoginState();
 
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
@@ -111,7 +141,69 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(RegistrationIntentService.REGISTRATION_COMPLETE));
         isLogined = UserManager.getInstance().getLoginState();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PLAY_SERVICES_RESOLUTION_REQUEST &&
+                resultCode == Activity.RESULT_OK) {
+            setUpIfNeeded();
+        }
+    }
+
+    private void setUpIfNeeded() {
+        if (checkPlayServices()) {
+            String regId = PropertyManager.getInstance().getRegistrationToken();
+            if (!regId.equals("")) {
+                doRealStart();
+            } else {
+                Intent intent = new Intent(this, RegistrationIntentService.class);
+                startService(intent);
+            }
+        }
+    }
+
+    private void doRealStart() {
+        // activity start...
+        new AsyncTask<Void,Void,Boolean>(){
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                String regid = PropertyManager.getInstance().getRegistrationToken();
+                ServerUtilities.register(MainActivity.this, regid);
+                return null;
+            }
+        }.execute();
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                Dialog dialog = apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        finish();
+                    }
+                });
+                dialog.show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
