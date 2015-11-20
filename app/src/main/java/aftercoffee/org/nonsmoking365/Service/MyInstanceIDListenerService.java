@@ -1,8 +1,6 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Service;
 
-import android.app.Service;
 import android.content.Intent;
-import android.os.IBinder;
 
 import com.google.android.gms.iid.InstanceIDListenerService;
 

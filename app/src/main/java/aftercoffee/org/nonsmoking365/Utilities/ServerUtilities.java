@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Utilities;
 
 import android.content.Context;
 import android.util.Log;
@@ -86,7 +86,7 @@ public final class ServerUtilities {
      *
      * @throws IOException propagated from POST.
      */
-    private static void post(String endpoint, Map<String, String> params)
+    public static void post(String endpoint, Map<String, String> params)
             throws IOException {
         URL url;
         try {

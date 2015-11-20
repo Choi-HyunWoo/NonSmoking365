@@ -25,8 +25,8 @@ import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.Manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
-import aftercoffee.org.nonsmoking365.RegistrationIntentService;
-import aftercoffee.org.nonsmoking365.ServerUtilities;
+import aftercoffee.org.nonsmoking365.Service.RegistrationIntentService;
+import aftercoffee.org.nonsmoking365.Utilities.ServerUtilities;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,14 +56,16 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setElevation(0);
 
         // GCM
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                doRealStart();
-            }
-        };
-        setUpIfNeeded();
-
+        if (!PropertyManager.getInstance().getGCMSended()) {
+            mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    doRealStart();
+                }
+            };
+            setUpIfNeeded();
+            PropertyManager.getInstance().setGCMSended(true);
+        }
         //
         isLogined = UserManager.getInstance().getLoginState();
 

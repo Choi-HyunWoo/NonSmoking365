@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,6 +15,7 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 
 import aftercoffee.org.nonsmoking365.Activity.main.MainActivity;
+import aftercoffee.org.nonsmoking365.R;
 
 public class MyGcmListenerService extends GcmListenerService {
 

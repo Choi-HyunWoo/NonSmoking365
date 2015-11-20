@@ -28,6 +28,7 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
 
     /* GCM Token */
     private static final String REG_ID = "regToken";
+    public static final String GCM_SENDED = "gcm_sended";
 
     /* Auto Login Checked */
     public static final String KEY_AUTO_LOGIN = "auto_login";
@@ -58,9 +59,16 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
         mEditor.putString(REG_ID, regId);
         mEditor.commit();
     }
-
     public String getRegistrationToken() {
         return mPrefs.getString(REG_ID, "");
+    }
+    // GCM sended check
+    public void setGCMSended(boolean isSended) {
+        mEditor.putBoolean(GCM_SENDED, isSended);
+        mEditor.commit();
+    }
+    public boolean getGCMSended() {
+        return mPrefs.getBoolean(GCM_SENDED, false);
     }
 
 

@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365;
+package aftercoffee.org.nonsmoking365.Service;
 
 import android.app.IntentService;
 import android.app.Service;
@@ -14,6 +14,7 @@ import com.google.android.gms.iid.InstanceID;
 import java.io.IOException;
 
 import aftercoffee.org.nonsmoking365.Manager.PropertyManager;
+import aftercoffee.org.nonsmoking365.R;
 
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
