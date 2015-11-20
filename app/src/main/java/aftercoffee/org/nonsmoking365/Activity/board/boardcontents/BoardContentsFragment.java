@@ -1,16 +1,21 @@
 package aftercoffee.org.nonsmoking365.Activity.board.boardcontents;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,7 +25,10 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import aftercoffee.org.nonsmoking365.Activity.board.BoardActivity;
+import aftercoffee.org.nonsmoking365.Activity.login.LoginActivity;
+import aftercoffee.org.nonsmoking365.Activity.main.ProgressFragment;
 import aftercoffee.org.nonsmoking365.Data.BoardDocs;
+import aftercoffee.org.nonsmoking365.Data.BoardResult;
 import aftercoffee.org.nonsmoking365.Data.LikesResult;
 import aftercoffee.org.nonsmoking365.Manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.Manager.UserManager;
@@ -76,6 +84,8 @@ public class BoardContentsFragment extends Fragment {
     }
 
     ListView listView;                  // 글내용 (헤더) + 댓글 (리스트)
+    EditText commentView;
+    Button commentSendBtn;
     BoardContentsAdapter mAdapter;
 
     @Override
@@ -90,11 +100,13 @@ public class BoardContentsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_contents, container, false);
         listView = (ListView)view.findViewById(R.id.list_comment);
+        commentView = (EditText)view.findViewById(R.id.edit_comment);
+        commentSendBtn = (Button)view.findViewById(R.id.btn_comment_send);
 
         // 글 내용과 댓글들 가져오기
         NetworkManager.getInstance().getBoardContentAndComments(getContext(), docID, new NetworkManager.OnResultListener<BoardDocs>() {
@@ -111,22 +123,26 @@ public class BoardContentsFragment extends Fragment {
                 contentView.setContentItem(contents);
 
                 // ListView settings
+                // 본문
                 listView.addHeaderView(contentView, null, false);
                 mAdapter = new BoardContentsAdapter();
                 listView.setAdapter(mAdapter);
-
-                // 댓글 추가하기
+                // 댓글
                 if (result.commentsList.size() != 0) {
                     for (int i = 0; i < result.commentsList.size(); i++) {
                         // 댓글 추가
                         BoardCommentItem comment = new BoardCommentItem();
                         // 프로필사진 <<
+                        comment.docID = result._id;
+                        comment._id = result.commentsList.get(i)._id;
+                        comment.user_id = result.commentsList.get(i).user_id._id;
                         comment.nickname = result.commentsList.get(i).user_id.nick;
                         comment.content = result.commentsList.get(i).content;
                         comment.date = result.commentsList.get(i).created;
                         mAdapter.addComment(comment);
                     }
                 }
+
                 /*
                 // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
                 if (result.image_ids.size() != 0)
@@ -138,6 +154,66 @@ public class BoardContentsFragment extends Fragment {
             @Override
             public void onFail(int code) {
                 Log.d("BoardContent Load ", "network error/" + code);
+            }
+        });
+
+        // 댓글 등록
+        commentSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 로그인인 경우에만 댓글 달기 가능
+                if (isLogined) {
+                    String content = commentView.getText().toString();
+                    if (!TextUtils.isEmpty(content)) {
+                        String user_id = UserManager.getInstance().getUser_id();
+                        NetworkManager.getInstance().postBoardComment(getContext(), docID, user_id, content, new NetworkManager.OnResultListener<BoardDocs>() {
+                            @Override
+                            public void onSuccess(BoardDocs result) {
+                                Toast.makeText(getContext(), "댓글이 등록되었습니다", Toast.LENGTH_SHORT).show();
+                                mAdapter.clear();
+                                if (result.commentsList.size() != 0) {
+                                    for (int i = 0; i < result.commentsList.size(); i++) {
+                                        // 댓글 추가
+                                        BoardCommentItem comment = new BoardCommentItem();
+                                        // 프로필사진 <<
+                                        comment.docID = result._id;
+                                        comment._id = result.commentsList.get(i)._id;
+                                        comment.user_id = result.commentsList.get(i).user_id._id;
+                                        comment.nickname = result.commentsList.get(i).user_id.nick;
+                                        comment.content = result.commentsList.get(i).content;
+                                        comment.date = result.commentsList.get(i).created;
+                                        mAdapter.addComment(comment);
+                                    }
+                                }
+                                commentView.setText("");
+                            }
+                            @Override
+                            public void onFail(int code) {
+                                Log.d("Comment :", "Network error" + code);
+                            }
+                        });
+                    }
+                }
+                // 비 로그인시 처리
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("로그인");
+                    builder.setMessage("댓글 작성은 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dlg = builder.create();
+                    dlg.show();
+                }
             }
         });
 

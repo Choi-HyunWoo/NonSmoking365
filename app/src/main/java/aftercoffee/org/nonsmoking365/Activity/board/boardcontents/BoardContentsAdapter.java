@@ -19,6 +19,11 @@ public class BoardContentsAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        items.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return items.size();
@@ -43,6 +48,7 @@ public class BoardContentsAdapter extends BaseAdapter {
             view = new BoardCommentItemView(parent.getContext());
         }
         view.setCommentItem(items.get(position));
+
         return view;
     }
 }

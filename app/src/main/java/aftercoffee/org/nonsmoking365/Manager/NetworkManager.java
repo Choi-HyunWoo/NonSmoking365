@@ -193,10 +193,10 @@ public class NetworkManager {
         });
     }
     // 정보글에 좋아요 클릭 시 post
-    public void postBoardLike(Context context, String docID, String userID, final OnResultListener<LikesResult> listener) {
+    public void postBoardLike(Context context, String docID, String user_id, final OnResultListener<LikesResult> listener) {
         RequestParams params = new RequestParams();
-        params.put("_id", userID);
-        client.post(context, BOARD_URL+"/" + docID + "/likes", params, new TextHttpResponseHandler() {
+        params.put("_id", user_id);
+        client.post(context, BOARD_URL + "/" + docID + "/likes", params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -204,8 +204,40 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //NoticeDocs result = gson.fromJson(responseString, NoticeDocs.class);
                 LikesResult result = gson.fromJson(responseString, LikesResult.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+    public void postBoardComment(Context context, String docID, String user_id, String content, final OnResultListener<BoardDocs> listener) {
+        RequestParams params = new RequestParams();
+        params.put("user_id", user_id);
+        params.put("content", content);
+        client.post(context, BOARD_URL + "/" + docID + "/comments", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                BoardDocs result = gson.fromJson(responseString, BoardDocs.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+    public void postBoardCommentDelete(Context context, String docID, String comment_id, final OnResultListener<BoardDocs> listener) {
+        RequestParams params = new RequestParams();
+        params.put("_id", comment_id);
+        client.post(context, BOARD_URL + "/" + docID + "/comments", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                BoardDocs result = gson.fromJson(responseString, BoardDocs.class);
                 listener.onSuccess(result);
             }
         });
