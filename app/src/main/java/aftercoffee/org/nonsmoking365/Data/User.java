@@ -1,5 +1,7 @@
 package aftercoffee.org.nonsmoking365.Data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -14,6 +16,6 @@ public class User {
     //public int __v;
     //public String created;
 
-    // TODO 서버 Multipart 작업 끝나면 추가
-    // List<Image> image_ids;
+    //@SerializedName("image_ids")
+    //public List<Image> image_ids;
 }

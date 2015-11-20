@@ -122,7 +122,8 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     private void setViewLogined() {
         if (isLogined) {
             // 로그인 상태
-            // ImageLoader.getInstance().displayImage( /* 서버에서 받아온 imageurl */, userProfileImageView, options);
+            String profileImgUrl = UserManager.getInstance().getUserProfileImageURL();
+            ImageLoader.getInstance().displayImage(profileImgUrl, userProfileImageView, options);
             userNicknameView.setText(UserManager.getInstance().getUserNickname());
             loginBtn.setText("로그아웃");
             questionBtnForm.setVisibility(View.VISIBLE);

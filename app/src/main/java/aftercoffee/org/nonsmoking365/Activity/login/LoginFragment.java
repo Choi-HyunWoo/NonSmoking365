@@ -78,6 +78,17 @@ public class LoginFragment extends Fragment {
                                 }
                                 UserManager.getInstance().setLoginState(true);
                                 UserManager.getInstance().setUser_id(result.user._id);
+
+                                /*
+                                if (result.user.image_ids.size() != 0) {
+                                    if (result.user.image_ids.get(0).equals("")) {
+                                        UserManager.getInstance().setUserProfileImageURL("drawable://"+R.drawable.icon_profile_default);
+                                    } else {
+                                        UserManager.getInstance().setUserProfileImageURL(result.user.image_ids.get(0).uri);
+                                    }
+                                }
+                                */
+
                                 UserManager.getInstance().setUserEmail(result.user.email);
                                 UserManager.getInstance().setUserPassword(result.user.password);
                                 UserManager.getInstance().setUserNickname(result.user.nick);
