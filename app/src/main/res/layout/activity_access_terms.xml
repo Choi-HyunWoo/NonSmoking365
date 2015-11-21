@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/colorWhite"
-    tools:context="aftercoffee.org.nonsmoking365.Activity.AccessTermsActivity">
+    tools:context="aftercoffee.org.nonsmoking365.tt.activity.AccessTermsActivity">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorWhite"
-    tools:context="aftercoffee.org.nonsmoking365.Activity.question.QuestionActivity">
+    tools:context="aftercoffee.org.nonsmoking365.tt.activity.question.QuestionActivity">
 
     <EditText
         android:layout_width="match_parent"

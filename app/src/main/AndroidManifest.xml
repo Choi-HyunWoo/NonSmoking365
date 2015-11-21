@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name=".tt.activity.SplashActivity"
             android:theme="@style/FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,38 +37,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.PreviewActivity" >
+        <activity android:name=".tt.activity.PreviewActivity" >
         </activity>
-        <activity android:name=".Activity.BasisInfoActivity" >
+        <activity android:name=".tt.activity.BasisInfoActivity" >
         </activity>
-        <activity android:name=".Activity.main.MainActivity" >
+        <activity android:name=".tt.activity.main.MainActivity" >
         </activity>
-        <activity android:name=".Activity.centers.CentersActivity" >
+        <activity android:name=".tt.activity.centers.CentersActivity" >
         </activity>
-        <activity android:name=".Activity.board.BoardActivity" >
+        <activity android:name=".tt.activity.board.BoardActivity" >
         </activity>
-        <activity android:name=".Activity.login.LoginActivity" >
+        <activity android:name=".tt.activity.login.LoginActivity" >
         </activity>
-        <activity android:name=".Activity.notice.NoticeActivity" >
+        <activity android:name=".tt.activity.notice.NoticeActivity" >
         </activity>
-        <activity android:name=".Activity.AlarmActivity" >
+        <activity android:name=".tt.activity.AlarmActivity" >
         </activity>
-        <activity android:name=".Activity.question.QuestionActivity" >
+        <activity android:name=".tt.activity.question.QuestionActivity" >
         </activity>
-        <activity android:name=".Activity.WithdrawActivity" >
+        <activity android:name=".tt.activity.WithdrawActivity" >
         </activity>
-        <activity android:name=".Activity.VersionInfoActivity" >
+        <activity android:name=".tt.activity.VersionInfoActivity" >
         </activity>
-        <activity android:name=".Activity.AccessTermsActivity" >
+        <activity android:name=".tt.activity.AccessTermsActivity" >
         </activity>
         <activity
-            android:name=".Activity.community.CommunityActivity"
+            android:name=".tt.activity.community.CommunityActivity"
             android:label="@string/title_activity_community"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".Activity.ServiceInfoActivity" >
+        <activity android:name=".tt.activity.ServiceInfoActivity" >
         </activity>
-        <activity android:name=".Activity.CountResultActivity" >
+        <activity android:name=".tt.activity.CountResultActivity" >
         </activity>
 
         <!-- [START gcm_receiver] -->
@@ -82,21 +82,21 @@
             </intent-filter>
         </receiver>
         <service
-            android:name=".Service.MyGcmListenerService"
+            android:name=".tt.service.MyGcmListenerService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
-            android:name=".Service.MyInstanceIDListenerService"
+            android:name=".tt.service.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID"/>
             </intent-filter>
         </service>
         <service
-            android:name=".Service.RegistrationIntentService"
+            android:name=".tt.service.RegistrationIntentService"
             android:exported="false">
         </service>
     </application>

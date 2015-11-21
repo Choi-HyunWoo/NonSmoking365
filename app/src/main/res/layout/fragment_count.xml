@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:id="@+id/layout"
     android:background="@color/colorWhite"
-    tools:context="aftercoffee.org.nonsmoking365.Activity.main.CountFragment">
+    tools:context="aftercoffee.org.nonsmoking365.tt.activity.main.CountFragment">
 
     <TextView
         android:layout_width="wrap_content"
