@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/container"
-    tools:context="aftercoffee.org.nonsmoking365.tt.activity.board.BoardActivity">
+    tools:context="aftercoffee.org.nonsmoking365.activity.board.BoardActivity">
 
 </RelativeLayout>
