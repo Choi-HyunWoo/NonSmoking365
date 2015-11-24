@@ -154,11 +154,12 @@ public class NetworkManager {
         });
     }
 
+
     /** 금연 정보 게시판
      *
      */
-    // 금연 정보 글 목록 get
     private static final String BOARD_URL = SERVER + "/infos";
+    // 금연정보 글목록 가져오기 (GET)
     public void getBoardData(Context context, int perPage, int page, final OnResultListener<Board> listener) {
         RequestParams params = new RequestParams();        // param 설정
         params.put("perPage", perPage);
@@ -176,7 +177,7 @@ public class NetworkManager {
             }
         });
     }
-    // 금연 정보 글 선택시, 선택한 ID로 해당 글의 content, comments get
+    // 금연정보 글 진입 시 글내용, 댓글목록 가져오기 (GET)
     public void getBoardContentAndComments(Context context, String docID, final OnResultListener<BoardDocs> listener) {
         RequestParams params = new RequestParams();
         client.get(context, BOARD_URL + "/" + docID, params, new TextHttpResponseHandler() {
@@ -192,7 +193,7 @@ public class NetworkManager {
             }
         });
     }
-    // 정보글에 좋아요 클릭 시 post
+    // 정보글 좋아요 클릭 (POST)
     public void postBoardLike(Context context, String docID, String user_id, final OnResultListener<LikesResult> listener) {
         RequestParams params = new RequestParams();
         params.put("_id", user_id);
@@ -209,6 +210,7 @@ public class NetworkManager {
             }
         });
     }
+    // 댓글 작성 (POST)
     public void postBoardComment(Context context, String docID, String user_id, String content, final OnResultListener<BoardDocs> listener) {
         RequestParams params = new RequestParams();
         params.put("user_id", user_id);
@@ -226,10 +228,9 @@ public class NetworkManager {
             }
         });
     }
-    public void postBoardCommentDelete(Context context, String docID, String comment_id, final OnResultListener<BoardDocs> listener) {
-        RequestParams params = new RequestParams();
-        params.put("_id", comment_id);
-        client.post(context, BOARD_URL + "/" + docID + "/comments", params, new TextHttpResponseHandler() {
+    // 댓글 삭제
+    public void deleteBoardCommentDelete(Context context, String docID, String comment_id, final OnResultListener<BoardDocs> listener) {
+        client.delete(context, BOARD_URL + "/" + docID + "/comments" + "/" + comment_id , new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -242,6 +243,7 @@ public class NetworkManager {
             }
         });
     }
+    // 댓글 수정
 
     /** 공지사항
      *

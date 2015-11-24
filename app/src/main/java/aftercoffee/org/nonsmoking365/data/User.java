@@ -1,5 +1,9 @@
 package aftercoffee.org.nonsmoking365.data;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Created by Tacademy on 2015-11-18.
  */
@@ -12,6 +16,5 @@ public class User {
     //public int __v;
     //public String created;
 
-    //@SerializedName("image_ids")
-    //public List<Image> image_ids;
+    public List<Image> image_ids;
 }

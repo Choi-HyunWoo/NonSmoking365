@@ -28,10 +28,7 @@ import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class BoardContentsFragment extends Fragment {
+public class BoardContentsFragment extends Fragment implements BoardContentsAdapter.OnAdapterDeleteListener {
 
     boolean isLogined;
 
@@ -77,7 +74,7 @@ public class BoardContentsFragment extends Fragment {
                 .build();
     }
 
-    ListView listView;                  // 글내용 (헤더) + 댓글 (리스트)
+    ListView listView;                  // 글내용 (HeaderView) + 댓글 (List) + 댓글작성란 (FooterView)
     EditText commentView;
     Button commentSendBtn;
     BoardContentsAdapter mAdapter;
@@ -120,20 +117,23 @@ public class BoardContentsFragment extends Fragment {
                 // 본문
                 listView.addHeaderView(contentView, null, false);
                 mAdapter = new BoardContentsAdapter();
+                mAdapter.setOnAdapterDeleteListener(BoardContentsFragment.this);
                 listView.setAdapter(mAdapter);
                 // 댓글
                 if (result.commentsList.size() != 0) {
                     for (int i = 0; i < result.commentsList.size(); i++) {
-                        // 댓글 추가
+                        // 댓글
                         BoardCommentItem comment = new BoardCommentItem();
-                        // 프로필사진 <<
                         comment.docID = result._id;
                         comment._id = result.commentsList.get(i)._id;
+                        if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
+                            comment.profileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                        }
                         comment.user_id = result.commentsList.get(i).user_id._id;
                         comment.nickname = result.commentsList.get(i).user_id.nick;
                         comment.content = result.commentsList.get(i).content;
                         comment.date = result.commentsList.get(i).created;
-                        mAdapter.addComment(comment);
+                        mAdapter.addCommentItem(comment);
                     }
                 }
 
@@ -147,10 +147,17 @@ public class BoardContentsFragment extends Fragment {
 
             @Override
             public void onFail(int code) {
-                Log.d("BoardContent Load ", "network error/" + code);
+                Log.d("Network_Error/", "BoardContentGET "+code);
             }
         });
 
+        // 댓글 작성란 (클릭시 맨 아래 댓글이 보이도록)
+        commentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.smoothScrollToPosition(mAdapter.getCount());
+            }
+        });
         // 댓글 등록
         commentSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,14 +183,15 @@ public class BoardContentsFragment extends Fragment {
                                         comment.nickname = result.commentsList.get(i).user_id.nick;
                                         comment.content = result.commentsList.get(i).content;
                                         comment.date = result.commentsList.get(i).created;
-                                        mAdapter.addComment(comment);
+                                        mAdapter.addCommentItem(comment);
                                     }
                                 }
+                                listView.smoothScrollToPosition(mAdapter.getCount());
                                 commentView.setText("");
                             }
                             @Override
                             public void onFail(int code) {
-                                Log.d("Comment :", "Network error" + code);
+                                Log.d("Network_Error/", "CommentPOST "+code);
                             }
                         });
                     }
@@ -212,6 +220,39 @@ public class BoardContentsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // 댓글 삭제
+    @Override
+    public void onAdapterDelete(BoardContentsAdapter adapter, View view) {
+        final String comment_id = ((BoardCommentItemView)view)._id;
+        NetworkManager.getInstance().deleteBoardCommentDelete(getContext(), docID, comment_id, new NetworkManager.OnResultListener<BoardDocs>() {
+            @Override
+            public void onSuccess(BoardDocs result) {
+                // Adapter item을 갱신
+                Toast.makeText(getActivity(), "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                mAdapter.clear();
+                if (result.commentsList.size() != 0) {
+                    for (int i = 0; i < result.commentsList.size(); i++) {
+                        // 댓글 추가
+                        BoardCommentItem comment = new BoardCommentItem();
+                        // 프로필사진 <<
+                        comment.docID = result._id;
+                        comment._id = result.commentsList.get(i)._id;
+                        comment.user_id = result.commentsList.get(i).user_id._id;
+                        comment.nickname = result.commentsList.get(i).user_id.nick;
+                        comment.content = result.commentsList.get(i).content;
+                        comment.date = result.commentsList.get(i).created;
+                        mAdapter.addCommentItem(comment);
+                    }
+                }
+            }
+
+            @Override
+            public void onFail(int code) {
+                Log.d("Network_Error/", "CommentDELETE " + code);
+            }
+        });
     }
 
     @Override
