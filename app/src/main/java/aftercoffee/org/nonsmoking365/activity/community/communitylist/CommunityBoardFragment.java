@@ -111,6 +111,7 @@ public class CommunityBoardFragment extends Fragment {
         return view;
     }
 
+    // 최초 가져오기 / 위에서 아래로 드래그 시 Refresh
     private void getBoard() {
         NetworkManager.getInstance().getCommunityData(getActivity(), COMMUNITY_PAGE_DISPLAY, 0, new NetworkManager.OnResultListener<Community>() {
             @Override
@@ -123,7 +124,9 @@ public class CommunityBoardFragment extends Fragment {
                         item._id = c._id;
                         item.title = c.title;
                         item.contents = c.content;
-                        // item.userProfileImg = c.writer;
+                        item.userNickname = c.user_id.nick;
+                        if (c.user_id.image_ids.size()!=0)
+                            item.userProfileImg = c.user_id.image_ids.get(0).uri;
                         mAdapter.add(item);
                     }
                 }

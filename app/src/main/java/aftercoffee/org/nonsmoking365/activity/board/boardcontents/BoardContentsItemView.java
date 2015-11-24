@@ -52,7 +52,7 @@ public class BoardContentsItemView extends FrameLayout {
     Button shareBtn;
 
     public void init() {
-        inflate(getContext(), R.layout.view_board_contents, this);
+        inflate(getContext(), R.layout.view_board_header, this);
 
         titleView = (TextView)findViewById(R.id.text_title);
         contentView = (TextView)findViewById(R.id.text_content);

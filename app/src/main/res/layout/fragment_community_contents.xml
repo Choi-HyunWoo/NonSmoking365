@@ -1,10 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="aftercoffee.org.nonsmoking365.activity.community.communitycontents.CommunityContentsFragment">
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    tools:context="aftercoffee.org.nonsmoking365.activity.board.boardcontents.BoardContentsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="331dp"
+        android:id="@+id/list_comment"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignParentTop="true" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:background="@color/colorWhite"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2">
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="댓글"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/edit_comment" />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icon_comment_active"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/btn_comment_send" />
+    </LinearLayout>
+</RelativeLayout>

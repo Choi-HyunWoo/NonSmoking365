@@ -34,7 +34,7 @@ public class CommunityItemView extends FrameLayout {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-                .displayer(new SimpleBitmapDisplayer())         // RoundedBitmapDisplayer()로
+                //.displayer(new SimpleBitmapDisplayer())         // RoundedBitmapDisplayer()로
                 .build();
         init();
     }
