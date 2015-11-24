@@ -176,10 +176,13 @@ public class BoardContentsFragment extends Fragment implements BoardContentsAdap
                                     for (int i = 0; i < result.commentsList.size(); i++) {
                                         // 댓글 추가
                                         BoardCommentItem comment = new BoardCommentItem();
-                                        // 프로필사진 <<
-                                        comment.docID = result._id;
-                                        comment._id = result.commentsList.get(i)._id;
+                                        comment.docID = result._id;                         // 글 _id
+                                        comment._id = result.commentsList.get(i)._id;       // 댓글 _id
+                                        // 유저정보
                                         comment.user_id = result.commentsList.get(i).user_id._id;
+                                        if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
+                                            comment.profileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                                        }
                                         comment.nickname = result.commentsList.get(i).user_id.nick;
                                         comment.content = result.commentsList.get(i).content;
                                         comment.date = result.commentsList.get(i).created;

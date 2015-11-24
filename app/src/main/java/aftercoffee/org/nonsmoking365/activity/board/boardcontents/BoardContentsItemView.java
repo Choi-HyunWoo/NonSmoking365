@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import aftercoffee.org.nonsmoking365.data.LikesResult;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
@@ -23,11 +26,22 @@ public class BoardContentsItemView extends FrameLayout {
     String docID;
     String user_id;
 
+    DisplayImageOptions options;
+
     public BoardContentsItemView(Context context, String docID) {
         super(context);
         this.context = context;
         this.docID = docID;
         user_id = UserManager.getInstance().getUser_id();
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.icon_image_add)
+                .showImageForEmptyUri(R.drawable.icon_cigarette)
+                .showImageOnFail(R.drawable.icon_cigarette)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+//                .displayer(new RoundedBitmapDisplayer(50))
+                .build();
         init();
     }
 
@@ -78,7 +92,7 @@ public class BoardContentsItemView extends FrameLayout {
     public void setContentItem(BoardContentsItem item) {
         titleView.setText(item.title);
         contentView.setText(item.content);
-        // contentImageView;
+        ImageLoader.getInstance().displayImage(item.imageURL, contentImageView, options);
         if (item.likes > 999) {
             likeBtn.setText("좋아요 999+");
         } else {
