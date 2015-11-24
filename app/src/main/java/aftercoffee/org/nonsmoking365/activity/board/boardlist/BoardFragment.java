@@ -28,21 +28,20 @@ import aftercoffee.org.nonsmoking365.R;
  */
 public class BoardFragment extends Fragment {
 
+    public static final int BOARD_PAGE_DISPLAY = 5;
+
     boolean isLogined;
+    String selectedDocID;
 
     ListView listView;
     PullToRefreshListView refreshView;
-    BoardItemAdapter mAdapter;
     boolean isUpdate = false;
-    String selectedDocID;
+    BoardItemAdapter mAdapter;
 
     public BoardFragment() {
         // Required empty public constructor
         this.setHasOptionsMenu(true);
     }
-
-    public static final int BOARD_PAGE_DISPLAY = 5;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

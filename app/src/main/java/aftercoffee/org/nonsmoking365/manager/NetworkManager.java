@@ -21,6 +21,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
+import aftercoffee.org.nonsmoking365.data.Community;
+import aftercoffee.org.nonsmoking365.data.CommunityDocs;
+import aftercoffee.org.nonsmoking365.data.CommunityResult;
 import aftercoffee.org.nonsmoking365.data.SearchPOIInfo;
 import aftercoffee.org.nonsmoking365.data.BoardResult;
 import aftercoffee.org.nonsmoking365.data.LikesResult;
@@ -94,7 +97,8 @@ public class NetworkManager {
     private static final String SERVER = "http://52.68.247.34:3000";
     private static final String WITHDRAW_URL = SERVER + "/withdraws";
 
-    /** 로그인
+
+    /** 로그인, 로그아웃
      *
      */
     private static final String LOGIN_URL = SERVER + "/login";
@@ -115,7 +119,6 @@ public class NetworkManager {
             }
         });
     }
-
     private static final String LOGOUT_URL = SERVER + "/logout";
     public void logout(Context context, final OnResultListener<String> listener) {
         client.get(context, LOGOUT_URL, new TextHttpResponseHandler() {
@@ -130,6 +133,7 @@ public class NetworkManager {
             }
         });
     }
+
 
     /** 회원가입
      *
@@ -210,7 +214,7 @@ public class NetworkManager {
             }
         });
     }
-    // 댓글 작성 (POST)
+    // 금연정보 댓글 작성 (POST)
     public void postBoardComment(Context context, String docID, String user_id, String content, final OnResultListener<BoardDocs> listener) {
         RequestParams params = new RequestParams();
         params.put("user_id", user_id);
@@ -228,7 +232,7 @@ public class NetworkManager {
             }
         });
     }
-    // 댓글 삭제
+    // 금연정보 댓글 삭제 (DELETE)
     public void deleteBoardCommentDelete(Context context, String docID, String comment_id, final OnResultListener<BoardDocs> listener) {
         client.delete(context, BOARD_URL + "/" + docID + "/comments" + "/" + comment_id , new TextHttpResponseHandler() {
             @Override
@@ -244,6 +248,97 @@ public class NetworkManager {
         });
     }
     // 댓글 수정
+
+
+    /** 금연 커뮤니티
+     *
+     */
+    private static final String COMMUNITY_URL = SERVER + "/communities";
+    // 금연커뮤니티 글목록 가져오기 (GET)
+    public void getCommunityData(Context context, int perPage, int page, final OnResultListener<Community> listener) {
+        RequestParams params = new RequestParams();        // param 설정
+        params.put("perPage", perPage);
+        params.put("page", page);
+        client.get(context, COMMUNITY_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                CommunityResult result = gson.fromJson(responseString, CommunityResult.class);
+                listener.onSuccess(result.community);
+            }
+        });
+    }
+    // 금연커뮤니티 글 진입 시 상세 글내용, 댓글목록 가져오기 (GET)
+    public void getCommunityContentAndComments(Context context, String docID, final OnResultListener<CommunityDocs> listener) {
+        RequestParams params = new RequestParams();
+        client.get(context, COMMUNITY_URL + "/" + docID, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                CommunityDocs result = gson.fromJson(responseString, CommunityDocs.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+    // 커뮤니티글 좋아요 클릭 (POST)
+    public void postCommunityLike(Context context, String docID, String user_id, final OnResultListener<LikesResult> listener) {
+        RequestParams params = new RequestParams();
+        params.put("_id", user_id);
+        client.post(context, COMMUNITY_URL + "/" + docID + "/likes", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                LikesResult result = gson.fromJson(responseString, LikesResult.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+    // 금연커뮤니티 댓글 작성 (POST)
+    public void postCommunityComment(Context context, String docID, String user_id, String content, final OnResultListener<CommunityDocs> listener) {
+        RequestParams params = new RequestParams();
+        params.put("user_id", user_id);
+        params.put("content", content);
+        client.post(context, COMMUNITY_URL + "/" + docID + "/comments", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                CommunityDocs result = gson.fromJson(responseString, CommunityDocs.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+    // 금연커뮤니티 댓글 삭제 (DELETE)
+    public void deleteCommunityCommentDelete(Context context, String docID, String comment_id, final OnResultListener<CommunityDocs> listener) {
+        client.delete(context, COMMUNITY_URL + "/" + docID + "/comments" + "/" + comment_id , new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                CommunityDocs result = gson.fromJson(responseString, CommunityDocs.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+
 
     /** 공지사항
      *
@@ -287,6 +382,7 @@ public class NetworkManager {
             }
         });
     }
+
 
     /** T Map
      *  보건소 리스트 받아오기

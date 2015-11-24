@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.activity.community.communitycontents.CommunityContentsFragment;
+import aftercoffee.org.nonsmoking365.activity.community.communitylist.CommunityBoardFragment;
 
 public class CommunityActivity extends AppCompatActivity {
 
@@ -36,18 +38,17 @@ public class CommunityActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            //getSupportFragmentManager().beginTransaction().add(R.id.container, new CommunityBoardFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new CommunityBoardFragment()).commit();
         }
     }
 
-    public void pushCommunityBoardContentsFragment() {
-        //getSupportFragmentManager().beginTransaction().replace(R.id.container, new CommunityContentsFragment())
+    public void pushCommunityContentsFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new CommunityContentsFragment());
     }
-
-
     public void popFragment() {
         getSupportFragmentManager().popBackStack();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
