@@ -34,6 +34,9 @@ public class CommunityItemAdapter extends BaseAdapter {
         }
         return -1;
     }
+    public String getDocID(int position) {
+        return items.get(position)._id;
+    }
 
 
     @Override

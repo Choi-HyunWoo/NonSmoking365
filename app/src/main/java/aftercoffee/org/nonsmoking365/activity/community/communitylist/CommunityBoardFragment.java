@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -45,7 +46,6 @@ public class CommunityBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_community_board, container, false);
-
 
         /**
          * PullToRefreshView
@@ -105,7 +105,8 @@ public class CommunityBoardFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((CommunityActivity)getActivity()).pushCommunityContentsFragment();
+                selectedDocID = mAdapter.getDocID(position-1);
+                ((CommunityActivity)getActivity()).pushCommunityContentsFragment(selectedDocID);
             }
         });
         return view;
@@ -125,6 +126,7 @@ public class CommunityBoardFragment extends Fragment {
                         item.title = c.title;
                         item.contents = c.content;
                         item.userNickname = c.user_id.nick;
+                        item.created = c.created;
                         if (c.user_id.image_ids.size()!=0)
                             item.userProfileImg = c.user_id.image_ids.get(0).uri;
                         mAdapter.add(item);

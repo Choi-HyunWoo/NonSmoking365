@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by Tacademy on 2015-11-19.
  */
-public class BoardContentsAdapter extends BaseAdapter implements BoardCommentItemView.OnDeleteClickListener {
+public class ContentsAdapter extends BaseAdapter implements CommentItemView.OnDeleteClickListener {
 
-    List<BoardCommentItem> items = new ArrayList<BoardCommentItem>();
+    List<CommentItem> items = new ArrayList<CommentItem>();
 
-    public void addCommentItem(BoardCommentItem item) {
+    public void addCommentItem(CommentItem item) {
         items.add(item);
         notifyDataSetChanged();
     }
@@ -35,7 +35,7 @@ public class BoardContentsAdapter extends BaseAdapter implements BoardCommentIte
 
     // Adapter > Fragment
     public interface OnAdapterDeleteListener {
-        public void onAdapterDelete(BoardContentsAdapter adapter, View view);
+        public void onAdapterDelete(ContentsAdapter adapter, View view);
     }
     OnAdapterDeleteListener mListener;
     public void setOnAdapterDeleteListener(OnAdapterDeleteListener listener) {
@@ -67,11 +67,11 @@ public class BoardContentsAdapter extends BaseAdapter implements BoardCommentIte
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BoardCommentItemView view;
+        CommentItemView view;
         if (convertView != null) {
-            view = (BoardCommentItemView) convertView;
+            view = (CommentItemView) convertView;
         } else {
-            view = new BoardCommentItemView(parent.getContext());
+            view = new CommentItemView(parent.getContext());
         }
         view.setCommentItem(items.get(position));
         view.setOnDeleteClickListener(this);

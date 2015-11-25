@@ -23,6 +23,7 @@
             android:layout_gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorAccent"
             android:text="닉네임"  />
         <TextView
             android:id="@+id/text_created"

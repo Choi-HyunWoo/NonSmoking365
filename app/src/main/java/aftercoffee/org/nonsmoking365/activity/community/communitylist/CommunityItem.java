@@ -9,4 +9,5 @@ public class CommunityItem {
     String userNickname;
     String title;
     String contents;
+    String created;
 }

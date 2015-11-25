@@ -1,5 +1,8 @@
 package aftercoffee.org.nonsmoking365.activity.community;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,8 +15,13 @@ import android.view.View;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.activity.community.communitycontents.CommunityContentsFragment;
 import aftercoffee.org.nonsmoking365.activity.community.communitylist.CommunityBoardFragment;
+import aftercoffee.org.nonsmoking365.activity.login.LoginActivity;
+import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 public class CommunityActivity extends AppCompatActivity {
+
+    public static FloatingActionButton fab;
+    boolean isLogined;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +35,53 @@ public class CommunityActivity extends AppCompatActivity {
         actionBar.setElevation(0);
         actionBar.setTitle("금연 갤러리");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        isLogined = UserManager.getInstance().getLoginState();
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (isLogined) {
+                    Intent intent = new Intent(CommunityActivity.this, CommunityPostActivity.class);
+                    startActivity(intent);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CommunityActivity.this);
+                    builder.setTitle("로그인");
+                    builder.setMessage("글 작성은 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(CommunityActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dlg = builder.create();
+                    dlg.show();
+                }
             }
         });
 
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new CommunityBoardFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new CommunityBoardFragment()).commit();
         }
     }
 
-    public void pushCommunityContentsFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new CommunityContentsFragment());
+    public void pushCommunityContentsFragment(String selectedDocID) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, CommunityContentsFragment.newInstance(selectedDocID)).addToBackStack(null).commit();
     }
     public void popFragment() {
         getSupportFragmentManager().popBackStack();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home :
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onResume() {
+        super.onResume();
+        isLogined = UserManager.getInstance().getLoginState();
     }
 }

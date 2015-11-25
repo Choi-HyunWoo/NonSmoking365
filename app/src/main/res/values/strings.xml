@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">금연365</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SplashActivity -->
@@ -93,6 +93,7 @@
     <string name="version_info">버전 1.0.0</string>
     <string name="version_btn_access_terms">이용 약관</string>
     <string name="title_activity_community">CommunityActivity</string>
+    <string name="title_activity_community_post">CommunityPostActivity</string>
 
 
 </resources>

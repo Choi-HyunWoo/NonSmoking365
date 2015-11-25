@@ -28,7 +28,7 @@ import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
-public class BoardContentsFragment extends Fragment implements BoardContentsAdapter.OnAdapterDeleteListener {
+public class BoardContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener {
 
     boolean isLogined;
 
@@ -77,7 +77,7 @@ public class BoardContentsFragment extends Fragment implements BoardContentsAdap
     ListView listView;                  // 글내용 (HeaderView) + 댓글 (List) + 댓글작성란 (FooterView)
     EditText commentView;
     Button commentSendBtn;
-    BoardContentsAdapter mAdapter;
+    ContentsAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,14 +116,14 @@ public class BoardContentsFragment extends Fragment implements BoardContentsAdap
                 // ListView settings
                 // 본문
                 listView.addHeaderView(contentView, null, false);
-                mAdapter = new BoardContentsAdapter();
+                mAdapter = new ContentsAdapter();
                 mAdapter.setOnAdapterDeleteListener(BoardContentsFragment.this);
                 listView.setAdapter(mAdapter);
                 // 댓글
                 if (result.commentsList.size() != 0) {
                     for (int i = 0; i < result.commentsList.size(); i++) {
                         // 댓글
-                        BoardCommentItem comment = new BoardCommentItem();
+                        CommentItem comment = new CommentItem();
                         comment.docID = result._id;
                         comment._id = result.commentsList.get(i)._id;
                         if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
@@ -175,7 +175,7 @@ public class BoardContentsFragment extends Fragment implements BoardContentsAdap
                                 if (result.commentsList.size() != 0) {
                                     for (int i = 0; i < result.commentsList.size(); i++) {
                                         // 댓글 추가
-                                        BoardCommentItem comment = new BoardCommentItem();
+                                        CommentItem comment = new CommentItem();
                                         comment.docID = result._id;                         // 글 _id
                                         comment._id = result.commentsList.get(i)._id;       // 댓글 _id
                                         // 유저정보
@@ -227,8 +227,8 @@ public class BoardContentsFragment extends Fragment implements BoardContentsAdap
 
     // 댓글 삭제
     @Override
-    public void onAdapterDelete(BoardContentsAdapter adapter, View view) {
-        final String comment_id = ((BoardCommentItemView)view)._id;
+    public void onAdapterDelete(ContentsAdapter adapter, View view) {
+        final String comment_id = ((CommentItemView)view)._id;
         NetworkManager.getInstance().deleteBoardCommentDelete(getContext(), docID, comment_id, new NetworkManager.OnResultListener<BoardDocs>() {
             @Override
             public void onSuccess(BoardDocs result) {
@@ -238,11 +238,14 @@ public class BoardContentsFragment extends Fragment implements BoardContentsAdap
                 if (result.commentsList.size() != 0) {
                     for (int i = 0; i < result.commentsList.size(); i++) {
                         // 댓글 추가
-                        BoardCommentItem comment = new BoardCommentItem();
-                        // 프로필사진 <<
-                        comment.docID = result._id;
-                        comment._id = result.commentsList.get(i)._id;
+                        CommentItem comment = new CommentItem();
+                        comment.docID = result._id;                         // 글 _id
+                        comment._id = result.commentsList.get(i)._id;       // 댓글 _id
+                        // 유저정보
                         comment.user_id = result.commentsList.get(i).user_id._id;
+                        if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
+                            comment.profileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                        }
                         comment.nickname = result.commentsList.get(i).user_id.nick;
                         comment.content = result.commentsList.get(i).content;
                         comment.date = result.commentsList.get(i).created;

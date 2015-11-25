@@ -13,10 +13,13 @@ public class CommunityDocs {
     public String writer;       // 작성자의 _id
     public String title;
     public String content;
+    public String created;
     // int __v;                 // 몽고에서 자동으로 만들어주능거
 
     public User user_id;
     public List<Image> image_ids;
     public List<String> like_ids;
+
+    @SerializedName("comments")
     public List<Comments> commentsList;
 }

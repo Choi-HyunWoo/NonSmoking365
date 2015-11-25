@@ -20,6 +20,7 @@ public class CommunityItemView extends FrameLayout {
     ImageView userProfileImageView;
     TextView userNicknameView;
     TextView titleView;
+    TextView createdView;
     Button likeBtn;
     Button commentBtn;
 
@@ -34,16 +35,17 @@ public class CommunityItemView extends FrameLayout {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-                //.displayer(new SimpleBitmapDisplayer())         // RoundedBitmapDisplayer()로
+                //.displayer(new SimpleBitmapDisplayer())
                 .build();
         init();
     }
 
     private void init() {
         inflate(getContext(), R.layout.view_community_item, this);
-        userProfileImageView = (ImageView)findViewById(R.id.image_userProfileImage);
+        userProfileImageView = (ImageView)findViewById(R.id.image_userProfileImg);
         userNicknameView = (TextView)findViewById(R.id.text_userNickname);
         titleView = (TextView)findViewById(R.id.text_title);
+        createdView = (TextView)findViewById(R.id.text_created);
         likeBtn = (Button)findViewById(R.id.btn_like);
         commentBtn = (Button)findViewById(R.id.btn_comment);
 
@@ -53,5 +55,6 @@ public class CommunityItemView extends FrameLayout {
         ImageLoader.getInstance().displayImage(item.userProfileImg, userProfileImageView, options);
         userNicknameView.setText(item.userNickname);
         titleView.setText(item.title);
+        createdView.setText(item.created);
     }
 }

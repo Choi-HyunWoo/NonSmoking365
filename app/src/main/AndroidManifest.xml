@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="aftercoffee.org.nonsmoking365" >
+    package="aftercoffee.org.nonsmoking365">
 
     <uses-sdk
         android:maxSdkVersion="21"
@@ -16,60 +16,49 @@
     <!-- START GCM permission -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <permission android:name="aftercoffee.org.nonsmoking365.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="aftercoffee.org.nonsmoking365.permission.C2D_MESSAGE" />
-    <!-- END GCM permission -->
 
+    <permission
+        android:name="aftercoffee.org.nonsmoking365.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="aftercoffee.org.nonsmoking365.permission.C2D_MESSAGE" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- END GCM permission -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/FullScreen" >
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PreviewActivity" >
-        </activity>
-        <activity android:name=".activity.BasisInfoActivity" >
-        </activity>
-        <activity android:name=".activity.main.MainActivity" >
-        </activity>
-        <activity android:name=".activity.centers.CentersActivity" >
-        </activity>
-        <activity android:name=".activity.board.BoardActivity" >
-        </activity>
-        <activity android:name=".activity.login.LoginActivity" >
-        </activity>
-        <activity android:name=".activity.notice.NoticeActivity" >
-        </activity>
-        <activity android:name=".activity.AlarmActivity" >
-        </activity>
-        <activity android:name=".activity.question.QuestionActivity" >
-        </activity>
-        <activity android:name=".activity.WithdrawActivity" >
-        </activity>
-        <activity android:name=".activity.VersionInfoActivity" >
-        </activity>
-        <activity android:name=".activity.AccessTermsActivity" >
-        </activity>
+        <activity android:name=".activity.PreviewActivity"></activity>
+        <activity android:name=".activity.BasisInfoActivity"></activity>
+        <activity android:name=".activity.main.MainActivity"></activity>
+        <activity android:name=".activity.centers.CentersActivity"></activity>
+        <activity android:name=".activity.board.BoardActivity"></activity>
+        <activity android:name=".activity.login.LoginActivity"></activity>
+        <activity android:name=".activity.notice.NoticeActivity"></activity>
+        <activity android:name=".activity.AlarmActivity"></activity>
+        <activity android:name=".activity.question.QuestionActivity"></activity>
+        <activity android:name=".activity.WithdrawActivity"></activity>
+        <activity android:name=".activity.VersionInfoActivity"></activity>
+        <activity android:name=".activity.AccessTermsActivity"></activity>
         <activity
             android:name=".activity.community.CommunityActivity"
             android:label="@string/title_activity_community"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity android:name=".activity.ServiceInfoActivity" >
-        </activity>
-        <activity android:name=".activity.CountResultActivity" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.ServiceInfoActivity"></activity>
+        <activity android:name=".activity.CountResultActivity"></activity>
 
         <!-- [START gcm_receiver] -->
         <receiver
@@ -78,12 +67,14 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="aftercoffee.org.nonsmoking365" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".service.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -92,13 +83,17 @@
             android:name=".service.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
             android:name=".service.RegistrationIntentService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
+
+        <activity
+            android:name=".activity.community.CommunityPostActivity"
+            android:label="@string/title_activity_community_post"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
