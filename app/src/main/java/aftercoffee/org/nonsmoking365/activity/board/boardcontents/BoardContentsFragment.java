@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,11 +25,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import aftercoffee.org.nonsmoking365.activity.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.activity.login.LoginActivity;
 import aftercoffee.org.nonsmoking365.data.BoardDocs;
+import aftercoffee.org.nonsmoking365.data.LikesResult;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
-public class BoardContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener {
+public class BoardContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener, BoardContentsItemView.OnContentBtnClickListener {
 
     boolean isLogined;
 
@@ -48,6 +50,7 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
     // 선택된 글의 ID
     private static final String ARG_DOCID = "selected_docID";
     private String docID;       // Board List 에서 선택된 글의 ID
+    String user_id;
 
     public static BoardContentsFragment newInstance(String selectedDocID) {
         BoardContentsFragment fragment = new BoardContentsFragment();
@@ -88,6 +91,7 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("글 내용");
         isLogined = UserManager.getInstance().getLoginState();
+        user_id = UserManager.getInstance().getUser_id();
     }
 
     @Override
@@ -108,14 +112,22 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
                 BoardContentsItem contents = new BoardContentsItem();         // 글 내용 (헤더)
                 contents.title = result.title;
                 contents.content = result.content;
-                contents.likes = result.like_ids.size();
+                contents.likesCount = result.like_ids.size();
+                contents.likeOn = false;
+                for (String id : result.like_ids) {
+                    if (user_id.equals(id)) {
+                        contents.likeOn = true;
+                        break;
+                    }
+                }
+                contents.commentsCount = result.commentsList.size();
                 if (result.image_ids.size() != 0)
                     contents.imageURL = result.image_ids.get(0).uri;
                 contentView.setContentItem(contents);
+                contentView.setOnContentBtnClickListener(BoardContentsFragment.this);
 
                 // ListView settings
-                // 본문
-                listView.addHeaderView(contentView, null, false);
+                listView.addHeaderView(contentView, null, false);           // 본문
                 mAdapter = new ContentsAdapter();
                 mAdapter.setOnAdapterDeleteListener(BoardContentsFragment.this);
                 listView.setAdapter(mAdapter);
@@ -136,13 +148,6 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
                         mAdapter.addCommentItem(comment);
                     }
                 }
-
-                /*
-                // 이미지 갯수 늘어나면 동적으로 imageview 생성하여 추가해줄 것.
-                if (result.image_ids.size() != 0)
-                    ImageLoader.getInstance().displayImage(result.image_ids.get(0).uri, imageView, options);
-                categoryView.setText(result.category);                  // 한글로 수정할것
-                */
             }
 
             @Override
@@ -225,6 +230,42 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
         return view;
     }
 
+    // 좋아요 클릭
+    @Override
+    public void onContentLikeClick(View view, final BoardContentsItem item) {
+        final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
+        final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
+        NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+            @Override
+            public void onSuccess(LikesResult result) {
+                likeBtn.setText("좋아요 " + result.like_ids.size());
+                for (String id : result.like_ids) {
+                    if (user_id.equals(id)) {
+                        // 좋아요 OFF > ON
+                        likeImage.setImageResource(R.drawable.icon_like_active);
+                        item.likeOn = true;
+                        item.likesCount = result.like_ids.size();
+                        break;
+                    } else {
+                        // 좋아요 ON > OFF
+                        likeImage.setImageResource(R.drawable.icon_like);
+                        item.likeOn = false;
+                        item.likesCount = result.like_ids.size();
+                    }
+                }
+            }
+            @Override
+            public void onFail(int code) {
+            }
+        });
+    }
+
+    // 공유하기 클릭
+    @Override
+    public void onContentShareClick(View v, BoardContentsItem item) {
+        Toast.makeText(getActivity(), "공유하깅", Toast.LENGTH_SHORT).show();
+    }
+
     // 댓글 삭제
     @Override
     public void onAdapterDelete(ContentsAdapter adapter, View view) {
@@ -265,6 +306,7 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
     public void onResume() {
         super.onResume();
         isLogined = UserManager.getInstance().getLoginState();
+        user_id = UserManager.getInstance().getUser_id();
     }
 
     @Override

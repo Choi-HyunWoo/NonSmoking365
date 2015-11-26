@@ -41,28 +41,58 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/board_btn_like"
-            android:focusable="false"
-            android:background="@drawable/btn_white_border"
-            android:drawableLeft="@drawable/icon_like"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:id="@+id/btn_like" />
-        <Button
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/like" >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:id="@+id/image_like"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:src="@drawable/icon_like"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/board_btn_like"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:background="@drawable/btn_white_border"
+                android:id="@+id/btn_like" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/board_btn_share"
-            android:focusable="false"
-            android:background="@drawable/btn_white_border"
-            android:drawableLeft="@drawable/icon_share"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:id="@+id/btn_share" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/share" >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:id="@+id/image_share"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:src="@drawable/icon_share"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/board_btn_share"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:background="@drawable/btn_white_border"
+                android:id="@+id/btn_share" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -49,7 +49,7 @@
         <activity android:name=".activity.login.LoginActivity"></activity>
         <activity android:name=".activity.notice.NoticeActivity"></activity>
         <activity android:name=".activity.AlarmActivity"></activity>
-        <activity android:name=".activity.question.QuestionActivity"></activity>
+        <activity android:name=".activity.QuestionActivity"></activity>
         <activity android:name=".activity.WithdrawActivity"></activity>
         <activity android:name=".activity.VersionInfoActivity"></activity>
         <activity android:name=".activity.AccessTermsActivity"></activity>

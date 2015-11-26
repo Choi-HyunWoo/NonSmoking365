@@ -204,6 +204,7 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
         });
     }
 
+    // Warning ITEM 의 좋아요 버튼 클릭
     @Override
     public void onAdapterWarningLikeClick(BoardItemAdapter adapter, final BoardWarningItem item, View view) {
         final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
@@ -237,6 +238,8 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
             }
         });
     }
+
+    // Tips ITEM 의 좋아요 버튼 클릭
     @Override
     public void onAdapterTipsLikeClick(BoardItemAdapter adapter, final BoardTipsItem item, View view) {
         final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
@@ -271,11 +274,14 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
         });
     }
 
+    // Warning ITEM 의 댓글 버튼 클릭
     @Override
     public void onAdapterWarningCommentClick(BoardItemAdapter adapter, BoardWarningItem item, View view) {
         String docID = item._id;
         ((BoardActivity)getActivity()).pushBoardContentsFragment(docID);
     }
+
+    // Tips ITEM 의 댓글 버튼 클릭
     @Override
     public void onAdapterTipsCommentClick(BoardItemAdapter adapter, BoardTipsItem item, View view) {
         String docID = item._id;

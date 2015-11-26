@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ import aftercoffee.org.nonsmoking365.R;
  */
 public class BoardContentsItemView extends FrameLayout {
 
-    Context context;
+    BoardContentsItem item;
     String docID;
     String user_id;
 
@@ -30,7 +31,6 @@ public class BoardContentsItemView extends FrameLayout {
 
     public BoardContentsItemView(Context context, String docID) {
         super(context);
-        this.context = context;
         this.docID = docID;
         user_id = UserManager.getInstance().getUser_id();
         options = new DisplayImageOptions.Builder()
@@ -45,58 +45,60 @@ public class BoardContentsItemView extends FrameLayout {
         init();
     }
 
+    LinearLayout like;
+    LinearLayout share;
     ImageView contentImageView;
     TextView titleView;
     TextView contentView;
     Button likeBtn;
+    ImageView likeImage;
     Button shareBtn;
+
+    public interface OnContentBtnClickListener{
+        public void onContentLikeClick(View view, BoardContentsItem item);
+        public void onContentShareClick(View view, BoardContentsItem item);
+    }
+    OnContentBtnClickListener mListener;
+    public void setOnContentBtnClickListener(OnContentBtnClickListener listener) {
+        mListener = listener;
+    }
 
     public void init() {
         inflate(getContext(), R.layout.view_board_header, this);
 
+        like = (LinearLayout)findViewById(R.id.like);
+        share= (LinearLayout)findViewById(R.id.share);
         titleView = (TextView)findViewById(R.id.text_title);
         contentView = (TextView)findViewById(R.id.text_content);
         contentImageView = (ImageView)findViewById(R.id.image_content);
         likeBtn = (Button)findViewById(R.id.btn_like);
-        shareBtn = (Button)findViewById(R.id.btn_share);
+        likeImage = (ImageView)findViewById(R.id.image_like);
 
-        likeBtn.setOnClickListener(new OnClickListener() {
+        like.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkManager.getInstance().postBoardLike(getContext(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
-                    @Override
-                    public void onSuccess(LikesResult result) {
-                        if (result.like_ids.size() > 999) {
-                            likeBtn.setText("좋아요 999+");
-                        } else {
-                            likeBtn.setText("좋아요 " + result.like_ids.size());
-                        }
-                    }
-                    @Override
-                    public void onFail(int code) {
-                        Log.d("BoardContentItemView:", "network error/" + code);
-                    }
-                });
+                mListener.onContentLikeClick(BoardContentsItemView.this, item);
             }
         });
 
-        shareBtn.setOnClickListener(new OnClickListener() {
+        share.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 게시글 공유하기 구현 (Facebook)
-                Toast.makeText(context, "구현중입니다.", Toast.LENGTH_SHORT).show();
+                mListener.onContentShareClick(BoardContentsItemView.this, item);
             }
         });
     }
 
     public void setContentItem(BoardContentsItem item) {
+        this.item = item;
         titleView.setText(item.title);
         contentView.setText(item.content);
         ImageLoader.getInstance().displayImage(item.imageURL, contentImageView, options);
-        if (item.likes > 999) {
-            likeBtn.setText("좋아요 999+");
+        likeBtn.setText("좋아요 "+item.likesCount);
+        if (item.likeOn) {
+            likeImage.setImageResource(R.drawable.icon_like_active);
         } else {
-            likeBtn.setText("좋아요 "+item.likes);
+            likeImage.setImageResource(R.drawable.icon_like);
         }
     }
 }

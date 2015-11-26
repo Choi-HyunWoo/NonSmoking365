@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity.question;
+package aftercoffee.org.nonsmoking365.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
-import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 public class QuestionActivity extends AppCompatActivity {
 

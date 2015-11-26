@@ -7,5 +7,8 @@ public class BoardContentsItem {
     String title;
     String imageURL;
     String content;
-    int likes;
+
+    boolean likeOn;
+    int likesCount;
+    int commentsCount;
 }
