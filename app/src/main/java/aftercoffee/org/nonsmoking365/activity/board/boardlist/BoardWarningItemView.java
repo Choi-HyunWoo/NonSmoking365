@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import aftercoffee.org.nonsmoking365.R;
@@ -30,6 +31,9 @@ public class BoardWarningItemView extends FrameLayout {
         init();
     }
 
+    LinearLayout like;
+    LinearLayout comment;
+    LinearLayout share;
     ImageView titleImageView;
     TextView titleTextView;
     TextView contentsTextView;
@@ -56,6 +60,9 @@ public class BoardWarningItemView extends FrameLayout {
     public void init() {
         inflate(getContext(), R.layout.view_board_warning_item, this);
 
+        like = (LinearLayout)findViewById(R.id.like);
+        comment = (LinearLayout)findViewById(R.id.comment);
+        share = (LinearLayout)findViewById(R.id.share);
         titleImageView = (ImageView)findViewById(R.id.image_title);
         titleTextView = (TextView)findViewById(R.id.text_title);
         contentsTextView = (TextView)findViewById(R.id.text_contents);
@@ -66,21 +73,21 @@ public class BoardWarningItemView extends FrameLayout {
         shareBtn = (Button)findViewById(R.id.btn_share);
 
         // 좋아요 버튼
-        likeBtn.setOnClickListener(new OnClickListener() {
+        like.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onWarningLikeBtnClick(BoardWarningItemView.this, item);
             }
         });
         // 댓글 버튼
-        commentsBtn.setOnClickListener(new View.OnClickListener() {
+        comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onWarningCommentBtnClick(BoardWarningItemView.this, item);
             }
         });
         // 공유하기 버튼
-        shareBtn.setOnClickListener(new OnClickListener() {
+        share.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onWarningShareBtnClick(BoardWarningItemView.this);

@@ -47,6 +47,7 @@
         android:orientation="horizontal" >
         <!-- like -->
         <LinearLayout
+            android:id="@+id/like"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -59,17 +60,23 @@
                 android:layout_height="30dp"
                 android:padding="5dp"
                 android:src="@drawable/icon_like"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
                 android:id="@+id/image_like"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="@string/board_btn_like"
                 android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
                 android:background="@drawable/btn_white_border"
                 android:id="@+id/btn_like" />
         </LinearLayout>
         <!-- comment -->
         <LinearLayout
+            android:id="@+id/comment"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -81,17 +88,23 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="5dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
                 android:src="@drawable/icon_comment"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="@string/board_btn_comments"
                 android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
                 android:background="@drawable/btn_white_border"
                 android:id="@+id/btn_comment" />
         </LinearLayout>
         <!-- share -->
         <LinearLayout
+            android:id="@+id/share"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
