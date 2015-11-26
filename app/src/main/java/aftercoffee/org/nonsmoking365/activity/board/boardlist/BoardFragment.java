@@ -1,11 +1,13 @@
 package aftercoffee.org.nonsmoking365.activity.board.boardlist;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import aftercoffee.org.nonsmoking365.activity.board.BoardActivity;
+import aftercoffee.org.nonsmoking365.activity.login.LoginActivity;
 import aftercoffee.org.nonsmoking365.data.Board;
 import aftercoffee.org.nonsmoking365.data.BoardDocs;
 import aftercoffee.org.nonsmoking365.data.LikesResult;
@@ -84,31 +87,39 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                                     for (BoardDocs d : result.docsList) {
                                         if (d.category.equals("warning")) {
                                             BoardWarningItem b = new BoardWarningItem();
+                                            // 글 정보
                                             b._id = d._id;
                                             b.title = d.title;
                                             b.contents = d.content;
+                                            b.titleImg = R.drawable.sample;
+                                            // 좋아요, 댓글 수
                                             b.likesCount = d.like_ids.size();
                                             b.commentsCount = d.commentsList.size();
                                             b.likeOn = false;
-                                            for (String id : d.like_ids) {
-                                                if (user_id.equals(id))
-                                                    b.likeOn = true;        // 좋아요 ON
+                                            if (isLogined) {
+                                                for (String id : d.like_ids) {
+                                                    if (user_id.equals(id))
+                                                        b.likeOn = true;        // 좋아요 ON
+                                                }
                                             }
-                                            b.titleImg = R.drawable.sample;
                                             mAdapter.add(b);
                                         } else if (d.category.equals("tip")) {
                                             BoardTipsItem b = new BoardTipsItem();
+                                            // 글 정보
                                             b._id = d._id;
                                             b.title = d.title;
                                             b.contents = d.content;
+                                            b.titleImg = R.drawable.sample;
+                                            // 좋아요, 댓글 수
                                             b.likesCount = d.like_ids.size();
                                             b.commentsCount = d.commentsList.size();
                                             b.likeOn = false;
-                                            for (String id : d.like_ids) {
-                                                if (user_id.equals(id))
-                                                    b.likeOn = true;        // 좋아요 ON
+                                            if (isLogined) {
+                                                for (String id : d.like_ids) {
+                                                    if (user_id.equals(id))
+                                                        b.likeOn = true;        // 좋아요 ON
+                                                }
                                             }
-                                            b.titleImg = R.drawable.sample;
                                             mAdapter.add(b);
                                         } else {
                                             BoardAdItem b = new BoardAdItem();
@@ -161,31 +172,39 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                     for (BoardDocs d : result.docsList) {
                         if (d.category.equals("warning")) {
                             BoardWarningItem b = new BoardWarningItem();
+                            // 글 정보
                             b._id = d._id;
                             b.title = d.title;
                             b.contents = d.content;
+                            b.titleImg = R.drawable.sample;
+                            // 좋아요, 댓글 수
                             b.likesCount = d.like_ids.size();
                             b.commentsCount = d.commentsList.size();
                             b.likeOn = false;
-                            for (String id : d.like_ids) {
-                                if (user_id.equals(id))
-                                    b.likeOn = true;        // 좋아요 ON
+                            if (isLogined) {
+                                for (String id : d.like_ids) {
+                                    if (user_id.equals(id))
+                                        b.likeOn = true;        // 좋아요 ON
+                                }
                             }
-                            b.titleImg = R.drawable.sample;
                             mAdapter.add(b);
                         } else if (d.category.equals("tip")) {
                             BoardTipsItem b = new BoardTipsItem();
+                            // 글 정보
                             b._id = d._id;
                             b.title = d.title;
                             b.contents = d.content;
+                            b.titleImg = R.drawable.sample;
+                            // 좋아요, 댓글 수
                             b.likesCount = d.like_ids.size();
                             b.commentsCount = d.commentsList.size();
                             b.likeOn = false;
-                            for (String id : d.like_ids) {
-                                if (user_id.equals(id))
-                                    b.likeOn = true;        // 좋아요 ON
+                            if (isLogined) {
+                                for (String id : d.like_ids) {
+                                    if (user_id.equals(id))
+                                        b.likeOn = true;        // 좋아요 ON
+                                }
                             }
-                            b.titleImg = R.drawable.sample;
                             mAdapter.add(b);
                         } else {
                             BoardAdItem b = new BoardAdItem();
@@ -207,71 +226,111 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
     // Warning ITEM 의 좋아요 버튼 클릭
     @Override
     public void onAdapterWarningLikeClick(BoardItemAdapter adapter, final BoardWarningItem item, View view) {
-        final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
-        final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
-        final int position = mAdapter.items.indexOf(item);
-        String docID = item._id;
-        NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
-            @Override
-            public void onSuccess(LikesResult result) {
-                likeBtn.setText("좋아요 "+result.like_ids.size());
-                for (String id : result.like_ids) {
-                    if (user_id.equals(id)) {
-                        // 좋아요 OFF > ON
-                        likeImage.setImageResource(R.drawable.icon_like_active);
-                        item.likeOn = true;
-                        ((BoardWarningItem)mAdapter.items.get(position)).likeOn = true;
-                        ((BoardWarningItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
-                        break;
-                    } else {
-                        // 좋아요 ON > OFF
-                        likeImage.setImageResource(R.drawable.icon_like);
-                        item.likeOn = false;
-                        ((BoardWarningItem)mAdapter.items.get(position)).likeOn = false;
-                        ((BoardWarningItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
+        if (!isLogined) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("로그인");
+            builder.setMessage("좋아요는 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dlg = builder.create();
+            dlg.show();
+        } else {
+            final ImageView likeImage = (ImageView) view.findViewById(R.id.image_like);
+            final Button likeBtn = (Button) view.findViewById(R.id.btn_like);
+            final int position = mAdapter.items.indexOf(item);
+            String docID = item._id;
+            NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+                @Override
+                public void onSuccess(LikesResult result) {
+                    likeBtn.setText("좋아요 " + result.like_ids.size());
+                    // 좋아요 ON > OFF (result.like_ids.size가 0인경우 for루프를 돌지 않으므로 Default를 OFF로 설정하겠음)
+                    likeImage.setImageResource(R.drawable.icon_like_off);
+                    item.likeOn = false;
+                    ((BoardWarningItem) mAdapter.items.get(position)).likeOn = false;
+                    ((BoardWarningItem) mAdapter.items.get(position)).likesCount = result.like_ids.size();
+                    // 좋아요 OFF > ON 확인
+                    for (String id : result.like_ids) {
+                        if (user_id.equals(id)) {
+                            likeImage.setImageResource(R.drawable.icon_like_on);
+                            item.likeOn = true;
+                            ((BoardWarningItem) mAdapter.items.get(position)).likeOn = true;
+                            ((BoardWarningItem) mAdapter.items.get(position)).likesCount = result.like_ids.size();
+                            break;
+                        }
                     }
                 }
-            }
-            @Override
-            public void onFail(int code) {
-                Log.d("NetworkERROR/", "BoardLikePOST"+code);
-            }
-        });
+
+                @Override
+                public void onFail(int code) {
+                    Log.d("NetworkERROR/", "BoardLikePOST" + code);
+                }
+            });
+        }
     }
 
     // Tips ITEM 의 좋아요 버튼 클릭
     @Override
     public void onAdapterTipsLikeClick(BoardItemAdapter adapter, final BoardTipsItem item, View view) {
-        final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
-        final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
-        final int position = mAdapter.items.indexOf(item);
-        String docID = item._id;
-        NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
-            @Override
-            public void onSuccess(LikesResult result) {
-                likeBtn.setText("좋아요 "+result.like_ids.size());
-                for (String id : result.like_ids) {
-                    if (user_id.equals(id)) {
-                        // 좋아요 OFF > ON
-                        likeImage.setImageResource(R.drawable.icon_like_active);
-                        item.likeOn = true;
-                        ((BoardTipsItem)mAdapter.items.get(position)).likeOn = true;
-                        ((BoardTipsItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
-                        break;
-                    } else {
-                        // 좋아요 ON > OFF
-                        likeImage.setImageResource(R.drawable.icon_like);
-                        item.likeOn = false;
-                        ((BoardTipsItem)mAdapter.items.get(position)).likeOn = false;
-                        ((BoardTipsItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
+        if (!isLogined) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("로그인");
+            builder.setMessage("좋아요는 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dlg = builder.create();
+            dlg.show();
+        } else {
+            final ImageView likeImage = (ImageView) view.findViewById(R.id.image_like);
+            final Button likeBtn = (Button) view.findViewById(R.id.btn_like);
+            final int position = mAdapter.items.indexOf(item);
+            String docID = item._id;
+            NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+                @Override
+                public void onSuccess(LikesResult result) {
+                    likeBtn.setText("좋아요 " + result.like_ids.size());
+                    // 좋아요 ON > OFF (result.like_ids.size가 0인경우 for루프를 돌지 않으므로 Default를 OFF로 설정하겠음)
+                    likeImage.setImageResource(R.drawable.icon_like_off);
+                    item.likeOn = false;
+                    ((BoardTipsItem) mAdapter.items.get(position)).likeOn = false;
+                    ((BoardTipsItem) mAdapter.items.get(position)).likesCount = result.like_ids.size();
+                    // 좋아요 OFF > ON 확인
+                    for (String id : result.like_ids) {
+                        if (user_id.equals(id)) {
+                            likeImage.setImageResource(R.drawable.icon_like_on);
+                            item.likeOn = true;
+                            ((BoardTipsItem) mAdapter.items.get(position)).likeOn = true;
+                            ((BoardTipsItem) mAdapter.items.get(position)).likesCount = result.like_ids.size();
+                            break;
+                        }
                     }
                 }
-            }
-            @Override
-            public void onFail(int code) {
-                Log.d("NetworkERROR/", "BoardLikePOST"+code);
-            }
-        });
+
+                @Override
+                public void onFail(int code) {
+                    Log.d("NetworkERROR/", "BoardLikePOST" + code);
+                }
+            });
+        }
     }
 
     // Warning ITEM 의 댓글 버튼 클릭

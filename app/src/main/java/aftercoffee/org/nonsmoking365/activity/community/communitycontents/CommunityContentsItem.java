@@ -10,5 +10,8 @@ public class CommunityContentsItem {
     String content;
     String contentImageURL;
     String created;
-    int likes;
+
+    boolean likeOn;
+    int likesCount;
+    int commentsCount;
 }

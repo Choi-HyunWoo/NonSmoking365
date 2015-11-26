@@ -10,4 +10,8 @@ public class CommunityItem {
     String title;
     String contents;
     String created;
+
+    boolean likeOn;
+    int likesCount;
+    int commentsCount;
 }

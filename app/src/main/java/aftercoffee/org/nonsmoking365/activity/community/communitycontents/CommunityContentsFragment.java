@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,15 +30,17 @@ import aftercoffee.org.nonsmoking365.activity.community.CommunityActivity;
 import aftercoffee.org.nonsmoking365.activity.login.LoginActivity;
 import aftercoffee.org.nonsmoking365.data.Community;
 import aftercoffee.org.nonsmoking365.data.CommunityDocs;
+import aftercoffee.org.nonsmoking365.data.LikesResult;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CommunityContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener{
+public class CommunityContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener, CommunityContentsItemView.OnCommunityContentsBtnClickListener {
 
     boolean isLogined;
+    String user_id;
 
     private static final String ARG_DOCID = "selected_docID";
     private String docID;       // Board List 에서 선택된 글의 ID
@@ -82,6 +85,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("글 내용");
         isLogined = UserManager.getInstance().getLoginState();
+        user_id = UserManager.getInstance().getUser_id();
     }
 
     @Override
@@ -98,16 +102,30 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                 // 글 내용 담기
                 CommunityContentsItemView contentView = new CommunityContentsItemView(getContext(), docID);
                 CommunityContentsItem contents = new CommunityContentsItem();         // 글 내용 (헤더)
+                // 유저 정보
                 contents.userNickname = result.user_id.nick;
                 if (result.user_id.image_ids.size() != 0) {
                     contents.userProfileImageURL = result.user_id.image_ids.get(0).uri;
                 }
+                // 글 정보
                 contents.title = result.title;
                 contents.content = result.content;
-                contents.likes = result.like_ids.size();
                 if (result.image_ids.size() != 0)
                     contents.contentImageURL = result.image_ids.get(0).uri;
+                // 좋아요, 댓글 수 정보
+                contents.commentsCount = result.commentsList.size();
+                contents.likesCount = result.like_ids.size();
+                contents.likeOn = false;
+                if (isLogined) {
+                    for (String id : result.like_ids) {
+                        if (user_id.equals(id)) {
+                            contents.likeOn = true;
+                            break;
+                        }
+                    }
+                }
                 contentView.setContentItem(contents);
+                contentView.setOnCommunityContentsBtnClickListener(CommunityContentsFragment.this);
 
                 // ListView settings
                 // 본문
@@ -216,6 +234,63 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
         return view;
     }
 
+    // 좋아요
+    @Override
+    public void onCommunityContentsLikeClick(CommunityContentsItemView view, final CommunityContentsItem item) {
+        if (!isLogined) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("로그인");
+            builder.setMessage("좋아요는 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dlg = builder.create();
+            dlg.show();
+        } else {
+            final Button likeBtn = (Button) view.findViewById(R.id.btn_like);
+            final ImageView likeImage = (ImageView) view.findViewById(R.id.image_like);
+            NetworkManager.getInstance().postCommunityLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+                @Override
+                public void onSuccess(LikesResult result) {
+                    likeBtn.setText("좋아요 " + result.like_ids.size());
+                    // 좋아요 ON > OFF (result.like_ids.size가 0인경우 for루프를 돌지 않으므로 Default를 OFF로 설정하겠음)
+                    likeImage.setImageResource(R.drawable.icon_like_off);
+                    item.likeOn = false;
+                    item.likesCount = result.like_ids.size();
+                    // 좋아요 OFF > ON 확인
+                    for (String id : result.like_ids) {
+                        if (user_id.equals(id)) {
+                            likeImage.setImageResource(R.drawable.icon_like_on);
+                            item.likeOn = true;
+                            item.likesCount = result.like_ids.size();
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFail(int code) {
+                    Log.d("NetworkERROR/", "CommunityLikePOST" + code);
+                }
+            });
+        }
+    }
+
+    // 공유하기
+    @Override
+    public void onCommunityContentsShareClick(CommunityContentsItemView view, CommunityContentsItem item) {
+        Toast.makeText(getActivity(), "공유하깅ㅇ", Toast.LENGTH_SHORT).show();
+    }
+
     // 댓글 삭제 << 안됨
     @Override
     public void onAdapterDelete(ContentsAdapter adapter, View view) {
@@ -256,6 +331,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
     public void onResume() {
         super.onResume();
         isLogined = UserManager.getInstance().getLoginState();
+        user_id = UserManager.getInstance().getUser_id();
         CommunityActivity.fab.setVisibility(View.GONE);
     }
 

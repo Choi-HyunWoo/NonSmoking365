@@ -1,7 +1,6 @@
 package aftercoffee.org.nonsmoking365.activity.board.boardlist;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -10,8 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import aftercoffee.org.nonsmoking365.R;
-import aftercoffee.org.nonsmoking365.data.LikesResult;
-import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 /**
@@ -103,9 +100,9 @@ public class BoardWarningItemView extends FrameLayout {
         likeBtn.setText("좋아요 " + item.likesCount);
         commentsBtn.setText("댓글 "+item.commentsCount);
         if (item.likeOn) {
-            likeImage.setImageResource(R.drawable.icon_like_active);
+            likeImage.setImageResource(R.drawable.icon_like_on);
         } else {
-            likeImage.setImageResource(R.drawable.icon_like);
+            likeImage.setImageResource(R.drawable.icon_like_off);
         }
     }
 

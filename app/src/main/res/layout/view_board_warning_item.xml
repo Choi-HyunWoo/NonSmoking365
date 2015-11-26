@@ -59,7 +59,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="5dp"
-                android:src="@drawable/icon_like"
+                android:src="@drawable/icon_like_off"
                 android:focusable="false"
                 android:clickable="false"
                 android:stateListAnimator="@null"

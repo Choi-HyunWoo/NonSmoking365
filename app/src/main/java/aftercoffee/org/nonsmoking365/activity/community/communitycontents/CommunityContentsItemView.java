@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import aftercoffee.org.nonsmoking365.manager.UserManager;
  */
 public class CommunityContentsItemView extends FrameLayout {
 
+    CommunityContentsItem item;
     Context context;
     String docID;
     String user_id;
@@ -46,67 +48,72 @@ public class CommunityContentsItemView extends FrameLayout {
         init();
     }
 
+    LinearLayout like;
+    LinearLayout share;
     ImageView userProfileImageView;
     TextView userNicknameView;
     TextView titleView;
     TextView contentView;
     ImageView contentImageView;
+
+    ImageView likeImage;
     Button likeBtn;
     Button shareBtn;
+
+    public interface OnCommunityContentsBtnClickListener {
+        public void onCommunityContentsLikeClick(CommunityContentsItemView view, CommunityContentsItem item);
+        public void onCommunityContentsShareClick(CommunityContentsItemView view, CommunityContentsItem item);
+    }
+
+    OnCommunityContentsBtnClickListener mListener;
+
+    public void setOnCommunityContentsBtnClickListener (OnCommunityContentsBtnClickListener listener) {
+        mListener = listener;
+    }
 
     public void init() {
         inflate(getContext(), R.layout.view_community_header, this);
 
+        like = (LinearLayout)findViewById(R.id.like);
+        share =(LinearLayout)findViewById(R.id.share);
         userProfileImageView = (ImageView)findViewById(R.id.image_userProfileImg);
         userNicknameView = (TextView)findViewById(R.id.text_userNickname);
         titleView = (TextView)findViewById(R.id.text_title);
         contentView = (TextView)findViewById(R.id.text_content);
         contentImageView = (ImageView)findViewById(R.id.image_content);
 
+        likeImage = (ImageView)findViewById(R.id.image_like);
         likeBtn = (Button)findViewById(R.id.btn_like);
         shareBtn = (Button)findViewById(R.id.btn_share);
 
-        likeBtn.setOnClickListener(new OnClickListener() {
+        like.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkManager.getInstance().postCommunityLike(getContext(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
-                    @Override
-                    public void onSuccess(LikesResult result) {
-                        if (result.like_ids.size() > 999) {
-                            likeBtn.setText("좋아요 999+");
-                        } else {
-                            likeBtn.setText("좋아요 " + result.like_ids.size());
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int code) {
-                        Log.d("BoardContentItemView:", "network error/" + code);
-                    }
-                });
+                mListener.onCommunityContentsLikeClick(CommunityContentsItemView.this, item);
             }
         });
 
-        shareBtn.setOnClickListener(new OnClickListener() {
+        share.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 게시글 공유하기 구현 (Facebook)
-                Toast.makeText(context, "구현중입니다.", Toast.LENGTH_SHORT).show();
+                mListener.onCommunityContentsShareClick(CommunityContentsItemView.this, item);
             }
         });
     }
 
 
     public void setContentItem(CommunityContentsItem item) {
+        this.item = item;
         ImageLoader.getInstance().displayImage(item.userProfileImageURL, userProfileImageView, options);
         userNicknameView.setText(item.userNickname);
         titleView.setText(item.title);
         contentView.setText(item.content);
         ImageLoader.getInstance().displayImage(item.contentImageURL, contentImageView, options);
-        if (item.likes > 999) {
-            likeBtn.setText("좋아요 999+");
+        likeBtn.setText("좋아요 " + item.likesCount);
+        if (item.likeOn) {
+            likeImage.setImageResource(R.drawable.icon_like_on);
         } else {
-            likeBtn.setText("좋아요 "+item.likes);
+            likeImage.setImageResource(R.drawable.icon_like_off);
         }
     }
 }

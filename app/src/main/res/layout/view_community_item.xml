@@ -46,27 +46,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
+        <LinearLayout
+            android:id="@+id/like"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/board_btn_like"
-            android:focusable="false"
-            android:background="@drawable/btn_white_border"
-            android:drawableLeft="@drawable/icon_like"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:id="@+id/btn_like" />
-        <Button
+            android:gravity="center" >
+            <ImageView
+                android:id="@+id/image_like"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_like_off"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:padding="5dp" />
+            <Button
+                android:id="@+id/btn_like"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/board_btn_like"
+                android:background="@drawable/btn_white_border"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/comment"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/board_btn_comments"
-            android:focusable="false"
-            android:background="@drawable/btn_white_border"
-            android:drawableLeft="@drawable/icon_comment"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:id="@+id/btn_comment" />
+            android:gravity="center" >
+            <ImageView
+                android:id="@+id/image_comment"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_comment"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:padding="5dp" />
+            <Button
+                android:id="@+id/btn_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/board_btn_comments"
+                android:background="@drawable/btn_white_border"
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

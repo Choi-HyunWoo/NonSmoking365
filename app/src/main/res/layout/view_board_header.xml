@@ -58,7 +58,7 @@
                 android:id="@+id/image_like"
                 android:clickable="false"
                 android:stateListAnimator="@null"
-                android:src="@drawable/icon_like"/>
+                android:src="@drawable/icon_like_off"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

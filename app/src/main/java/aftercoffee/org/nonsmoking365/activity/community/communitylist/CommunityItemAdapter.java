@@ -10,8 +10,26 @@ import java.util.List;
 /**
  * Created by Tacademy on 2015-11-24.
  */
-public class CommunityItemAdapter extends BaseAdapter {
+public class CommunityItemAdapter extends BaseAdapter implements CommunityItemView.OnCommunityBtnClickListener {
     List<CommunityItem> items = new ArrayList<CommunityItem>();
+
+    public interface OnAdapterBtnClickListener {
+        public void onAdapterLikeClick(CommunityItemView view, CommunityItem item);
+        public void onAdapterCommentClick(CommunityItemView view, CommunityItem item);
+    }
+    OnAdapterBtnClickListener mListener;
+    public void setOnAdapterBtnClickListener(OnAdapterBtnClickListener listener) {
+        mListener = listener;
+    }
+
+    @Override
+    public void onCommunityLikeClick(CommunityItemView view, CommunityItem item) {
+        mListener.onAdapterLikeClick(view, item);
+    }
+    @Override
+    public void onCommunityCommentClick(CommunityItemView view, CommunityItem item) {
+        mListener.onAdapterCommentClick(view, item);
+    }
 
     public void add(CommunityItem item) {
         items.add(item);
@@ -63,6 +81,7 @@ public class CommunityItemAdapter extends BaseAdapter {
             view = new CommunityItemView(parent.getContext());
         }
         view.setCommunityItem(items.get(position));
+        view.setOnCommunityBtnClickListener(this);
         return view;
     }
 }

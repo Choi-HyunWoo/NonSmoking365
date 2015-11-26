@@ -1,20 +1,16 @@
 package aftercoffee.org.nonsmoking365.activity.board.boardcontents;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import aftercoffee.org.nonsmoking365.data.LikesResult;
-import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -54,12 +50,12 @@ public class BoardContentsItemView extends FrameLayout {
     ImageView likeImage;
     Button shareBtn;
 
-    public interface OnContentBtnClickListener{
-        public void onContentLikeClick(View view, BoardContentsItem item);
-        public void onContentShareClick(View view, BoardContentsItem item);
+    public interface OnBoardContentsBtnClickListener {
+        public void onBoardContentLikeClick(View view, BoardContentsItem item);
+        public void onBoardContentShareClick(View view, BoardContentsItem item);
     }
-    OnContentBtnClickListener mListener;
-    public void setOnContentBtnClickListener(OnContentBtnClickListener listener) {
+    OnBoardContentsBtnClickListener mListener;
+    public void setOnBoardContentsBtnClickListener(OnBoardContentsBtnClickListener listener) {
         mListener = listener;
     }
 
@@ -77,14 +73,14 @@ public class BoardContentsItemView extends FrameLayout {
         like.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onContentLikeClick(BoardContentsItemView.this, item);
+                mListener.onBoardContentLikeClick(BoardContentsItemView.this, item);
             }
         });
 
         share.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onContentShareClick(BoardContentsItemView.this, item);
+                mListener.onBoardContentShareClick(BoardContentsItemView.this, item);
             }
         });
     }
@@ -96,9 +92,9 @@ public class BoardContentsItemView extends FrameLayout {
         ImageLoader.getInstance().displayImage(item.imageURL, contentImageView, options);
         likeBtn.setText("좋아요 "+item.likesCount);
         if (item.likeOn) {
-            likeImage.setImageResource(R.drawable.icon_like_active);
+            likeImage.setImageResource(R.drawable.icon_like_on);
         } else {
-            likeImage.setImageResource(R.drawable.icon_like);
+            likeImage.setImageResource(R.drawable.icon_like_off);
         }
     }
 }

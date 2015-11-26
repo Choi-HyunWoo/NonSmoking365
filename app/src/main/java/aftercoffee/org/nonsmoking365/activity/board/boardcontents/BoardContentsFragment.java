@@ -30,7 +30,7 @@ import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 
-public class BoardContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener, BoardContentsItemView.OnContentBtnClickListener {
+public class BoardContentsFragment extends Fragment implements ContentsAdapter.OnAdapterDeleteListener, BoardContentsItemView.OnBoardContentsBtnClickListener {
 
     boolean isLogined;
 
@@ -110,21 +110,25 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
                 // 글 내용 담기
                 BoardContentsItemView contentView = new BoardContentsItemView(getContext(), docID);
                 BoardContentsItem contents = new BoardContentsItem();         // 글 내용 (헤더)
+                // 글 정보
                 contents.title = result.title;
                 contents.content = result.content;
-                contents.likesCount = result.like_ids.size();
-                contents.likeOn = false;
-                for (String id : result.like_ids) {
-                    if (user_id.equals(id)) {
-                        contents.likeOn = true;
-                        break;
-                    }
-                }
-                contents.commentsCount = result.commentsList.size();
                 if (result.image_ids.size() != 0)
                     contents.imageURL = result.image_ids.get(0).uri;
+                // 좋아요, 댓글 수 정보
+                contents.commentsCount = result.commentsList.size();
+                contents.likesCount = result.like_ids.size();
+                contents.likeOn = false;
+                if (isLogined) {
+                    for (String id : result.like_ids) {
+                        if (user_id.equals(id)) {
+                            contents.likeOn = true;
+                            break;
+                        }
+                    }
+                }
                 contentView.setContentItem(contents);
-                contentView.setOnContentBtnClickListener(BoardContentsFragment.this);
+                contentView.setOnBoardContentsBtnClickListener(BoardContentsFragment.this);
 
                 // ListView settings
                 listView.addHeaderView(contentView, null, false);           // 본문
@@ -232,37 +236,58 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
 
     // 좋아요 클릭
     @Override
-    public void onContentLikeClick(View view, final BoardContentsItem item) {
-        final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
-        final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
-        NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
-            @Override
-            public void onSuccess(LikesResult result) {
-                likeBtn.setText("좋아요 " + result.like_ids.size());
-                for (String id : result.like_ids) {
-                    if (user_id.equals(id)) {
-                        // 좋아요 OFF > ON
-                        likeImage.setImageResource(R.drawable.icon_like_active);
-                        item.likeOn = true;
-                        item.likesCount = result.like_ids.size();
-                        break;
-                    } else {
-                        // 좋아요 ON > OFF
-                        likeImage.setImageResource(R.drawable.icon_like);
-                        item.likeOn = false;
-                        item.likesCount = result.like_ids.size();
+    public void onBoardContentLikeClick(View view, final BoardContentsItem item) {
+        if (!isLogined) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("로그인");
+            builder.setMessage("좋아요는 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dlg = builder.create();
+            dlg.show();
+        } else {
+            final Button likeBtn = (Button) view.findViewById(R.id.btn_like);
+            final ImageView likeImage = (ImageView) view.findViewById(R.id.image_like);
+            NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+                @Override
+                public void onSuccess(LikesResult result) {
+                    likeBtn.setText("좋아요 " + result.like_ids.size());
+                    // 좋아요 ON > OFF (result.like_ids.size가 0인경우 for루프를 돌지 않으므로 Default를 OFF로 설정하겠음)
+                    likeImage.setImageResource(R.drawable.icon_like_off);
+                    item.likeOn = false;
+                    item.likesCount = result.like_ids.size();
+                    // 좋아요 OFF > ON 확인
+                    for (String id : result.like_ids) {
+                        if (user_id.equals(id)) {
+                            likeImage.setImageResource(R.drawable.icon_like_on);
+                            item.likeOn = true;
+                            item.likesCount = result.like_ids.size();
+                            break;
+                        }
                     }
                 }
-            }
-            @Override
-            public void onFail(int code) {
-            }
-        });
+
+                @Override
+                public void onFail(int code) {
+                    Log.d("NetworkERROR/", "BoardLikePOST" + code);
+                }
+            });
+        }
     }
 
     // 공유하기 클릭
     @Override
-    public void onContentShareClick(View v, BoardContentsItem item) {
+    public void onBoardContentShareClick(View v, BoardContentsItem item) {
         Toast.makeText(getActivity(), "공유하깅", Toast.LENGTH_SHORT).show();
     }
 
