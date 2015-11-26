@@ -66,10 +66,10 @@ public class BoardContentsItemView extends FrameLayout {
                 NetworkManager.getInstance().postBoardLike(getContext(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
                     @Override
                     public void onSuccess(LikesResult result) {
-                        if (result.likes > 999) {
+                        if (result.like_ids.size() > 999) {
                             likeBtn.setText("좋아요 999+");
                         } else {
-                            likeBtn.setText("좋아요 "+result.likes);
+                            likeBtn.setText("좋아요 " + result.like_ids.size());
                         }
                     }
                     @Override

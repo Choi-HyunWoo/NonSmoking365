@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -19,6 +21,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import aftercoffee.org.nonsmoking365.activity.board.BoardActivity;
 import aftercoffee.org.nonsmoking365.data.Board;
 import aftercoffee.org.nonsmoking365.data.BoardDocs;
+import aftercoffee.org.nonsmoking365.data.LikesResult;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
@@ -26,11 +29,12 @@ import aftercoffee.org.nonsmoking365.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BoardFragment extends Fragment {
+public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapterWarningClickListener, BoardItemAdapter.OnAdapterTipsClickListener {
 
     public static final int BOARD_PAGE_DISPLAY = 5;
 
     boolean isLogined;
+    String user_id;
     String selectedDocID;
 
     ListView listView;
@@ -81,6 +85,15 @@ public class BoardFragment extends Fragment {
                                             b._id = d._id;
                                             b.title = d.title;
                                             b.contents = d.content;
+                                            b.likes = d.like_ids.size();
+                                            if (b.likes != 0) {
+                                                for (int i=0; i<d.like_ids.size(); i++) {
+                                                    b.likeOn = false;
+                                                    if (user_id.equals(d.like_ids.get(i))) {
+                                                        b.likeOn = true;        // 좋아요 버튼 ON
+                                                    }
+                                                }
+                                            }
                                             b.titleImg = R.drawable.sample;
                                             mAdapter.add(b);
                                         } else if (d.category.equals("tip")) {
@@ -88,6 +101,15 @@ public class BoardFragment extends Fragment {
                                             b._id = d._id;
                                             b.title = d.title;
                                             b.contents = d.content;
+                                            b.likes = d.like_ids.size();
+                                            if (b.likes != 0) {
+                                                for (int i=0; i<d.like_ids.size(); i++) {
+                                                    b.likeOn = false;
+                                                    if (user_id.equals(d.like_ids.get(i))) {
+                                                        b.likeOn = true;        // 좋아요 버튼 ON
+                                                    }
+                                                }
+                                            }
                                             b.titleImg = R.drawable.sample;
                                             mAdapter.add(b);
                                         } else {
@@ -114,6 +136,8 @@ public class BoardFragment extends Fragment {
 
         listView = refreshView.getRefreshableView();
         mAdapter = new BoardItemAdapter();
+        mAdapter.setOnAdapterWarningClickListener(this);
+        mAdapter.setOnAdapterTipsClickListener(this);
         listView.setAdapter(mAdapter);
         getBoard();     // 최초 가져오기
 
@@ -142,6 +166,15 @@ public class BoardFragment extends Fragment {
                             b._id = d._id;
                             b.title = d.title;
                             b.contents = d.content;
+                            b.likes = d.like_ids.size();
+                            if (b.likes != 0) {
+                                for (int i=0; i<d.like_ids.size(); i++) {
+                                    b.likeOn = false;
+                                    if (user_id.equals(d.like_ids.get(i))) {
+                                        b.likeOn = true;        // 좋아요 버튼 ON
+                                    }
+                                }
+                            }
                             b.titleImg = R.drawable.sample;
                             mAdapter.add(b);
                         } else if (d.category.equals("tip")) {
@@ -149,6 +182,15 @@ public class BoardFragment extends Fragment {
                             b._id = d._id;
                             b.title = d.title;
                             b.contents = d.content;
+                            b.likes = d.like_ids.size();
+                            if (b.likes != 0) {
+                                for (int i=0; i<d.like_ids.size(); i++) {
+                                    b.likeOn = false;
+                                    if (user_id.equals(d.like_ids.get(i))) {
+                                        b.likeOn = true;        // 좋아요 버튼 ON
+                                    }
+                                }
+                            }
                             b.titleImg = R.drawable.sample;
                             mAdapter.add(b);
                         } else {
@@ -171,10 +213,31 @@ public class BoardFragment extends Fragment {
     }
 
     @Override
+    public void onAdapterTipsCommentClick(BoardItemAdapter adapter, View view) {
+        Toast.makeText(getActivity(), "댓글 Tip", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAdapterTipsShareClick(BoardItemAdapter adapter, View view) {
+        Toast.makeText(getActivity(), "공유하기 Tip", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAdapterWarningCommentClick(BoardItemAdapter adapter, View view) {
+        Toast.makeText(getActivity(), "댓글 Warning", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAdapterWarningShareClick(BoardItemAdapter adapter, View view) {
+        Toast.makeText(getActivity(), "공유하기 Warning", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 로그인 정보 가져오기
         isLogined = UserManager.getInstance().getLoginState();
+        user_id = UserManager.getInstance().getUser_id();
     }
 
     @Override
@@ -182,6 +245,7 @@ public class BoardFragment extends Fragment {
         super.onResume();
         // 로그인 정보 가져오기
         isLogined = UserManager.getInstance().getLoginState();
+        user_id = UserManager.getInstance().getUser_id();
     }
 
     @Override

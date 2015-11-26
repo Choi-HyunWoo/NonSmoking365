@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Tacademy on 2015-11-03.
  */
-public class BoardItemAdapter extends BaseAdapter {
+public class BoardItemAdapter extends BaseAdapter implements BoardTipsItemView.OnTipsBtnClickListener, BoardWarningItemView.OnWarningBtnClickListener{
     List<BoardItem> items  = new ArrayList<BoardItem>();
 
     public static final int VIEW_TYPE_COUNT = 3;
@@ -20,6 +20,16 @@ public class BoardItemAdapter extends BaseAdapter {
 
 
     int totalCount;
+
+    public void add(BoardItem item) {
+        items.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        items.clear();
+        notifyDataSetChanged();
+    }
 
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
@@ -54,15 +64,56 @@ public class BoardItemAdapter extends BaseAdapter {
         }
     }
 
-    public void add(BoardItem item) {
-        items.add(item);
-        notifyDataSetChanged();
+
+    // Adapter > Fragment
+    public interface OnAdapterWarningClickListener {
+        public void onAdapterWarningCommentClick(BoardItemAdapter adapter, View view);
+        public void onAdapterWarningShareClick(BoardItemAdapter adapter, View view);
+    }
+    public interface OnAdapterTipsClickListener {
+        public void onAdapterTipsCommentClick(BoardItemAdapter adapter, View view);
+        public void onAdapterTipsShareClick(BoardItemAdapter adapter, View view);
+    }
+    OnAdapterWarningClickListener mWarningListener;
+    OnAdapterTipsClickListener mTipsListener;
+    public void setOnAdapterWarningClickListener(OnAdapterWarningClickListener listener) {
+        mWarningListener = listener;
+    }
+    public void setOnAdapterTipsClickListener(OnAdapterTipsClickListener listener) {
+        mTipsListener = listener;
     }
 
-    public void clear() {
-        items.clear();
+
+
+    @Override
+    public void onWarningLikeBtnClick(View view, int position, int likes, boolean likeOn) {
+        ((BoardWarningItem)items.get(position)).likeOn = likeOn;
+        ((BoardWarningItem)items.get(position)).likes = likes;
         notifyDataSetChanged();
     }
+    @Override
+    public void onTipsLikeBtnClick(View view, int position, int likes, boolean likeOn) {
+        ((BoardTipsItem)items.get(position)).likeOn = likeOn;
+        ((BoardTipsItem)items.get(position)).likes = likes;
+        notifyDataSetChanged();
+    }
+    @Override
+    public void onWarningCommentBtnClick(View view) {
+        mWarningListener.onAdapterWarningCommentClick(this, view);
+    }
+    @Override
+    public void onTipsCommentBtnClick(View view) {
+        mTipsListener.onAdapterTipsCommentClick(this, view);
+    }
+    @Override
+    public void onWarningShareBtnClick(View view) {
+        mWarningListener.onAdapterWarningShareClick(this, view);
+    }
+    @Override
+    public void onTipsShareBtnClick(View view) {
+        mTipsListener.onAdapterTipsShareClick(this, view);
+    }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -104,9 +155,10 @@ public class BoardItemAdapter extends BaseAdapter {
                 if (convertView != null && convertView instanceof BoardWarningItemView) {
                     view = (BoardWarningItemView) convertView;
                 } else {
-                    view = new BoardWarningItemView(parent.getContext());
+                    view = new BoardWarningItemView(parent.getContext(), ((BoardWarningItem)items.get(position))._id, position);
                 }
                 view.setBoardItem((BoardWarningItem) items.get(position));
+                view.setOnWarningBtnClickListener(this);
                 return view;
             }
             case TYPE_INDEX_TIPS: {
@@ -114,9 +166,10 @@ public class BoardItemAdapter extends BaseAdapter {
                 if (convertView != null && convertView instanceof BoardTipsItemView) {
                     view = (BoardTipsItemView) convertView;
                 } else {
-                    view = new BoardTipsItemView(parent.getContext());
+                    view = new BoardTipsItemView(parent.getContext(), ((BoardTipsItem)items.get(position))._id, position);
                 }
                 view.setBoardItem((BoardTipsItem) items.get(position));
+                view.setOnTipsBtnClickListener(this);
                 return view;
             }
             case TYPE_INDEX_AD : {
