@@ -11,8 +11,8 @@ public class BoardWarningItem implements BoardItem {
     int titleImg;
     String title;
     String contents;
-    int likes;
+
     boolean likeOn;
-//    int comments;
-//    Date contentsDate;
+    int likesCount;
+    int commentsCount;
 }

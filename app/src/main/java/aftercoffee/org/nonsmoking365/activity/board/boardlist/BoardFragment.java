@@ -87,7 +87,7 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                                             b._id = d._id;
                                             b.title = d.title;
                                             b.contents = d.content;
-                                            b.likes = d.like_ids.size();
+                                            b.likesCount = d.like_ids.size();
                                             b.likeOn = false;
                                             for (String id : d.like_ids) {
                                                 if (user_id.equals(id))
@@ -100,7 +100,8 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                                             b._id = d._id;
                                             b.title = d.title;
                                             b.contents = d.content;
-                                            b.likes = d.like_ids.size();
+                                            b.likesCount = d.like_ids.size();
+                                            b.likeOn = false;
                                             for (String id : d.like_ids) {
                                                 if (user_id.equals(id))
                                                     b.likeOn = true;        // 좋아요 ON
@@ -161,7 +162,8 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                             b._id = d._id;
                             b.title = d.title;
                             b.contents = d.content;
-                            b.likes = d.like_ids.size();
+                            b.likesCount = d.like_ids.size();
+                            b.likeOn = false;
                             for (String id : d.like_ids) {
                                 if (user_id.equals(id))
                                     b.likeOn = true;        // 좋아요 ON
@@ -173,7 +175,8 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                             b._id = d._id;
                             b.title = d.title;
                             b.contents = d.content;
-                            b.likes = d.like_ids.size();
+                            b.likesCount = d.like_ids.size();
+                            b.likeOn = false;
                             for (String id : d.like_ids) {
                                 if (user_id.equals(id))
                                     b.likeOn = true;        // 좋아요 ON
@@ -202,23 +205,26 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
         final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
         final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
         final int position = mAdapter.items.indexOf(item);
-        NetworkManager.getInstance().postBoardLike(getActivity(), selectedDocID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+        String docID = item._id;
+        NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
             @Override
             public void onSuccess(LikesResult result) {
-                likeBtn.setText("좋아요 "+result.like_ids.size());
+                //likeBtn.setText("좋아요 "+result.like_ids.size());
                 for (String id : result.like_ids) {
                     if (user_id.equals(id)) {
                         // 좋아요 OFF > ON
                         likeImage.setImageResource(R.drawable.icon_like_active);
+                        likeBtn.setText("좋아요 " + result.like_ids.size() + "ON");
                         item.likeOn = true;
                         ((BoardWarningItem)mAdapter.items.get(position)).likeOn = true;
-                        ((BoardWarningItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                        ((BoardWarningItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
                         break;
                     } else {
                         likeImage.setImageResource(R.drawable.icon_like);
+                        likeBtn.setText("좋아요 "+result.like_ids.size()+"OFF");
                         item.likeOn = false;
                         ((BoardWarningItem)mAdapter.items.get(position)).likeOn = false;
-                        ((BoardWarningItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                        ((BoardWarningItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
                     }
                 }
             }
@@ -233,24 +239,27 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
         final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
         final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
         final int position = mAdapter.items.indexOf(item);
-        NetworkManager.getInstance().postBoardLike(getActivity(), selectedDocID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+        String docID = item._id;
+        NetworkManager.getInstance().postBoardLike(getActivity(), docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
             @Override
             public void onSuccess(LikesResult result) {
-                likeBtn.setText("좋아요 "+result.like_ids.size());
+                //likeBtn.setText("좋아요 "+result.like_ids.size());
                 for (String id : result.like_ids) {
                     if (user_id.equals(id)) {
                         // 좋아요 OFF > ON
                         likeImage.setImageResource(R.drawable.icon_like_active);
+                        likeBtn.setText("좋아요 "+result.like_ids.size()+"ON");
                         item.likeOn = true;
                         ((BoardTipsItem)mAdapter.items.get(position)).likeOn = true;
-                        ((BoardTipsItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                        ((BoardTipsItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
                         break;
                     } else {
                         // 좋아요 ON > OFF
+                        likeBtn.setText("좋아요 "+result.like_ids.size()+"OFF");
                         likeImage.setImageResource(R.drawable.icon_like);
                         item.likeOn = false;
                         ((BoardTipsItem)mAdapter.items.get(position)).likeOn = false;
-                        ((BoardTipsItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                        ((BoardTipsItem)mAdapter.items.get(position)).likesCount = result.like_ids.size();
                     }
                 }
             }
@@ -262,12 +271,14 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
     }
 
     @Override
-    public void onAdapterWarningCommentClick(BoardItemAdapter adapter, View view) {
-        Toast.makeText(getActivity(), "댓글 Warning", Toast.LENGTH_SHORT).show();
+    public void onAdapterWarningCommentClick(BoardItemAdapter adapter, BoardWarningItem item, View view) {
+        String docID = item._id;
+        ((BoardActivity)getActivity()).pushBoardContentsFragment(docID);
     }
     @Override
-    public void onAdapterTipsCommentClick(BoardItemAdapter adapter, View view) {
-        Toast.makeText(getActivity(), "댓글 Tip", Toast.LENGTH_SHORT).show();
+    public void onAdapterTipsCommentClick(BoardItemAdapter adapter, BoardTipsItem item, View view) {
+        String docID = item._id;
+        ((BoardActivity)getActivity()).pushBoardContentsFragment(docID);
     }
 
     @Override

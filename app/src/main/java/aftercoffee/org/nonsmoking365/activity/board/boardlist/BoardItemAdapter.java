@@ -66,12 +66,12 @@ public class BoardItemAdapter extends BaseAdapter implements BoardTipsItemView.O
     // Adapter > Fragment
     public interface OnAdapterWarningClickListener {
         public void onAdapterWarningLikeClick(BoardItemAdapter adapter, BoardWarningItem item, View view);
-        public void onAdapterWarningCommentClick(BoardItemAdapter adapter, View view);
+        public void onAdapterWarningCommentClick(BoardItemAdapter adapter, BoardWarningItem item, View view);
         public void onAdapterWarningShareClick(BoardItemAdapter adapter, View view);
     }
     public interface OnAdapterTipsClickListener {
         public void onAdapterTipsLikeClick(BoardItemAdapter adapter, BoardTipsItem item, View view);
-        public void onAdapterTipsCommentClick(BoardItemAdapter adapter, View view);
+        public void onAdapterTipsCommentClick(BoardItemAdapter adapter, BoardTipsItem item, View view);
         public void onAdapterTipsShareClick(BoardItemAdapter adapter, View view);
     }
     OnAdapterWarningClickListener mWarningListener;
@@ -91,12 +91,12 @@ public class BoardItemAdapter extends BaseAdapter implements BoardTipsItemView.O
         mTipsListener.onAdapterTipsLikeClick(this, item, view);
     }
     @Override
-    public void onWarningCommentBtnClick(View view) {
-        mWarningListener.onAdapterWarningCommentClick(this, view);
+    public void onWarningCommentBtnClick(View view, BoardWarningItem item) {
+        mWarningListener.onAdapterWarningCommentClick(this, item, view);
     }
     @Override
-    public void onTipsCommentBtnClick(View view) {
-        mTipsListener.onAdapterTipsCommentClick(this, view);
+    public void onTipsCommentBtnClick(View view, BoardTipsItem item) {
+        mTipsListener.onAdapterTipsCommentClick(this, item, view);
     }
     @Override
     public void onWarningShareBtnClick(View view) {

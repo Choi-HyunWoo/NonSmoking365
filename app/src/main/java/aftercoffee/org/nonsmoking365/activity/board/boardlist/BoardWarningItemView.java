@@ -45,7 +45,7 @@ public class BoardWarningItemView extends FrameLayout {
     // ITEM의 click listener를 interface로 정의.
     public interface OnWarningBtnClickListener {
         public void onWarningLikeBtnClick(View view, BoardWarningItem item);
-        public void onWarningCommentBtnClick(View view);
+        public void onWarningCommentBtnClick(View view, BoardWarningItem item);
         public void onWarningShareBtnClick(View view);
     }
     public OnWarningBtnClickListener mListener;
@@ -76,7 +76,7 @@ public class BoardWarningItemView extends FrameLayout {
         commentsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onWarningCommentBtnClick(BoardWarningItemView.this);
+                mListener.onWarningCommentBtnClick(BoardWarningItemView.this, item);
             }
         });
         // 공유하기 버튼
@@ -94,10 +94,10 @@ public class BoardWarningItemView extends FrameLayout {
         titleTextView.setText(item.title);
         contentsTextView.setText(item.contents);
         if (item.likeOn) {
-            likeBtn.setText("좋아요 " + item.likes+"ON");
+            likeBtn.setText("좋아요 " + item.likesCount+"ON");
             likeImage.setImageResource(R.drawable.icon_like_active);
         } else {
-            likeBtn.setText("좋아요 " + item.likes+"OFF");
+            likeBtn.setText("좋아요 " + item.likesCount+"OFF");
             likeImage.setImageResource(R.drawable.icon_like);
         }
     }
