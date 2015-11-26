@@ -93,11 +93,11 @@ public class BoardWarningItemView extends FrameLayout {
         titleImageView.setBackgroundResource(item.titleImg);
         titleTextView.setText(item.title);
         contentsTextView.setText(item.contents);
+        likeBtn.setText("좋아요 " + item.likesCount);
+        commentsBtn.setText("댓글 "+item.commentsCount);
         if (item.likeOn) {
-            likeBtn.setText("좋아요 " + item.likesCount+"ON");
             likeImage.setImageResource(R.drawable.icon_like_active);
         } else {
-            likeBtn.setText("좋아요 " + item.likesCount+"OFF");
             likeImage.setImageResource(R.drawable.icon_like);
         }
     }
