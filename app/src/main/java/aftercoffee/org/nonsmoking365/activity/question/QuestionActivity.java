@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -65,7 +66,7 @@ public class QuestionActivity extends AppCompatActivity {
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            NetworkManager.getInstance().postQuestionData(QuestionActivity.this, "5642d3d5538ef0958d55dd58", title, content, new NetworkManager.OnResultListener<String>() {
+                            NetworkManager.getInstance().postQuestionData(QuestionActivity.this, title, content, new NetworkManager.OnResultListener<String>() {
                                 @Override
                                 public void onSuccess(String result) {
                                     Toast.makeText(QuestionActivity.this, "문의 글이 등록되었습니다.", Toast.LENGTH_SHORT).show();

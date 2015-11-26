@@ -87,7 +87,7 @@ public class CommunityBoardFragment extends Fragment {
 
                             @Override
                             public void onFail(int code) {
-                                Log.d("BoardFragment Last ", "network error/" + code);
+                                Log.d("Network ERROR", "communityGET" + code);
                                 isUpdate = false;
                             }
                         });
@@ -137,9 +137,14 @@ public class CommunityBoardFragment extends Fragment {
 
             @Override
             public void onFail(int code) {
-                Log.d("BoardFragment Last ", "network error/" + code);
+                Log.d("Network ERROR", "communityGET" + code);
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBoard();
+    }
 }

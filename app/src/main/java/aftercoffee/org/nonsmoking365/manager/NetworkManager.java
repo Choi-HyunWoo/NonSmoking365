@@ -183,8 +183,7 @@ public class NetworkManager {
     }
     // 금연정보 글 진입 시 글내용, 댓글목록 가져오기 (GET)
     public void getBoardContentAndComments(Context context, String docID, final OnResultListener<BoardDocs> listener) {
-        RequestParams params = new RequestParams();
-        client.get(context, BOARD_URL + "/" + docID, params, new TextHttpResponseHandler() {
+        client.get(context, BOARD_URL + "/" + docID, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -274,8 +273,7 @@ public class NetworkManager {
     }
     // 금연커뮤니티 글 진입 시 상세 글내용, 댓글목록 가져오기 (GET)
     public void getCommunityContentAndComments(Context context, String docID, final OnResultListener<CommunityDocs> listener) {
-        RequestParams params = new RequestParams();
-        client.get(context, COMMUNITY_URL + "/" + docID, params, new TextHttpResponseHandler() {
+        client.get(context, COMMUNITY_URL + "/" + docID, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -325,7 +323,7 @@ public class NetworkManager {
     }
     // 금연커뮤니티 댓글 삭제 (DELETE)
     public void deleteCommunityCommentDelete(Context context, String docID, String comment_id, final OnResultListener<CommunityDocs> listener) {
-        client.delete(context, COMMUNITY_URL + "/" + docID + "/comments" + "/" + comment_id , new TextHttpResponseHandler() {
+        client.delete(context, COMMUNITY_URL + "/" + docID + "/comments" + "/" + comment_id, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -338,6 +336,25 @@ public class NetworkManager {
             }
         });
     }
+    // 금연커뮤니티 글 작성 (POST)
+    public void postCommunityContent(Context context, String title ,String content, final OnResultListener<CommunityDocs> listener) {
+        RequestParams params = new RequestParams();
+        params.put("title", title);
+        params.put("content", content);
+        client.post(context, COMMUNITY_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                CommunityDocs result = gson.fromJson(responseString, CommunityDocs.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
+    // 금연커뮤니티 글 수정 (PUT)
 
 
     /** 공지사항
@@ -365,9 +382,8 @@ public class NetworkManager {
      */
     // 문의하기 글 제목, 내용 post
     private static final String QUESTION_URL = SERVER + "/questions";
-    public void postQuestionData (Context context, String user_id, String title, String content, final OnResultListener<String> listener) {
+    public void postQuestionData (Context context, String title, String content, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
-        params.put("user_id", user_id);
         params.put("title", title);
         params.put("content", content);
         client.post(context, QUESTION_URL, params, new TextHttpResponseHandler() {

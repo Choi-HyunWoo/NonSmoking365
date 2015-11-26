@@ -55,7 +55,6 @@ public class LoginFragment extends Fragment {
         autoLoginCheckView = (CheckBox)v.findViewById(R.id.checkBox_autologin);
 
         emailView.setText(UserManager.getInstance().getUserEmail());
-        passwordView.setText(UserManager.getInstance().getUserPassword());
 
         // Login Button clicked
         btn = (Button)v.findViewById(R.id.btn_login);
