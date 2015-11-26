@@ -24,15 +24,31 @@ public class UserManager {
     }
 
     // User grade
-    int userGrade = 0;
+    public static final int USER_GRADE_NONE = 0;        // 비회원
     public static final int USER_GRADE_NORMAL = 1;      // 일반 회원
     public static final int USER_GRADE_REWARD = 2;      // 리워드 회원
+    int userGrade = USER_GRADE_NONE;
 
     public void setUserGrade(int userGrade) {
         this.userGrade = userGrade;
     }
     public int getUserGrade() {
         return this.userGrade;
+    }
+
+    public static final String USER_GRADE_NONE_STRING = "비회원";        // 비회원
+    public static final String USER_GRADE_NORMAL_STRING = "일반 회원";      // 일반 회원
+    public static final String USER_GRADE_REWARD_STRING = "리워드 회원";      // 리워드 회원
+    String userGradeToString = USER_GRADE_NONE_STRING;
+    public String getUserGradeToString() {
+        switch (this.userGrade) {
+            case USER_GRADE_NORMAL:
+                return USER_GRADE_NORMAL_STRING;
+            case USER_GRADE_REWARD:
+                return USER_GRADE_REWARD_STRING;
+            default:
+                return USER_GRADE_NONE_STRING;
+        }
     }
 
     // User info

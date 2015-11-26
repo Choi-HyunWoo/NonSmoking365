@@ -2,8 +2,11 @@ package aftercoffee.org.nonsmoking365.activity.main;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,12 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
+import aftercoffee.org.nonsmoking365.activity.UserInfoActivity;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
@@ -28,6 +35,7 @@ import aftercoffee.org.nonsmoking365.activity.notice.NoticeActivity;
 import aftercoffee.org.nonsmoking365.activity.QuestionActivity;
 import aftercoffee.org.nonsmoking365.activity.VersionInfoActivity;
 import aftercoffee.org.nonsmoking365.activity.WithdrawActivity;
+import aftercoffee.org.nonsmoking365.utilities.Utilities;
 
 
 /**
@@ -69,21 +77,46 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-                .displayer(new SimpleBitmapDisplayer())         // RoundedBitmapDisplayer()로
+                .displayer(new BitmapDisplayer() {
+                    @Override
+                    public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                        Bitmap centerCroppedBitmap = Utilities.getCenterCroppedBitmap(bitmap);
+                        RoundedBitmapDrawable circledDrawable = RoundedBitmapDrawableFactory.create(getResources(), centerCroppedBitmap);
+                        circledDrawable.setCircular(true);
+                        circledDrawable.setAntiAlias(true);
+                        imageAware.setImageDrawable(circledDrawable);
+                    }
+                })
                 .build();
 
-
+        // 프로필 이미지
         userProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 프로필 사진 변경
+                if (!isLogined) {
+                    // 비로그인 상태일 시, 로그인 화면으로 이동
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    // 로그인 상태일 시, 프로필 이미지 변경
+                    Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
         userNicknameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 닉네임 변경
+                if (!isLogined) {
+                    // 비로그인 상태일 시, 로그인 화면으로 이동
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    // 로그인 상태일 시, 닉네임 변경
+                    Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -1,6 +1,9 @@
 package aftercoffee.org.nonsmoking365.activity.board.boardcontents;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -10,9 +13,13 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.utilities.Utilities;
 
 /**
  * Created by Tacademy on 2015-11-19.
@@ -36,7 +43,6 @@ public class BoardContentsItemView extends FrameLayout {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-//                .displayer(new RoundedBitmapDisplayer(50))
                 .build();
         init();
     }
@@ -89,7 +95,7 @@ public class BoardContentsItemView extends FrameLayout {
         this.item = item;
         titleView.setText(item.title);
         contentView.setText(item.content);
-        ImageLoader.getInstance().displayImage(item.imageURL, contentImageView, options);
+        ImageLoader.getInstance().displayImage(item.imageURL, contentImageView);
         likeBtn.setText("좋아요 "+item.likesCount);
         if (item.likeOn) {
             likeImage.setImageResource(R.drawable.icon_like_on);

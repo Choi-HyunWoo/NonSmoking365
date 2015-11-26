@@ -1,6 +1,9 @@
 package aftercoffee.org.nonsmoking365.activity.board.boardcontents;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -8,10 +11,14 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.utilities.Utilities;
 
 /**
  * Created by Tacademy on 2015-11-19.
@@ -31,7 +38,17 @@ public class CommentItemView extends FrameLayout {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-                .displayer(new SimpleBitmapDisplayer())         // RoundedBitmapDisplayer()로
+                .displayer(new BitmapDisplayer() {
+                    @Override
+                    public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                        Bitmap centerCroppedBitmap = Utilities.getCenterCroppedBitmap(bitmap);
+
+                        RoundedBitmapDrawable circledDrawable = RoundedBitmapDrawableFactory.create(getResources(), centerCroppedBitmap);
+                        circledDrawable.setCircular(true);
+                        circledDrawable.setAntiAlias(true);
+                        imageAware.setImageDrawable(circledDrawable);
+                    }
+                })
                 .build();
         init();
     }

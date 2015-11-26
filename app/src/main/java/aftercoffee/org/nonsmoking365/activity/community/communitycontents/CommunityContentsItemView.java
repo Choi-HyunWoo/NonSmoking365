@@ -1,6 +1,9 @@
 package aftercoffee.org.nonsmoking365.activity.community.communitycontents;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +15,16 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.activity.board.boardcontents.BoardContentsItem;
 import aftercoffee.org.nonsmoking365.data.LikesResult;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
+import aftercoffee.org.nonsmoking365.utilities.Utilities;
 
 /**
  * Created by HYUNWOO on 2015-11-25.
@@ -43,7 +50,16 @@ public class CommunityContentsItemView extends FrameLayout {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-//                .displayer(new RoundedBitmapDisplayer(50))
+                .displayer(new BitmapDisplayer() {
+                    @Override
+                    public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                        Bitmap centerCroppedBitmap = Utilities.getCenterCroppedBitmap(bitmap);
+                        RoundedBitmapDrawable circledDrawable = RoundedBitmapDrawableFactory.create(getResources(), centerCroppedBitmap);
+                        circledDrawable.setCircular(true);
+                        circledDrawable.setAntiAlias(true);
+                        imageAware.setImageDrawable(circledDrawable);
+                    }
+                })
                 .build();
         init();
     }
@@ -108,7 +124,7 @@ public class CommunityContentsItemView extends FrameLayout {
         userNicknameView.setText(item.userNickname);
         titleView.setText(item.title);
         contentView.setText(item.content);
-        ImageLoader.getInstance().displayImage(item.contentImageURL, contentImageView, options);
+        ImageLoader.getInstance().displayImage(item.contentImageURL, contentImageView);
         likeBtn.setText("좋아요 " + item.likesCount);
         if (item.likeOn) {
             likeImage.setImageResource(R.drawable.icon_like_on);
