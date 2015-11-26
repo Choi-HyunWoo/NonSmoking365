@@ -89,13 +89,11 @@ public class BoardItemAdapter extends BaseAdapter implements BoardTipsItemView.O
     public void onWarningLikeBtnClick(View view, int position, int likes, boolean likeOn) {
         ((BoardWarningItem)items.get(position)).likeOn = likeOn;
         ((BoardWarningItem)items.get(position)).likes = likes;
-        notifyDataSetChanged();
     }
     @Override
     public void onTipsLikeBtnClick(View view, int position, int likes, boolean likeOn) {
         ((BoardTipsItem)items.get(position)).likeOn = likeOn;
         ((BoardTipsItem)items.get(position)).likes = likes;
-        notifyDataSetChanged();
     }
     @Override
     public void onWarningCommentBtnClick(View view) {

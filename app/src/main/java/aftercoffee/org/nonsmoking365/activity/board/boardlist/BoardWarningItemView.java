@@ -1,6 +1,7 @@
 package aftercoffee.org.nonsmoking365.activity.board.boardlist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -77,21 +78,16 @@ public class BoardWarningItemView extends FrameLayout {
                     @Override
                     public void onSuccess(LikesResult result) {
                         likes = result.like_ids.size();
-                        if (likes > 999) {
-                            likeBtn.setText("좋아요 999+");
-                        } else {
-                            likeBtn.setText("좋아요 " + result.like_ids.size());
-                        }
-                        for(int i=0; i<result.like_ids.size(); i++) {
-                            // 좋아요한 경우
-                            if (user_id.equals(result.like_ids.get(i))) {
+                        likeOn = false;
+                        for (String s : result.like_ids) {
+                            if (user_id.equals(s)) {
                                 likeOn = true;
-                            }
-                            // 좋아요 취소한 경우
-                            else {
+                                break;
+                            } else {
                                 likeOn = false;
                             }
                         }
+                        likeBtnRefresh(likes, likeOn);
                         // Adapter에게 알리자
                         mListener.onWarningLikeBtnClick(BoardWarningItemView.this, position, result.like_ids.size(), likeOn);
                     }
@@ -123,10 +119,22 @@ public class BoardWarningItemView extends FrameLayout {
         titleImageView.setBackgroundResource(item.titleImg);
         titleTextView.setText(item.title);
         contentsTextView.setText(item.contents);
-        likeBtn.setText("좋아요 " + item.likes);
-        if (item.likeOn) {
+        likes = item.likes;
+        likeOn = item.likeOn;
+        likeBtnRefresh(likes, likeOn);
+    }
+
+    public void likeBtnRefresh(int likes, boolean likeOn) {
+        if (likes > 999) {
+            likeBtn.setText("좋아요 999+");
+        } else {
+            likeBtn.setText("좋아요 " + likes);
+        }
+        if (likeOn) {
+            Log.d("dd", "oooooooooooooooooooooo");
             likeImage.setImageResource(R.drawable.icon_like_active);
         } else {
+            Log.d("dd", "xxxxxxxxxxxxxxxxxxxxxx");
             likeImage.setImageResource(R.drawable.icon_like);
         }
     }
