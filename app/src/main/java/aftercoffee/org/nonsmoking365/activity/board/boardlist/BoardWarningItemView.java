@@ -18,19 +18,14 @@ import aftercoffee.org.nonsmoking365.manager.UserManager;
  */
 public class BoardWarningItemView extends FrameLayout {
 
-    Context context;
-    int position;
+    BoardWarningItem item;
 
     String docID;
     String user_id;
-    int likes;
-    boolean likeOn;
 
-    public BoardWarningItemView(Context context, String docID, int position) {
+    public BoardWarningItemView(Context context, String docID) {
         super(context);
-        this.context = context;
         this.docID = docID;
-        this.position = position;
         this.user_id = UserManager.getInstance().getUser_id();
         init();
     }
@@ -49,7 +44,7 @@ public class BoardWarningItemView extends FrameLayout {
 
     // ITEM의 click listener를 interface로 정의.
     public interface OnWarningBtnClickListener {
-        public void onWarningLikeBtnClick(View view, int position, int likes, boolean likeOn);
+        public void onWarningLikeBtnClick(View view, BoardWarningItem item);
         public void onWarningCommentBtnClick(View view);
         public void onWarningShareBtnClick(View view);
     }
@@ -74,29 +69,7 @@ public class BoardWarningItemView extends FrameLayout {
         likeBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkManager.getInstance().postBoardLike(context, docID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
-                    @Override
-                    public void onSuccess(LikesResult result) {
-                        likes = result.like_ids.size();
-                        likeOn = false;
-                        for (String s : result.like_ids) {
-                            if (user_id.equals(s)) {
-                                likeOn = true;
-                                break;
-                            } else {
-                                likeOn = false;
-                            }
-                        }
-                        likeBtnRefresh(likes, likeOn);
-                        // Adapter에게 알리자
-                        mListener.onWarningLikeBtnClick(BoardWarningItemView.this, position, result.like_ids.size(), likeOn);
-                    }
-
-                    @Override
-                    public void onFail(int code) {
-
-                    }
-                });
+                mListener.onWarningLikeBtnClick(BoardWarningItemView.this, item);
             }
         });
         // 댓글 버튼
@@ -116,26 +89,17 @@ public class BoardWarningItemView extends FrameLayout {
     }
 
     public void setBoardItem(BoardWarningItem item) {
+        this.item = item;
         titleImageView.setBackgroundResource(item.titleImg);
         titleTextView.setText(item.title);
         contentsTextView.setText(item.contents);
-        likes = item.likes;
-        likeOn = item.likeOn;
-        likeBtnRefresh(likes, likeOn);
-    }
-
-    public void likeBtnRefresh(int likes, boolean likeOn) {
-        if (likes > 999) {
-            likeBtn.setText("좋아요 999+");
-        } else {
-            likeBtn.setText("좋아요 " + likes);
-        }
-        if (likeOn) {
-            Log.d("dd", "oooooooooooooooooooooo");
+        if (item.likeOn) {
+            likeBtn.setText("좋아요 " + item.likes+"ON");
             likeImage.setImageResource(R.drawable.icon_like_active);
         } else {
-            Log.d("dd", "xxxxxxxxxxxxxxxxxxxxxx");
+            likeBtn.setText("좋아요 " + item.likes+"OFF");
             likeImage.setImageResource(R.drawable.icon_like);
         }
     }
+
 }

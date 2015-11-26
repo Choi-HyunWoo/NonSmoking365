@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -86,13 +88,10 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                                             b.title = d.title;
                                             b.contents = d.content;
                                             b.likes = d.like_ids.size();
-                                            if (b.likes != 0) {
-                                                for (int i=0; i<d.like_ids.size(); i++) {
-                                                    b.likeOn = false;
-                                                    if (user_id.equals(d.like_ids.get(i))) {
-                                                        b.likeOn = true;        // 좋아요 버튼 ON
-                                                    }
-                                                }
+                                            b.likeOn = false;
+                                            for (String id : d.like_ids) {
+                                                if (user_id.equals(id))
+                                                    b.likeOn = true;        // 좋아요 ON
                                             }
                                             b.titleImg = R.drawable.sample;
                                             mAdapter.add(b);
@@ -102,13 +101,9 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                                             b.title = d.title;
                                             b.contents = d.content;
                                             b.likes = d.like_ids.size();
-                                            if (b.likes != 0) {
-                                                for (int i=0; i<d.like_ids.size(); i++) {
-                                                    b.likeOn = false;
-                                                    if (user_id.equals(d.like_ids.get(i))) {
-                                                        b.likeOn = true;        // 좋아요 버튼 ON
-                                                    }
-                                                }
+                                            for (String id : d.like_ids) {
+                                                if (user_id.equals(id))
+                                                    b.likeOn = true;        // 좋아요 ON
                                             }
                                             b.titleImg = R.drawable.sample;
                                             mAdapter.add(b);
@@ -125,7 +120,7 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
 
                             @Override
                             public void onFail(int code) {
-                                Log.d("BoardFragment Last ", "network error/" + code);
+                                Log.d("NetworkERROR/", "BoardGET_last_refresh"+code);
                                 isUpdate = false;
                             }
                         });
@@ -167,13 +162,9 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                             b.title = d.title;
                             b.contents = d.content;
                             b.likes = d.like_ids.size();
-                            if (b.likes != 0) {
-                                for (int i=0; i<d.like_ids.size(); i++) {
-                                    b.likeOn = false;
-                                    if (user_id.equals(d.like_ids.get(i))) {
-                                        b.likeOn = true;        // 좋아요 버튼 ON
-                                    }
-                                }
+                            for (String id : d.like_ids) {
+                                if (user_id.equals(id))
+                                    b.likeOn = true;        // 좋아요 ON
                             }
                             b.titleImg = R.drawable.sample;
                             mAdapter.add(b);
@@ -183,13 +174,9 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                             b.title = d.title;
                             b.contents = d.content;
                             b.likes = d.like_ids.size();
-                            if (b.likes != 0) {
-                                for (int i=0; i<d.like_ids.size(); i++) {
-                                    b.likeOn = false;
-                                    if (user_id.equals(d.like_ids.get(i))) {
-                                        b.likeOn = true;        // 좋아요 버튼 ON
-                                    }
-                                }
+                            for (String id : d.like_ids) {
+                                if (user_id.equals(id))
+                                    b.likeOn = true;        // 좋아요 ON
                             }
                             b.titleImg = R.drawable.sample;
                             mAdapter.add(b);
@@ -202,34 +189,94 @@ public class BoardFragment extends Fragment implements BoardItemAdapter.OnAdapte
                     }
                 }
                 refreshView.onRefreshComplete();            // Refresh 완료
-
             }
-
             @Override
             public void onFail(int code) {
-                Log.d("BoardFragment getboard ", "network error/" + code);
+                Log.d("NetworkERROR/", "BoardGET"+code);
             }
         });
     }
 
     @Override
-    public void onAdapterTipsCommentClick(BoardItemAdapter adapter, View view) {
-        Toast.makeText(getActivity(), "댓글 Tip", Toast.LENGTH_SHORT).show();
+    public void onAdapterWarningLikeClick(BoardItemAdapter adapter, final BoardWarningItem item, View view) {
+        final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
+        final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
+        final int position = mAdapter.items.indexOf(item);
+        NetworkManager.getInstance().postBoardLike(getActivity(), selectedDocID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+            @Override
+            public void onSuccess(LikesResult result) {
+                likeBtn.setText("좋아요 "+result.like_ids.size());
+                for (String id : result.like_ids) {
+                    if (user_id.equals(id)) {
+                        // 좋아요 OFF > ON
+                        likeImage.setImageResource(R.drawable.icon_like_active);
+                        item.likeOn = true;
+                        ((BoardWarningItem)mAdapter.items.get(position)).likeOn = true;
+                        ((BoardWarningItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                        break;
+                    } else {
+                        likeImage.setImageResource(R.drawable.icon_like);
+                        item.likeOn = false;
+                        ((BoardWarningItem)mAdapter.items.get(position)).likeOn = false;
+                        ((BoardWarningItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                    }
+                }
+            }
+            @Override
+            public void onFail(int code) {
+                Log.d("NetworkERROR/", "BoardLikePOST"+code);
+            }
+        });
     }
-
     @Override
-    public void onAdapterTipsShareClick(BoardItemAdapter adapter, View view) {
-        Toast.makeText(getActivity(), "공유하기 Tip", Toast.LENGTH_SHORT).show();
+    public void onAdapterTipsLikeClick(BoardItemAdapter adapter, final BoardTipsItem item, View view) {
+        final ImageView likeImage = (ImageView)view.findViewById(R.id.image_like);
+        final Button likeBtn = (Button)view.findViewById(R.id.btn_like);
+        final int position = mAdapter.items.indexOf(item);
+        NetworkManager.getInstance().postBoardLike(getActivity(), selectedDocID, user_id, new NetworkManager.OnResultListener<LikesResult>() {
+            @Override
+            public void onSuccess(LikesResult result) {
+                likeBtn.setText("좋아요 "+result.like_ids.size());
+                for (String id : result.like_ids) {
+                    if (user_id.equals(id)) {
+                        // 좋아요 OFF > ON
+                        likeImage.setImageResource(R.drawable.icon_like_active);
+                        item.likeOn = true;
+                        ((BoardTipsItem)mAdapter.items.get(position)).likeOn = true;
+                        ((BoardTipsItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                        break;
+                    } else {
+                        // 좋아요 ON > OFF
+                        likeImage.setImageResource(R.drawable.icon_like);
+                        item.likeOn = false;
+                        ((BoardTipsItem)mAdapter.items.get(position)).likeOn = false;
+                        ((BoardTipsItem)mAdapter.items.get(position)).likes = result.like_ids.size();
+                    }
+                }
+            }
+            @Override
+            public void onFail(int code) {
+                Log.d("NetworkERROR/", "BoardLikePOST"+code);
+            }
+        });
     }
 
     @Override
     public void onAdapterWarningCommentClick(BoardItemAdapter adapter, View view) {
         Toast.makeText(getActivity(), "댓글 Warning", Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onAdapterTipsCommentClick(BoardItemAdapter adapter, View view) {
+        Toast.makeText(getActivity(), "댓글 Tip", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onAdapterWarningShareClick(BoardItemAdapter adapter, View view) {
         Toast.makeText(getActivity(), "공유하기 Warning", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onAdapterTipsShareClick(BoardItemAdapter adapter, View view) {
+        Toast.makeText(getActivity(), "공유하기 Tip", Toast.LENGTH_SHORT).show();
     }
 
     @Override
