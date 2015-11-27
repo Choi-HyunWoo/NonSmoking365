@@ -141,7 +141,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                         comment.docID = result._id;
                         comment._id = result.commentsList.get(i)._id;
                         if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
-                            comment.profileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                            comment.userProfileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
                         }
                         comment.user_id = result.commentsList.get(i).user_id._id;
                         comment.nickname = result.commentsList.get(i).user_id.nick;
@@ -189,7 +189,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                                         // 유저정보
                                         comment.user_id = result.commentsList.get(i).user_id._id;
                                         if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
-                                            comment.profileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                                            comment.userProfileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
                                         }
                                         comment.nickname = result.commentsList.get(i).user_id.nick;
                                         comment.content = result.commentsList.get(i).content;
@@ -310,7 +310,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                         // 유저정보
                         comment.user_id = result.commentsList.get(i).user_id._id;
                         if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
-                            comment.profileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                            comment.userProfileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
                         }
                         comment.nickname = result.commentsList.get(i).user_id.nick;
                         comment.content = result.commentsList.get(i).content;

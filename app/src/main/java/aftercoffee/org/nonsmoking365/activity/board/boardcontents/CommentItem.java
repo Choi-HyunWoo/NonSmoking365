@@ -7,7 +7,7 @@ public class CommentItem {
     public String docID;
     public String _id;         // 댓글의 _id
     public String user_id;     // 작성자의 _id
-    public String profileImgURL;
+    public String userProfileImgURL;
     public String nickname;
     public String content;
     public String date;

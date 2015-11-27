@@ -5,7 +5,7 @@ package aftercoffee.org.nonsmoking365.activity.community.communitylist;
  */
 public class CommunityItem {
     String _id;
-    String userProfileImg;
+    String userProfileImgURL;
     String userNickname;
     String title;
     String contents;

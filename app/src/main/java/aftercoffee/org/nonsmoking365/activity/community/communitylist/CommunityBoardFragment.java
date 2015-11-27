@@ -96,7 +96,7 @@ public class CommunityBoardFragment extends Fragment implements CommunityItemAda
                                         // 유저 정보
                                         item.userNickname = c.user_id.nick;
                                         if (c.user_id.image_ids.size()!=0)
-                                            item.userProfileImg = c.user_id.image_ids.get(0).uri;
+                                            item.userProfileImgURL = c.user_id.image_ids.get(0).uri;
                                         // 좋아요, 댓글 수
                                         item.likesCount = c.like_ids.size();
                                         item.commentsCount = c.commentsList.size();
@@ -159,7 +159,7 @@ public class CommunityBoardFragment extends Fragment implements CommunityItemAda
                         // 유저 정보
                         item.userNickname = c.user_id.nick;
                         if (c.user_id.image_ids.size()!=0)
-                            item.userProfileImg = c.user_id.image_ids.get(0).uri;
+                            item.userProfileImgURL = c.user_id.image_ids.get(0).uri;
                         // 좋아요, 댓글 수
                         item.likesCount = c.like_ids.size();
                         item.commentsCount = c.commentsList.size();

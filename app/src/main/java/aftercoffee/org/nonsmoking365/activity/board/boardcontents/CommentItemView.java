@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -58,7 +59,7 @@ public class CommentItemView extends FrameLayout {
     public String user_id;     // 작성자 _id
     public String profileImgURL;
 
-    public ImageView profileImageView;
+    public ImageView userProfileImageView;
     public TextView userNicknameView;
     public TextView contentView;
     public TextView dateView;
@@ -76,7 +77,7 @@ public class CommentItemView extends FrameLayout {
     public void init() {
         inflate(getContext(), R.layout.view_comment_item, this);
 
-        profileImageView = (ImageView) findViewById(R.id.image_profileImg);
+        userProfileImageView = (ImageView) findViewById(R.id.image_profileImg);
         userNicknameView = (TextView) findViewById(R.id.text_userNickname);
         contentView = (TextView) findViewById(R.id.text_content);
         dateView = (TextView) findViewById(R.id.text_date);
@@ -98,8 +99,11 @@ public class CommentItemView extends FrameLayout {
         docID = item.docID;
         _id = item._id;
         user_id = item.user_id;
-        profileImgURL = item.profileImgURL;
-        ImageLoader.getInstance().displayImage(profileImgURL, profileImageView, options);
+        if (TextUtils.isEmpty(item.userProfileImgURL)) {
+            ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
+        } else {
+            ImageLoader.getInstance().displayImage(item.userProfileImgURL, userProfileImageView, options);
+        }
         userNicknameView.setText(item.nickname);
         contentView.setText(item.content);
         dateView.setText(item.date);

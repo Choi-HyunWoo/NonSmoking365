@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -156,7 +157,13 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         if (isLogined) {
             // 로그인 상태
             String profileImgUrl = UserManager.getInstance().getUserProfileImageURL();
-            ImageLoader.getInstance().displayImage(profileImgUrl, userProfileImageView, options);
+            if (TextUtils.isEmpty(profileImgUrl)) {
+                // 프로필 이미지가 없는 경우
+                ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
+            } else {
+                // 프로필 이미지가 있는 경우
+                ImageLoader.getInstance().displayImage(profileImgUrl, userProfileImageView, options);
+            }
             userNicknameView.setText(UserManager.getInstance().getUserNickname());
             loginBtn.setText("로그아웃");
             questionBtnForm.setVisibility(View.VISIBLE);

@@ -89,7 +89,13 @@ public class UserInfoActivity extends AppCompatActivity {
                     }
                 })
                 .build();
-        ImageLoader.getInstance().displayImage(userProfileImageURL, userProfileImageView, options);
+        if (TextUtils.isEmpty(userProfileImageURL)) {
+            // 프로필 이미지가 없는 경우
+            ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
+        } else {
+            // 프로필 이미지가 있는 경우
+            ImageLoader.getInstance().displayImage(userProfileImageURL, userProfileImageView, options);
+        }
         userGradeView.setText(userGrade);
 
 

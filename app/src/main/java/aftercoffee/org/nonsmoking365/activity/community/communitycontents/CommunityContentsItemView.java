@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -120,7 +121,11 @@ public class CommunityContentsItemView extends FrameLayout {
 
     public void setContentItem(CommunityContentsItem item) {
         this.item = item;
-        ImageLoader.getInstance().displayImage(item.userProfileImageURL, userProfileImageView, options);
+        if (TextUtils.isEmpty(item.userProfileImageURL)) {
+            ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
+        } else {
+            ImageLoader.getInstance().displayImage(item.userProfileImageURL, userProfileImageView, options);
+        }
         userNicknameView.setText(item.userNickname);
         titleView.setText(item.title);
         contentView.setText(item.content);
