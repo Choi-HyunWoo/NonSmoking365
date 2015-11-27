@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">금연365</string>
+    <string name="facebook_app_id">547333618749996</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
