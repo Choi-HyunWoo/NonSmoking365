@@ -1,6 +1,8 @@
 package aftercoffee.org.nonsmoking365.manager;
 
 import android.content.Context;
+import android.os.Environment;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -13,6 +15,8 @@ import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 import org.apache.http.message.BasicHeader;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -368,6 +372,7 @@ public class NetworkManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
             }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 NoticeResult result = gson.fromJson(responseString, NoticeResult.class);
@@ -382,10 +387,17 @@ public class NetworkManager {
      */
     // 문의하기 글 제목, 내용 post
     private static final String QUESTION_URL = SERVER + "/questions";
-    public void postQuestionData (Context context, String title, String content, final OnResultListener<String> listener) {
+    public void postQuestionData (Context context, String title, String content, String imageFilePath, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("title", title);
         params.put("content", content);
+        if (!TextUtils.isEmpty(imageFilePath)) {
+            try {
+                params.put("image", new File(imageFilePath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
         client.post(context, QUESTION_URL, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
