@@ -94,17 +94,25 @@ public class SignupFragment extends Fragment {
                 } else if (!accessTermsCheckBox.isChecked()) {
                     Toast.makeText(getActivity(), "약관에 동의해 주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    NetworkManager.getInstance().signUp(getContext(), email, password, nickname, new NetworkManager.OnResultListener<String>() {
+                    NetworkManager.getInstance().signUp(getContext(), email, password, nickname, new NetworkManager.OnResultResponseListener<String>() {
                         @Override
                         public void onSuccess(String result) {
                             Toast.makeText(getActivity(), "회원 가입을 환영합니다", Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                         }
-
                         @Override
-                        public void onFail(int code) {
-                            Log.d("SignupFragment ", "network error/" + code);
-                            // Toast.makeText(getActivity(), "이미 존재하는 E-mail 입니다.", Toast.LENGTH_SHORT).show();
+                        public void onFail(int code , String responseString) {
+                            if (code == 403) {
+                                // Invalid values
+                                if (responseString.equals("the email already exists")) {
+                                    Toast.makeText(getActivity(), "이미 존재하는 E-mail 입니다.", Toast.LENGTH_SHORT).show();
+                                } else if (responseString.equals("the nick already exists")) {
+                                    Toast.makeText(getActivity(), "이미 존재하는 닉네임 입니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                // Connection ERROR
+                                Log.d("NetworkERROR ", "signup" + code);
+                            }
                         }
                     });
                 }

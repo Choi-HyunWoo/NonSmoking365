@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
             String id = PropertyManager.getInstance().getAutoLoginId();
             String password = PropertyManager.getInstance().getAutoLoginPassword();
 
-            NetworkManager.getInstance().login(this, id, password, new NetworkManager.OnResultListener<Login>() {
+            NetworkManager.getInstance().login(this, id, password, new NetworkManager.OnResultResponseListener<Login>() {
                 @Override
                 public void onSuccess(Login result) {
                     if (result.status.equals("ok")) {
@@ -68,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFail(int code) {
+                public void onFail(int code, String responseString) {
                     // 서버와의 연결 실패 >> 로그 띄우고 비회원으로 접속
                     UserManager.getInstance().setLoginState(false);
                     Log.d("Network error/splash", "" + code);

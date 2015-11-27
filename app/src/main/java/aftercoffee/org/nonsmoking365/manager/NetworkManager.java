@@ -90,6 +90,10 @@ public class NetworkManager {
         public void onSuccess(T result);
         public void onFail(int code);
     }
+    public interface OnResultResponseListener<T> {
+        public void onSuccess(T result);
+        public void onFail(int code, String reponseString);
+    }
 
     // UniversalImageloader setting
     public HttpClient getHttpClient() {
@@ -106,14 +110,14 @@ public class NetworkManager {
      *
      */
     private static final String LOGIN_URL = SERVER + "/login";
-    public void login(Context context, String userEmail, String password, final OnResultListener<Login> listener) {
+    public void login(Context context, String userEmail, String password, final OnResultResponseListener<Login> listener) {
         RequestParams params = new RequestParams();
         params.put("username", userEmail);
         params.put("password", password);
         client.post(context, LOGIN_URL, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                listener.onFail(statusCode);
+                listener.onFail(statusCode, responseString);
             }
 
             @Override
@@ -144,7 +148,7 @@ public class NetworkManager {
      */
     // 회원가입 post
     private static final String USERS_URL = SERVER + "/users";
-    public void signUp (Context context, String email, String password, String nickname, final OnResultListener<String> listener) {
+    public void signUp (Context context, String email, String password, String nickname, final OnResultResponseListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("email", email);
         params.put("password", password);
@@ -152,7 +156,7 @@ public class NetworkManager {
         client.post(context, USERS_URL, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                listener.onFail(statusCode);
+                listener.onFail(statusCode, responseString);
             }
 
             @Override

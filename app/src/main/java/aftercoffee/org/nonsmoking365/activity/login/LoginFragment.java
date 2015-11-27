@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,7 +67,7 @@ public class LoginFragment extends Fragment {
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     Toast.makeText(getActivity(), "아이디와 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    NetworkManager.getInstance().login(getContext(), email, password, new NetworkManager.OnResultListener<Login>() {
+                    NetworkManager.getInstance().login(getContext(), email, password, new NetworkManager.OnResultResponseListener<Login>() {
                         @Override
                         public void onSuccess(Login result) {
                             if (result.status.equals("ok")) {
@@ -89,14 +90,13 @@ public class LoginFragment extends Fragment {
                                 UserManager.getInstance().setUserNickname(result.user.nick);
                                 Toast.makeText(getActivity(), "로그인 성공!", Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
-                            } else {
-                                Toast.makeText(getActivity(), "로그인 실패, 아이디와 비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
-                        public void onFail(int code) {
-
+                        public void onFail(int code, String responseString) {
+                            Toast.makeText(getActivity(), "로그인 실패, 아이디와 비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();
+                            Log.d("NetworkERROR ", "login" + code);
                         }
                     });
                 }
