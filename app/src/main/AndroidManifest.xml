@@ -23,7 +23,7 @@
 
     <uses-permission android:name="aftercoffee.org.nonsmoking365.permission.C2D_MESSAGE" />
 
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- END GCM permission -->
     <application
