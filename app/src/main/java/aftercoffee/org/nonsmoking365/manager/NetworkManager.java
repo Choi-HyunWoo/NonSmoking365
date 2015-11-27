@@ -39,6 +39,7 @@ import aftercoffee.org.nonsmoking365.data.Notice;
 import aftercoffee.org.nonsmoking365.data.Board;
 import aftercoffee.org.nonsmoking365.data.BoardDocs;
 import aftercoffee.org.nonsmoking365.data.Login;
+import aftercoffee.org.nonsmoking365.data.User;
 
 /**
  * Created by Tacademy on 2015-11-03.
@@ -166,6 +167,32 @@ public class NetworkManager {
         });
     }
 
+    /** 회원정보 수정
+     *
+     */
+    // 회원정보 수정 put
+    public void modifyUser (Context context, String user_id, String nickname, String profileImagePath, final OnResultResponseListener<User> listener) {
+        RequestParams params = new RequestParams();
+        params.put("nick", nickname);
+        if (!TextUtils.isEmpty(profileImagePath)) {
+            try {
+                params.put("image", new File(profileImagePath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        client.put(context, USERS_URL + "/" + user_id, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode, responseString);
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                User result = gson.fromJson(responseString, User.class);
+                listener.onSuccess(result);
+            }
+        });
+    }
 
     /** 금연 정보 게시판
      *

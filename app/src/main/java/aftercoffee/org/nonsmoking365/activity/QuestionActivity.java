@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
 
@@ -136,7 +138,6 @@ public class QuestionActivity extends AppCompatActivity {
             cursor.close();
             ImageView imageView = (ImageView) findViewById(R.id.image_add);
             imageView.setImageBitmap(BitmapFactory.decodeFile(imageFilePath));
-            Toast.makeText(QuestionActivity.this, imageFilePath, Toast.LENGTH_SHORT).show();
         }
     }
 
