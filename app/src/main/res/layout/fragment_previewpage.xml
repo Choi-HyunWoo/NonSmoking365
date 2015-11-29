@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.preview.PreviewpageFragment">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/preview_1"/>
-
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal|bottom"></RelativeLayout>
 </FrameLayout>
