@@ -23,19 +23,7 @@ public class PreviewActivity extends AppCompatActivity {
 
         pager = (ViewPager)findViewById(R.id.pager);
         mAdapter = new PreviewPagerAdapter(getSupportFragmentManager());
-
-
-        Button btn = (Button)findViewById(R.id.btn_previewCheck);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PropertyManager.getInstance().setPreviewCheck(true);
-                Intent intent = new Intent(PreviewActivity.this, BasisInfoActivity.class);
-                intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_INIT);
-                startActivity(intent);
-                finish();
-            }
-        });
+        pager.setAdapter(mAdapter);
 
     }
 }

@@ -36,21 +36,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_checkbox_autologin"
             android:id="@+id/checkBox_autologin" />
+
+        <!-- 회원정보 찾기 !!-->
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:text="@string/login_text_find"
             android:id="@+id/text_find"/>
     </LinearLayout>
-
 
     <Button
         android:layout_width="match_parent"
@@ -64,24 +65,24 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="@string/login_btn_facebook"
         android:id="@+id/btn_facebook"
+        android:paddingLeft="90dp"
+        android:paddingRight="100dp"
+        android:textColor="@color/colorWhite"
+        android:drawableLeft="@drawable/icon_facebook"
+        android:background="@color/colorFacebook"
         android:stateListAnimator="@null" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="5dp"
         android:text="@string/login_btn_signup"
         android:background="@color/colorAccent"
         android:textColor="@color/colorWhite"
         android:id="@+id/btn_signUp"
         android:stateListAnimator="@null" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그아웃"
-        android:id="@+id/btn_logout"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>

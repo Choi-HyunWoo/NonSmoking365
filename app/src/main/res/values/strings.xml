@@ -69,7 +69,7 @@
     <!-- LoginFragment -->
     <string name="login_text_email">E-mail</string>
     <string name="login_text_password">비밀번호</string>
-    <string name="login_checkbox_autologin">자동 로그인</string>
+    <string name="login_checkbox_autologin">로그인 상태 유지</string>
     <string name="login_text_find">회원정보 찾기</string>
     <string name="login_btn_login">로그인</string>
     <string name="login_btn_facebook">Facebook 로그인</string>

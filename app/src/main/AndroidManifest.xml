@@ -43,7 +43,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.preview.PreviewActivity" />
+        <activity android:name=".activity.preview.PreviewActivity"
+            android:theme="@style/FullScreen" />
         <activity android:name=".activity.BasisInfoActivity" />
         <activity android:name=".activity.main.MainActivity" />
         <activity android:name=".activity.centers.CentersActivity" />
