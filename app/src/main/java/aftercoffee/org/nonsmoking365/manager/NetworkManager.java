@@ -104,8 +104,6 @@ public class NetworkManager {
 
     // Server URL
     private static final String SERVER = "http://52.68.247.34:3000";
-    private static final String WITHDRAW_URL = SERVER + "/withdraws";
-
 
     /** 로그인, 로그아웃
      *
@@ -168,9 +166,9 @@ public class NetworkManager {
     }
 
     /** 회원정보 수정
-     *
+     * 닉네임, 프로필사진
      */
-    // 회원정보 수정 put
+    // 회원정보 수정 PUT
     public void modifyUser (Context context, String user_id, String nickname, String profileImagePath, final OnResultResponseListener<User> listener) {
         RequestParams params = new RequestParams();
         params.put("nick", nickname);
@@ -193,6 +191,28 @@ public class NetworkManager {
             }
         });
     }
+
+    /** 회원탈퇴
+     *
+     */
+    private static final String WITHDRAW_URL = SERVER + "/withdraws";
+    // 회원탈퇴 글 올리기
+    public void postWithdraw(Context context, String reason, final OnResultListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("reason", reason);
+        client.post(context, WITHDRAW_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
 
     /** 금연 정보 게시판
      *

@@ -96,5 +96,18 @@
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_community_post">CommunityPostActivity</string>
 
+    <!-- Withdraw Activity -->
+    <string name="withdraw_text_1">회원 탈퇴 안내</string>
+    <string name="withdraw_text_2">탈퇴 신청 사유를 알려주시면 더욱 좋은 서비스를 만들기 위한 밑거름으로 삼겠습니다.</string>
+    <string name="withdraw_info">\n 금연 365 APP을 다시 이용하지 않으려면 계정을 영구적으로 삭제하도록 탈퇴하기를 요청하면 됩니다.\n\n
+                                 한번 삭제된 계정은 다시 활성화 될 수 없으며, 회원 탈퇴 완료 후 금연 365 백업 시스템에 저장된 회원님 정보의 모든 내용이 완전히 삭제 되기까지는 90일 정도 소요될 수 있습니다.\n\n
+                                 아래 탈퇴 신청 사유를 작성해 주시고 탈퇴하기 버튼을 눌러주시면 회원 탈퇴가 완료됩니다.\n
+                                 신중하게 생각하시고 신청해주시길 바랍니다.\n</string>
+    <string name="withdraw_check_1">금연에 성공하였다.</string>
+    <string name="withdraw_check_2">서비스가 불만족스럽다.</string>
+    <string name="withdraw_check_etc">기타</string>
+    <string name="withdraw_edit_etc">기타 사유</string>
+    <string name="withdraw_btn_submit">탈퇴하기</string>
+
 
 </resources>

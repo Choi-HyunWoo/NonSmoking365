@@ -13,6 +13,7 @@ public class User {
     public String email;
     public String nick;
     public String password;
+    public String grade;
     //public int __v;
     //public String created;
 

@@ -22,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -57,6 +58,14 @@ public class CenterListFragment extends Fragment {
         centerListView = (ListView)view.findViewById(R.id.list_centers);
         mAdapter = new CentersItemAdapter();
         centerListView.setAdapter(mAdapter);
+
+        centerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                POI item = (POI)mAdapter.getItem(position);
+                ((CentersActivity)getActivity()).pushMapFragment(item.getLatitude(), item.getLongitude());
+            }
+        });
 
         mLM = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
 

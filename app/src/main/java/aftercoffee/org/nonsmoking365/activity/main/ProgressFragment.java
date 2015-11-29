@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import aftercoffee.org.nonsmoking365.activity.centers.CentersActivity;
 public class ProgressFragment extends Fragment {
 
     boolean isLogined;
+    String userGrade;
 
     private static final long TIME_SEC = 1000;
     private static final long TIME_MIN = 60 * TIME_SEC;
@@ -41,6 +43,7 @@ public class ProgressFragment extends Fragment {
     private static final long TIME_YEAR = 365 * TIME_DAY;
 
     TextView gradeView, mottoView, timeView, savedMoneyView, statusView;
+    ImageView gradeImageView;
 
     int packPrice, numOfCigar, currentSaved;
     long startTime;
@@ -57,22 +60,17 @@ public class ProgressFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
-        isLogined = UserManager.getInstance().getLoginState();
+        isLogined = UserManager.getInstance().getLoginState();      // 로그인 상태 확인
+        userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
 
         // Initialize view
         gradeView = (TextView)view.findViewById(R.id.text_gradeView);
+        gradeImageView = (ImageView)view.findViewById(R.id.image_gradeView);
         mottoView = (TextView)view.findViewById(R.id.text_mottoView);
         timeView = (TextView)view.findViewById(R.id.text_timeView);
         savedMoneyView = (TextView)view.findViewById(R.id.text_savedmoneyView);
         statusView = (TextView)view.findViewById(R.id.text_statusView);
 
-        // 회원 등급
-        /** 회원 등급 Network에서 받아와서 처리할 것 */
-        if (isLogined) {
-            gradeView.setText("일반 회원");
-        } else {
-            gradeView.setText("비회원");
-        }
 
         // 금연 목표
         String motto = PropertyManager.getInstance().getBasisMotto();
@@ -136,12 +134,24 @@ public class ProgressFragment extends Fragment {
     }
 
     // 로그인 시 변화될 부분들
-    // create, resume 시에 부르자..
+    // create, resume 시에 부르자.
     private void setViewLogined() {
+        gradeView.setText(userGrade);
         if (isLogined) {
-            gradeView.setText("일반 회원");
+            // 로그인 시
+            gradeImageView.setVisibility(View.VISIBLE);
+            if (userGrade.equals(UserManager.USER_GRADE_REWARD)) {
+                // 리워드회원
+                // Grade icon 생성, 배너 삭제, 리워드기간 표시..
+                gradeImageView.setImageResource(R.drawable.icon_user_reward);
+            } else if (userGrade.equals(UserManager.USER_GRADE_NORMAL)) {
+                // 일반회원
+                // Grade icon 생성
+                gradeImageView.setImageResource(R.drawable.icon_user_normal);
+            }
         } else {
-            gradeView.setText("비회원");
+            // 비회원
+            gradeImageView.setVisibility(View.INVISIBLE);
         }
     }
 

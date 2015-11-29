@@ -31,13 +31,6 @@ public class CentersItemView extends FrameLayout{
         mapIconView = (ImageView)findViewById(R.id.image_mapIcon);
         dialIconView = (ImageView)findViewById(R.id.image_dialIcon);
 
-        mapIconView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 화면이동
-            }
-        });
-
     }
     public void setCentersItem(final POI item) {
         centersNameView.setText(item.name);

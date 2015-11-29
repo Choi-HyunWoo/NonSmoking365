@@ -29,6 +29,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -57,6 +58,12 @@ public class QuestionActivity extends AppCompatActivity {
         titleView = (EditText)findViewById(R.id.edit_title);
         contentView = (EditText)findViewById(R.id.edit_content);
 
+        isLogined = UserManager.getInstance().getLoginState();
+        if (!isLogined) {
+            Toast.makeText(QuestionActivity.this, "문의하기는 회원만 가능합니다.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         // 제목 변경을 원하면 (제목이 클릭되면) 제목 빈칸으로
         titleView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +72,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * 이미지 업로드 테스트
-         */
+        // 이미지 업로드
         ImageView imageAddBtn = (ImageView)findViewById(R.id.image_add);
         imageAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +81,6 @@ public class QuestionActivity extends AppCompatActivity {
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
-        /**
-         * 이미지 업로드 테스트
-         */
-
-
 
         // 완료 버튼
         Button btn = (Button)findViewById(R.id.btn_finish);
@@ -94,9 +94,6 @@ public class QuestionActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(content)) {
                     Toast.makeText(QuestionActivity.this, "문의 내용을 입력해 주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    /**
-                     * 로그인 정보를 받아온다 (email)
-                     */
                     AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
                     builder.setMessage("문의 글을 등록하시겠습니까?");
                     builder.setTitle("문의하기");

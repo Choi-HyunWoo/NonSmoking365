@@ -40,6 +40,13 @@ public class LoginFragment extends Fragment {
     public LoginFragment() {
         // Required empty public constructor
         this.setHasOptionsMenu(true);
+        UserManager.getInstance().setLoginState(false);
+        UserManager.getInstance().setUser_id("");
+        UserManager.getInstance().setUserEmail("");
+        UserManager.getInstance().setUserPassword("");
+        UserManager.getInstance().setUserGrade("");
+        UserManager.getInstance().setUserNickname("");
+        UserManager.getInstance().setUserProfileImageURL("");
     }
 
 
@@ -88,6 +95,8 @@ public class LoginFragment extends Fragment {
                                 UserManager.getInstance().setUserEmail(email);
                                 UserManager.getInstance().setUserPassword(password);
                                 UserManager.getInstance().setUserNickname(result.user.nick);
+                                UserManager.getInstance().setUserGrade(result.user.grade);
+
                                 Toast.makeText(getActivity(), "로그인 성공!", Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
                             }

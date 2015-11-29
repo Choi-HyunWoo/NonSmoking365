@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import aftercoffee.org.nonsmoking365.activity.main.MainActivity;
+import aftercoffee.org.nonsmoking365.activity.preview.PreviewActivity;
 import aftercoffee.org.nonsmoking365.data.Login;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 import aftercoffee.org.nonsmoking365.manager.PropertyManager;
@@ -59,6 +60,8 @@ public class SplashActivity extends AppCompatActivity {
                         UserManager.getInstance().setUserEmail(result.user.email);
                         UserManager.getInstance().setUserPassword(result.user.password);
                         UserManager.getInstance().setUserNickname(result.user.nick);
+                        UserManager.getInstance().setUserGrade(result.user.grade);
+
                         choiceNextActivity();
                     } else {
                         // 자동 로그인 실패 >> 비회원으로 접속

@@ -193,14 +193,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onSuccess(String result) {
                             Toast.makeText(getActivity(), "로그아웃 되었습니다." + result, Toast.LENGTH_SHORT).show();
-                            PropertyManager.getInstance().setAutoLogin(false);      // 자동 로그인 끄기
-                            UserManager.getInstance().setLoginState(false);         // 로그인 상태 false
-                            UserManager.getInstance().setUser_id("");
-                            UserManager.getInstance().setUserEmail("");
-                            UserManager.getInstance().setUserPassword("");
-                            UserManager.getInstance().setUserNickname("");
-                            UserManager.getInstance().setUserProfileImageURL("");
-                            UserManager.getInstance().setUserGrade(0);
+                            UserManager.getInstance().logoutClear();
                             isLogined = false;      // 변수 갱신후
                             setViewLogined();       // 뷰 갱신
                         }

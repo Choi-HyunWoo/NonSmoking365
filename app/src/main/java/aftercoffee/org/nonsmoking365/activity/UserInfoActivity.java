@@ -79,7 +79,7 @@ public class UserInfoActivity extends AppCompatActivity {
         user_id = UserManager.getInstance().getUser_id();
         userNickname = UserManager.getInstance().getUserNickname();
         userProfileImageURL = UserManager.getInstance().getUserProfileImageURL();
-        userGrade = UserManager.getInstance().getUserGradeToString();
+        userGrade = UserManager.getInstance().getUserGrade();
 
         // View initialize
         userProfileImageView = (ImageView)findViewById(R.id.image_userProfileImage);
