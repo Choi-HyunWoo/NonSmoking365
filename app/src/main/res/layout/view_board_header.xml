@@ -83,7 +83,7 @@
                 android:id="@+id/image_share"
                 android:clickable="false"
                 android:stateListAnimator="@null"
-                android:src="@drawable/icon_share"/>
+                android:src="@drawable/icon_share_active"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -110,6 +111,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                 // 글 정보
                 contents.title = result.title;
                 contents.content = result.content;
+                contents.created = result.created;
                 if (result.image_ids.size() != 0)
                     contents.contentImageURL = result.image_ids.get(0).uri;
                 // 좋아요, 댓글 수 정보
@@ -211,6 +213,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                 // 비 로그인시 처리
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setIcon(R.drawable.icon_logo_black);
                     builder.setTitle("로그인");
                     builder.setMessage("댓글 작성은 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -239,6 +242,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
     public void onCommunityContentsLikeClick(CommunityContentsItemView view, final CommunityContentsItem item) {
         if (!isLogined) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.icon_logo_black);
             builder.setTitle("로그인");
             builder.setMessage("좋아요는 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -288,7 +292,7 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
     // 공유하기
     @Override
     public void onCommunityContentsShareClick(CommunityContentsItemView view, CommunityContentsItem item) {
-        Toast.makeText(getActivity(), "공유하깅ㅇ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "구현중입니다.", Toast.LENGTH_SHORT).show();
     }
 
     // 댓글 삭제 << 안됨
@@ -341,10 +345,15 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
         CommunityActivity.fab.setVisibility(View.VISIBLE);
     }
 
+    InputMethodManager imm;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home :
+                // Keyboard 내리기
+                imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                // Fragment POP
                 ((CommunityActivity)getActivity()).popFragment();
                 return true;
         }

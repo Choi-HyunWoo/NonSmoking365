@@ -10,7 +10,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/simple_color_border">
         <ImageView
             android:id="@+id/image_userProfileImg"
             android:layout_width="60dp"
@@ -23,6 +28,9 @@
             android:layout_gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
             android:text="닉네임"  />
         <TextView
             android:id="@+id/text_created"
@@ -34,33 +42,52 @@
 
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorEFEFEF"/>
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="제목"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:singleLine="true"
         android:id="@+id/text_title" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorEFEFEF"/>
+
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:visibility="visible"
         android:id="@+id/image_content"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="내용"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="50dp"
         android:id="@+id/text_content" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" >
         <LinearLayout
             android:id="@+id/like"
             android:layout_width="0dp"
@@ -73,6 +100,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="5dp"
+                android:stateListAnimator="@null"
                 android:focusable="false"
                 android:clickable="false"
                 android:src="@drawable/icon_like_off"/>
@@ -81,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="@string/board_btn_like"
+                android:stateListAnimator="@null"
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/btn_white_border" />
@@ -97,13 +126,15 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="5dp"
+                android:stateListAnimator="@null"
                 android:focusable="false"
                 android:clickable="false"
-                android:src="@drawable/icon_share"/>
+                android:src="@drawable/icon_share_active"/>
             <Button
                 android:id="@+id/btn_share"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:stateListAnimator="@null"
                 android:text="@string/board_btn_share"
                 android:focusable="false"
                 android:clickable="false"

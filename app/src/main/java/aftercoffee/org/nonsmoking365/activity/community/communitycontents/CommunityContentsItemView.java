@@ -71,6 +71,7 @@ public class CommunityContentsItemView extends FrameLayout {
     TextView userNicknameView;
     TextView titleView;
     TextView contentView;
+    TextView createdView;
     ImageView contentImageView;
 
     ImageView likeImage;
@@ -97,6 +98,7 @@ public class CommunityContentsItemView extends FrameLayout {
         userNicknameView = (TextView)findViewById(R.id.text_userNickname);
         titleView = (TextView)findViewById(R.id.text_title);
         contentView = (TextView)findViewById(R.id.text_content);
+        createdView = (TextView)findViewById(R.id.text_created);
         contentImageView = (ImageView)findViewById(R.id.image_content);
 
         likeImage = (ImageView)findViewById(R.id.image_like);
@@ -129,7 +131,12 @@ public class CommunityContentsItemView extends FrameLayout {
         userNicknameView.setText(item.userNickname);
         titleView.setText(item.title);
         contentView.setText(item.content);
-        ImageLoader.getInstance().displayImage(item.contentImageURL, contentImageView);
+        createdView.setText(item.created);
+        if (TextUtils.isEmpty(item.contentImageURL)) {
+            contentImageView.setVisibility(GONE);
+        } else {
+            ImageLoader.getInstance().displayImage(item.contentImageURL, contentImageView);
+        }
         likeBtn.setText("좋아요 " + item.likesCount);
         if (item.likeOn) {
             likeImage.setImageResource(R.drawable.icon_like_on);

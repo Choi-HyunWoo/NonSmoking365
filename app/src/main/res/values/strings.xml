@@ -72,7 +72,7 @@
     <string name="login_checkbox_autologin">로그인 상태 유지</string>
     <string name="login_text_find">회원정보 찾기</string>
     <string name="login_btn_login">로그인</string>
-    <string name="login_btn_facebook">Facebook 로그인</string>
+    <string name="login_btn_facebook">페이스북 로그인</string>
     <string name="login_btn_signup">회원가입</string>
     <!-- SignupFragmnet -->
     <string name="signup_text_nickname">닉네임</string>

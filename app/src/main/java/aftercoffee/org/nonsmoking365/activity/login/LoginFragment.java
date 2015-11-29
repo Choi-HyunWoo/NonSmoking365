@@ -113,6 +113,7 @@ public class LoginFragment extends Fragment {
         });
 
 
+        /*
         // Facebook login clicked
         btn = (Button)v.findViewById(R.id.btn_facebook);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +122,7 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getActivity(), "구현중", Toast.LENGTH_SHORT).show();
             }
         });
+        */
 
 
         // Sign up clicked

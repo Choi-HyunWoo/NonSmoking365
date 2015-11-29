@@ -36,7 +36,9 @@ public class CommunityItemView extends FrameLayout {
     TextView createdView;
     ImageView likeImage;
     Button likeBtn;
+    ImageView commentImage;
     Button commentBtn;
+
 
     DisplayImageOptions options;
 
@@ -86,6 +88,7 @@ public class CommunityItemView extends FrameLayout {
         likeImage = (ImageView)findViewById(R.id.image_like);
         // 댓글 버튼
         commentBtn = (Button)findViewById(R.id.btn_comment);
+        commentImage = (ImageView)findViewById(R.id.image_comment);
 
         like.setOnClickListener(new OnClickListener() {
             @Override
@@ -119,6 +122,11 @@ public class CommunityItemView extends FrameLayout {
             likeImage.setImageResource(R.drawable.icon_like_on);
         } else {
             likeImage.setImageResource(R.drawable.icon_like_off);
+        }
+        if (item.commentsCount != 0) {
+            commentImage.setImageResource(R.drawable.icon_comment_active);
+        } else {
+            commentImage.setImageResource(R.drawable.icon_comment);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,7 +29,7 @@ public class CommunityPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_post);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setElevation(0);
+        toolbar.setTitle("글 작성");
         setSupportActionBar(toolbar);
 
         titleView = (EditText)findViewById(R.id.edit_title);
@@ -38,7 +39,6 @@ public class CommunityPostActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CommunityPostActivity.this, "???", Toast.LENGTH_SHORT).show();
                 final String title = titleView.getText().toString();
                 final String content = contentView.getText().toString();
                 if (TextUtils.isEmpty(title)) {
@@ -47,6 +47,7 @@ public class CommunityPostActivity extends AppCompatActivity {
                     Toast.makeText(CommunityPostActivity.this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CommunityPostActivity.this);
+                    builder.setIcon(R.drawable.icon_logo_black);
                     builder.setTitle("글 작성");
                     builder.setMessage("글을 등록하시겠습니까?");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -58,7 +59,6 @@ public class CommunityPostActivity extends AppCompatActivity {
                                     Toast.makeText(CommunityPostActivity.this, "글이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
-
                                 @Override
                                 public void onFail(int code) {
                                     Log.d("Network ERROR", "communitypost" + code);
@@ -69,6 +69,7 @@ public class CommunityPostActivity extends AppCompatActivity {
                     builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
                     });
 

@@ -180,6 +180,8 @@ public class CountFragment extends Fragment {
             }
         });
 
+        /*
+        // SET ALL ON (TEST)
         Button btn = (Button)view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +189,7 @@ public class CountFragment extends Fragment {
                 mAdapter.setAllOn();
             }
         });
+        */
 
         return view;
     }
@@ -311,20 +314,41 @@ public class CountFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_count_reset :
-                // 금연 카운트 정지 (reset)
-                startTime = -1;                             // 시작시간을 -1로
-                setStartTime(startTime);                    // SP에 저장
-                mAdapter.resetCount();                      // SP의 내용을 reset하고, GridView에 보여지는 Item을 reset
-                PropertyManager.getInstance().setCountSuccess(0);
-                PropertyManager.getInstance().setCountFailure(0);
+                if (startTime == -1) {
+                    Toast.makeText(getActivity(), "이 버튼은 카운트 초기화 버튼입니다.\n아직 금연 카운트가 시작되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setIcon(R.drawable.icon_logo_black);
+                    builder.setTitle("금연 카운트 초기화");
+                    builder.setMessage("금연 카운트를 초기화하시겠습니까?\n현재까지의 카운트 정보가 모두 삭제됩니다.");
+                    builder.setNeutralButton("초기화", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 금연 카운트 정지 (reset)
+                            startTime = -1;                             // 시작시간을 -1로
+                            setStartTime(startTime);                    // SP에 저장
+                            mAdapter.resetCount();                      // SP의 내용을 reset하고, GridView에 보여지는 Item을 reset
+                            PropertyManager.getInstance().setCountSuccess(0);
+                            PropertyManager.getInstance().setCountFailure(0);
 
-                mHandler.removeCallbacks(countRunnable);    // Handler 정지
+                            mHandler.removeCallbacks(countRunnable);    // Handler 정지
 
-                // NOTICE RESET, set TextView
-                Toast.makeText(getActivity(), "금연 카운트가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
+                            // NOTICE RESET, set TextView
+                            Toast.makeText(getActivity(), "금연 카운트가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
 
-                // 정지상태에 보여줄 text로!
-                setTextCountStop();
+                            // 카운트 정지상태에 보여줄 text로 TextView 세팅!
+                            setTextCountStop();
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dlg = builder.create();
+                    dlg.show();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

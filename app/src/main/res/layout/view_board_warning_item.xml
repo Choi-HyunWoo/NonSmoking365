@@ -21,6 +21,8 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:singleLine="true"
         android:id="@+id/text_title" />
 
@@ -91,7 +93,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:stateListAnimator="@null"
-                android:src="@drawable/icon_comment"/>
+                android:src="@drawable/icon_comment_active"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -116,12 +118,17 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="5dp"
-                android:src="@drawable/icon_share"/>
+                android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
+                android:src="@drawable/icon_share_active"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="@string/board_btn_share"
                 android:focusable="false"
+                android:clickable="false"
+                android:stateListAnimator="@null"
                 android:background="@drawable/btn_white_border"
                 android:id="@+id/btn_share" />
         </LinearLayout>
