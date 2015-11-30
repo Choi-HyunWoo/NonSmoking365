@@ -91,6 +91,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:visibility="gone"
         android:id="@+id/alarmBtnForm">
         <TextView
             android:layout_width="match_parent"
@@ -107,7 +108,6 @@
             android:stateListAnimator="@null"
             android:background="@drawable/btn_color_normal" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

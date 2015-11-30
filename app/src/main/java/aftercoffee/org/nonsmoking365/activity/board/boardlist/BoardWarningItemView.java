@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.data.Image;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 
 /**
@@ -37,6 +38,7 @@ public class BoardWarningItemView extends FrameLayout {
     Button likeBtn;
     ImageView likeImage;
     Button commentsBtn;
+    ImageView commentImage;
     Button shareBtn;
 
     /**
@@ -67,6 +69,7 @@ public class BoardWarningItemView extends FrameLayout {
         likeBtn = (Button)findViewById(R.id.btn_like);
         likeImage = (ImageView)findViewById(R.id.image_like);
         commentsBtn = (Button)findViewById(R.id.btn_comment);
+        commentImage = (ImageView)findViewById(R.id.image_comment);
         shareBtn = (Button)findViewById(R.id.btn_share);
 
         // 좋아요 버튼
@@ -103,6 +106,11 @@ public class BoardWarningItemView extends FrameLayout {
             likeImage.setImageResource(R.drawable.icon_like_on);
         } else {
             likeImage.setImageResource(R.drawable.icon_like_off);
+        }
+        if (item.commentsCount != 0) {
+            commentImage.setImageResource(R.drawable.icon_comment_active);
+        } else {
+            commentImage.setImageResource(R.drawable.icon_comment);
         }
     }
 

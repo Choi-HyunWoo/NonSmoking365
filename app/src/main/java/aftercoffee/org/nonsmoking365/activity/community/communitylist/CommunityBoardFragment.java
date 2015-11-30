@@ -245,7 +245,8 @@ public class CommunityBoardFragment extends Fragment implements CommunityItemAda
     // 댓글 버튼
     @Override
     public void onAdapterCommentClick(CommunityItemView view, CommunityItem item) {
-        Toast.makeText(getActivity(), "댓글", Toast.LENGTH_SHORT).show();
+        String docID = item._id;
+        ((CommunityActivity)getActivity()).pushCommunityContentsFragment(docID);
     }
 
     @Override

@@ -28,7 +28,6 @@ public class CommunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setElevation(0);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

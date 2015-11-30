@@ -24,14 +24,11 @@ public class NoticeChildItemView extends FrameLayout {
     ImageView noticeImageView;
 
     TextView contentsView;
-    TextView imageUrlView;
 
     private void init() {
         inflate(getContext(), R.layout.view_notice_child_item, this);
         noticeImageView = (ImageView)findViewById(R.id.image_notice);
         contentsView = (TextView)findViewById(R.id.text_contentsView);
-
-        imageUrlView = (TextView)findViewById(R.id.text_imageURL);
 
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.icon_image_add)
@@ -46,7 +43,6 @@ public class NoticeChildItemView extends FrameLayout {
 
     public void setChildItem(NoticeChildItem item) {
         contentsView.setText(item.contents);
-        imageUrlView.setText(item.imageUrl);
         ImageLoader.getInstance().displayImage(item.imageUrl, noticeImageView, options);
     }
 }

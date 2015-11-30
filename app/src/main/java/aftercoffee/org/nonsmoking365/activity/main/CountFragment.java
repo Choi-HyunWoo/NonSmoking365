@@ -238,7 +238,7 @@ public class CountFragment extends Fragment {
     // 카운트가 정지 상태일 때 TextView 출력
     private void setTextCountStop() {
         countRestView.setText("");
-        countStartView.setText("1일차 버튼을 눌러 금연 카운트를 시작해 주세요");
+        countStartView.setText("금연 카운트를 시작해 주세요");
         countPositionView.setText("");
     }
 
