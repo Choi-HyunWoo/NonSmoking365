@@ -12,17 +12,19 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/text_info"
+        android:textSize="18sp"
         android:text="성공!"
         android:textStyle="bold"
         android:textColor="@color/colorWhite"
-        android:layout_above="@+id/text_result"
+        android:layout_below="@+id/text_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="현재까지 성공 N일 실패 N일 금연율 N%"
+        android:textSize="16sp"
         android:id="@+id/text_result"
         android:textColor="@color/colorWhite"
         android:layout_above="@+id/text_message"
@@ -33,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="조금 더 노력합시다"
+        android:textSize="16sp"
         android:id="@+id/text_message"
         android:textColor="@color/colorWhite"
         android:layout_marginBottom="100dp"
@@ -42,10 +45,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="N일차 금연 결과"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/colorWhite"
+        android:text="N일차 금연 결과"
         android:id="@+id/text_title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

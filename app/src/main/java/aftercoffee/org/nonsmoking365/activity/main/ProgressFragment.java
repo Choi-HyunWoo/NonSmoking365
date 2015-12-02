@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,7 +44,7 @@ public class ProgressFragment extends Fragment {
     private static final long TIME_DAY = 24 * TIME_HOUR;
     private static final long TIME_YEAR = 365 * TIME_DAY;
 
-    TextView gradeView, mottoView, timeView, savedMoneyView, statusView;
+    TextView userGradeView, mottoView, timeView, savedMoneyView, healthGradeView;
     ImageView gradeImageView;
 
     int packPrice, numOfCigar, currentSaved;
@@ -65,12 +66,12 @@ public class ProgressFragment extends Fragment {
         userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
 
         // Initialize view
-        gradeView = (TextView)view.findViewById(R.id.text_gradeView);
+        userGradeView = (TextView)view.findViewById(R.id.text_userGradeView);
         gradeImageView = (ImageView)view.findViewById(R.id.image_gradeView);
         mottoView = (TextView)view.findViewById(R.id.text_mottoView);
         timeView = (TextView)view.findViewById(R.id.text_timeView);
         savedMoneyView = (TextView)view.findViewById(R.id.text_savedmoneyView);
-        statusView = (TextView)view.findViewById(R.id.text_statusView);
+        healthGradeView = (TextView)view.findViewById(R.id.text_healthGradeView);
 
 
         // 금연 목표
@@ -136,6 +137,17 @@ public class ProgressFragment extends Fragment {
             }
         });
 
+        // 건강상태
+        healthGradeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (nonSmokingTime > 0) {
+                    HealthGradeDialogFragment dlg = new HealthGradeDialogFragment();
+                    dlg.show(getActivity().getSupportFragmentManager(), "");
+                }
+            }
+        });
+
         // 로그인 / 비로그인 구분
         setViewLogined();
 
@@ -145,7 +157,7 @@ public class ProgressFragment extends Fragment {
     // 로그인 시 변화될 부분들
     // create, resume 시에 부르자.
     private void setViewLogined() {
-        gradeView.setText(userGrade);
+        userGradeView.setText(userGrade);
         if (isLogined) {
             // 로그인 시
             gradeImageView.setVisibility(View.VISIBLE);
@@ -153,17 +165,17 @@ public class ProgressFragment extends Fragment {
                 // 리워드회원
                 // Grade icon 생성, 배너 삭제, 리워드기간 표시..
                 gradeImageView.setImageResource(R.drawable.icon_user_reward);
-                gradeView.setTextColor(getResources().getColor(R.color.colorRed));
+                userGradeView.setTextColor(getResources().getColor(R.color.colorRed));
             } else if (userGrade.equals(UserManager.USER_GRADE_NORMAL)) {
                 // 일반회원
                 // Grade icon 생성
                 gradeImageView.setImageResource(R.drawable.icon_user_normal);
-                gradeView.setTextColor(getResources().getColor(R.color.colorAccent));
+                userGradeView.setTextColor(getResources().getColor(R.color.colorAccent));
             }
         } else {
             // 비회원
             gradeImageView.setVisibility(View.INVISIBLE);
-            gradeView.setTextColor(getResources().getColor(R.color.colorAAAAAA));
+            userGradeView.setTextColor(getResources().getColor(R.color.colorAAAAAA));
         }
     }
 
@@ -194,36 +206,36 @@ public class ProgressFragment extends Fragment {
 
                 // 건강 상태 (12단계 등급)
                 if (nonSmokingTime > 15*TIME_YEAR) {
-                    statusView.setText("1등급");
+                    healthGradeView.setText("1등급");
                 }else if (nonSmokingTime > 10*TIME_YEAR) {
-                    statusView.setText("2등급");
+                    healthGradeView.setText("2등급");
                 }else if (nonSmokingTime > 5*TIME_YEAR) {
-                    statusView.setText("3등급");
+                    healthGradeView.setText("3등급");
                 }else if (nonSmokingTime > TIME_YEAR) {
-                    statusView.setText("4등급");
+                    healthGradeView.setText("4등급");
                 }else if (nonSmokingTime > 180 * TIME_DAY) {
-                    statusView.setText("5등급");
+                    healthGradeView.setText("5등급");
                 }else if (nonSmokingTime > 14 * TIME_DAY) {
-                    statusView.setText("6등급");
+                    healthGradeView.setText("6등급");
                 }else if (nonSmokingTime > 72 * TIME_HOUR) {
-                    statusView.setText("7등급");
+                    healthGradeView.setText("7등급");
                 }else if (nonSmokingTime > 48 * TIME_HOUR) {
-                    statusView.setText("8등급");
+                    healthGradeView.setText("8등급");
                 }else if (nonSmokingTime > 24 * TIME_HOUR) {
-                    statusView.setText("9등급");
+                    healthGradeView.setText("9등급");
                 }else if (nonSmokingTime > 8 * TIME_HOUR) {
-                    statusView.setText("10등급");
+                    healthGradeView.setText("10등급");
                 }else if (nonSmokingTime > 2 * TIME_HOUR) {
-                    statusView.setText("11등급");
+                    healthGradeView.setText("11등급");
                 }else if (nonSmokingTime > 20 * TIME_MIN) {
-                    statusView.setText("12등급");
+                    healthGradeView.setText("12등급");
                 }else {
-                    statusView.setText("13등급");
+                    healthGradeView.setText("13등급");
                 }
             } else {
-                timeView.setText("아직 금연을 시작하지 않으셨습니다");
+                timeView.setText("아직 금연을 시작하지 않으셨습니다.");
                 savedMoneyView.setText("금연 시작하시고 담배값을 절약하세요!");
-                statusView.setText("13등급");
+                healthGradeView.setText("13등급");
             }
             mHandler.postDelayed(this, TIME_INTERVAL);
         }

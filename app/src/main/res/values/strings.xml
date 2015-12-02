@@ -35,6 +35,7 @@
     <!-- ServiceInfoActivity -->
     <string name="service_text_title">리워드 서비스 이용방법</string>
     <string name="service_btn_register">서비스 신청하기</string>
+    <string name="service_text_info">금연365 서비스는 단순하지만 확실합니다.\n금연365 서비스는 매달 흡연검사를 신청하고\n금연365 App을 통하여 금연을 진행합니다.\n이후 365일 동안 금연에 성공한다면 금연 성공 포상금으로 매달 신청하셨던 흡연검사 비용을 120%로 다시 돌려드립니다.\n또한 3개월 6개월 9개월 단위로 금연 의지가 낮아지지 않도록 다양한 이벤트와 선물을 제공해드리며 금연을 도와드립니다.</string>
 
     <!--healthgradeInfo-->
     <string name="health_grade_12">혈압, 맥박, 손발 체온이 정상으로 돌아옵니다.</string>

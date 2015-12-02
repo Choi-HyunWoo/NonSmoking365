@@ -46,6 +46,7 @@ public class CommunityActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CommunityActivity.this);
+                    builder.setIcon(R.drawable.icon_logo_black);
                     builder.setTitle("로그인");
                     builder.setMessage("글 작성은 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
