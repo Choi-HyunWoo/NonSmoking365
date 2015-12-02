@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import aftercoffee.org.nonsmoking365.activity.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
@@ -75,6 +76,14 @@ public class ProgressFragment extends Fragment {
         // 금연 목표
         String motto = PropertyManager.getInstance().getBasisMotto();
         mottoView.setText(motto);
+        mottoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BasisInfoActivity.class);
+                intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_MODIFY);
+                startActivity(intent);
+            }
+        });
 
         // 금연 진행 시간, 절약 금액, 건강 상태 (Handler)
         startTime = PropertyManager.getInstance().getBasisStartTime();
@@ -144,14 +153,17 @@ public class ProgressFragment extends Fragment {
                 // 리워드회원
                 // Grade icon 생성, 배너 삭제, 리워드기간 표시..
                 gradeImageView.setImageResource(R.drawable.icon_user_reward);
+                gradeView.setTextColor(getResources().getColor(R.color.colorRed));
             } else if (userGrade.equals(UserManager.USER_GRADE_NORMAL)) {
                 // 일반회원
                 // Grade icon 생성
                 gradeImageView.setImageResource(R.drawable.icon_user_normal);
+                gradeView.setTextColor(getResources().getColor(R.color.colorAccent));
             }
         } else {
             // 비회원
             gradeImageView.setVisibility(View.INVISIBLE);
+            gradeView.setTextColor(getResources().getColor(R.color.colorAAAAAA));
         }
     }
 
@@ -234,6 +246,8 @@ public class ProgressFragment extends Fragment {
         super.onResume();
         isLogined = UserManager.getInstance().getLoginState();
         setViewLogined();
+        String motto = PropertyManager.getInstance().getBasisMotto();
+        mottoView.setText(motto);
         mHandler.removeCallbacks(updateRunnable);
         mHandler.post(updateRunnable);
     }
@@ -250,6 +264,7 @@ public class ProgressFragment extends Fragment {
             case R.id.action_startTime_reset :
                 // Dialog 띄운 후 현재시간으로 리셋
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setIcon(R.drawable.icon_logo_black);
                 builder.setTitle("금연 중 담배를 피셨습니까?");
                 builder.setMessage("금연 시작 시간을 현재 시간부터로 변경합니다.");
                 builder.setNeutralButton("예", new DialogInterface.OnClickListener() {

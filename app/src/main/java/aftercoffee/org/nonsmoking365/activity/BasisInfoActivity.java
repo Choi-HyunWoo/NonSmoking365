@@ -247,6 +247,7 @@ public class BasisInfoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                Toast.makeText(BasisInfoActivity.this, "수정이 취소되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
         }

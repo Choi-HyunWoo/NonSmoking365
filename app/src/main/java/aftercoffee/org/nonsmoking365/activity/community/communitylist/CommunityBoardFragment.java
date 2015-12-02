@@ -193,6 +193,7 @@ public class CommunityBoardFragment extends Fragment implements CommunityItemAda
     public void onAdapterLikeClick(CommunityItemView view, final CommunityItem item) {
         if (!isLogined) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setIcon(R.drawable.icon_logo_black);
             builder.setTitle("로그인");
             builder.setMessage("좋아요는 회원만 가능합니다\n로그인 페이지로 이동하시겠습니까?");
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {

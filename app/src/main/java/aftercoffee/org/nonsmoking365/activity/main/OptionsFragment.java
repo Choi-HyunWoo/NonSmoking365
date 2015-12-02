@@ -192,7 +192,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                     NetworkManager.getInstance().logout(getContext(), new NetworkManager.OnResultListener<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            Toast.makeText(getActivity(), "로그아웃 되었습니다." + result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                             UserManager.getInstance().logoutClear();
                             isLogined = false;      // 변수 갱신후
                             setViewLogined();       // 뷰 갱신

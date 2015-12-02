@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:background="@color/colorWhite"
+    android:padding="@dimen/activity_vertical_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/image_profileImg" />
 
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
             android:text="닉네임"
@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="댓글"
             android:id="@+id/text_content" />
         <LinearLayout
@@ -39,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="작성일"
+                android:textColor="@color/colorAAAAAA"
                 android:id="@+id/text_date" />
             <!--
             <TextView
@@ -48,8 +51,11 @@
                 android:id="@+id/text_modify" />
             -->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:textColor="@color/colorAccent"
                 android:text="삭제"
                 android:layout_marginLeft="16dp"
                 android:id="@+id/text_delete" />

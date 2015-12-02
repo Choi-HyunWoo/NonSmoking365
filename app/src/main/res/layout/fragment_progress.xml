@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center_vertical|left"
-            android:textColor="#FF0000"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:text="grade"/>
     </RelativeLayout>
@@ -58,7 +58,7 @@
         android:layout_weight="2"
         android:gravity="center"
         android:id="@+id/text_mottoView"
-        android:background="@drawable/btn_color_border"
+        android:background="@drawable/simple_color_border"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:text="@string/progress_text_default_motto" />

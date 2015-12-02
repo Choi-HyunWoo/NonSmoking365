@@ -28,7 +28,6 @@
             android:layout_gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorAccent"
             android:text="닉네임"  />
@@ -80,14 +79,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="내용"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="80dp"
         android:id="@+id/text_content" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin" >
+        android:layout_height="wrap_content" >
         <LinearLayout
             android:id="@+id/like"
             android:layout_width="0dp"
@@ -141,4 +139,16 @@
                 android:background="@drawable/btn_white_border" />
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorEFEFEF"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:text="댓글"/>
 </LinearLayout>
