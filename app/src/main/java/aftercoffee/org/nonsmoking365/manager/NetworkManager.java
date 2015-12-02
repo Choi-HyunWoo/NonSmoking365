@@ -165,6 +165,47 @@ public class NetworkManager {
         });
     }
 
+
+    /** 비밀번호 찾기
+     *
+     */
+    public void findPassword (Context context, String email, final OnResultResponseListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+        client.get(context, USERS_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode, responseString);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+
+    /** 비밀번호 수정
+     *
+     */
+    public void updatePassword (Context context, String pw_old, String pw_new, final OnResultResponseListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("pw_old", pw_old);
+        params.put("pw_new", pw_new);
+        client.put(context, USERS_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode, responseString);
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+
     /** 회원정보 수정
      * 닉네임, 프로필사진
      */

@@ -124,8 +124,7 @@ public class LoginFragment extends Fragment {
         });
         */
 
-
-        // Sign up clicked
+        // 회원가입
         btn = (Button)v.findViewById(R.id.btn_signUp);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +132,16 @@ public class LoginFragment extends Fragment {
                 ((LoginActivity)getActivity()).pushSignUpFragment();
             }
         });
+
+        // 비밀번호 찾기
+        findView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FindDialogFragment dlg = new FindDialogFragment();
+                dlg.show(getActivity().getSupportFragmentManager(), "");
+            }
+        });
+
         return v;
     }
 

@@ -6,4 +6,8 @@
 
     <dimen name="health_dlalog_width">300dp</dimen>
     <dimen name="health_dlalog_height">400dp</dimen>
+
+    <dimen name="find_dialog_width">300dp</dimen>
+    <dimen name="find_dialog_height">300dp</dimen>
+
 </resources>

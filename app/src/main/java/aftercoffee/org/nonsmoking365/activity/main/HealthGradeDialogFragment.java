@@ -42,13 +42,13 @@ public class HealthGradeDialogFragment extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Dialog d = getDialog();
+        Dialog dlg = getDialog();
         int width = getResources().getDimensionPixelSize(R.dimen.health_dlalog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.health_dlalog_height);
         getDialog().getWindow().setLayout(width, height);
-        d.getWindow().setLayout(width, height);
-        WindowManager.LayoutParams params = d.getWindow().getAttributes();
-        d.getWindow().setAttributes(params);
+        dlg.getWindow().setLayout(width, height);
+        WindowManager.LayoutParams params = dlg.getWindow().getAttributes();
+        dlg.getWindow().setAttributes(params);
     }
 
     @Override
@@ -70,6 +70,7 @@ public class HealthGradeDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_health_grade_dialog, container, false);
+
         // remove dialog title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         // remove dialog background

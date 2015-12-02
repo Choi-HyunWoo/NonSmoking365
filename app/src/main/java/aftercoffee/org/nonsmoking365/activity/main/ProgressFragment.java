@@ -63,7 +63,6 @@ public class ProgressFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
         isLogined = UserManager.getInstance().getLoginState();      // 로그인 상태 확인
-        userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
 
         // Initialize view
         userGradeView = (TextView)view.findViewById(R.id.text_userGradeView);
@@ -157,7 +156,6 @@ public class ProgressFragment extends Fragment {
     // 로그인 시 변화될 부분들
     // create, resume 시에 부르자.
     private void setViewLogined() {
-        userGradeView.setText(userGrade);
         if (isLogined) {
             // 로그인 시
             gradeImageView.setVisibility(View.VISIBLE);
@@ -167,16 +165,20 @@ public class ProgressFragment extends Fragment {
                 gradeImageView.setImageResource(R.drawable.icon_user_reward);
                 userGradeView.setTextColor(getResources().getColor(R.color.colorRed));
             } else if (userGrade.equals(UserManager.USER_GRADE_NORMAL)) {
+                userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
                 // 일반회원
                 // Grade icon 생성
                 gradeImageView.setImageResource(R.drawable.icon_user_normal);
                 userGradeView.setTextColor(getResources().getColor(R.color.colorAccent));
+                userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
             }
         } else {
             // 비회원
             gradeImageView.setVisibility(View.INVISIBLE);
             userGradeView.setTextColor(getResources().getColor(R.color.colorAAAAAA));
+            userGrade = "비회원";
         }
+        userGradeView.setText(userGrade);
     }
 
     Handler mHandler = new Handler();
