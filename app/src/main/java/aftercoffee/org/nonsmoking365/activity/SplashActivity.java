@@ -102,6 +102,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goPreview() {
         Intent intent = new Intent(SplashActivity.this, PreviewActivity.class);
+        intent.putExtra(PreviewActivity.START_MODE, PreviewActivity.MODE_FIRST);
         startActivity(intent);
         finish();
     }

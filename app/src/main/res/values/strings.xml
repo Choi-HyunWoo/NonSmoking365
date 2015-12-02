@@ -65,7 +65,7 @@
     <string name="options_notice">공지사항 및 이벤트</string>
     <string name="options_question">문의하기</string>
     <string name="options_withdraw">회원 탈퇴</string>
-    <string name="options_version_info">버전 정보</string>
+    <string name="options_version_info">이용 안내 및 버전 정보</string>
 
     <!-- LoginFragment -->
     <string name="login_text_email">E-mail</string>
@@ -94,6 +94,7 @@
     <!-- VersionInfo Activity -->
     <string name="version_info">버전 1.0.0</string>
     <string name="version_btn_access_terms">이용 약관</string>
+    <string name="version_btn_preview_info">이용 안내</string>
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_community_post">CommunityPostActivity</string>
 

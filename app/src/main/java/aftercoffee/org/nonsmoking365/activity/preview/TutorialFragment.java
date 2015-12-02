@@ -22,6 +22,7 @@ public class TutorialFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
     private int position;
+    String startMode;
 
     public TutorialFragment() {
         // Required empty public constructor
@@ -48,6 +49,10 @@ public class TutorialFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view;
+
+        Intent intent = getActivity().getIntent();
+        startMode = intent.getStringExtra(PreviewActivity.START_MODE);
+
         switch (position) {
             case 0 :
                 view = inflater.inflate(R.layout.view_tutorial_01, container, false);
@@ -58,14 +63,21 @@ public class TutorialFragment extends Fragment {
             case 2 :
                 view = inflater.inflate(R.layout.view_tutorial_03, container, false);
                 Button startBtn = (Button) view.findViewById(R.id.btn_start);
+                if (startMode.equals(PreviewActivity.MODE_NOT_FIRST)) {
+                    startBtn.setText("확인");
+                }
                 startBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PropertyManager.getInstance().setPreviewCheck(true);
-                        Intent intent = new Intent(getActivity(), BasisInfoActivity.class);
-                        intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_INIT);
-                        startActivity(intent);
-                        getActivity().finish();
+                        if (startMode.equals(PreviewActivity.MODE_NOT_FIRST)) {
+                            getActivity().finish();
+                        } else {
+                            PropertyManager.getInstance().setPreviewCheck(true);
+                            Intent intent = new Intent(getActivity(), BasisInfoActivity.class);
+                            intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_INIT);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
                     }
                 });
                 break;

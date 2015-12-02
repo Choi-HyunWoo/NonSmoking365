@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.activity.preview.PreviewActivity;
 
 public class VersionInfoActivity extends AppCompatActivity {
 
@@ -22,7 +23,16 @@ public class VersionInfoActivity extends AppCompatActivity {
         actionBar.setTitle("버전 정보");
         actionBar.setElevation(0);
 
-        Button btn = (Button) findViewById(R.id.btn_access_terms);
+        Button btn = (Button) findViewById(R.id.btn_preview_info);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VersionInfoActivity.this, PreviewActivity.class);
+                intent.putExtra(PreviewActivity.START_MODE, PreviewActivity.MODE_NOT_FIRST);
+                startActivity(intent);
+            }
+        });
+        btn = (Button) findViewById(R.id.btn_access_terms);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

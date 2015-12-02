@@ -26,14 +26,31 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/version_btn_access_terms"
-        android:textColor="@color/selector_text_color_white_to_accent"
-        android:background="@drawable/btn_white_border"
-        android:id="@+id/btn_access_terms"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp" />
+        android:layout_marginBottom="80dp" >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/version_btn_preview_info"
+            android:textColor="@color/selector_text_color_white_to_accent"
+            android:background="@drawable/btn_white_border"
+            android:id="@+id/btn_preview_info" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:text="@string/version_btn_access_terms"
+            android:textColor="@color/selector_text_color_white_to_accent"
+            android:background="@drawable/btn_white_border"
+            android:id="@+id/btn_access_terms" />
+
+    </LinearLayout>
 </RelativeLayout>

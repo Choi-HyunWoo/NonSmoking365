@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="@color/colorWhite"
+    tools:context="aftercoffee.org.nonsmoking365.activity.main.GradeInfoDialogFragment">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:text="확인"
+        android:stateListAnimator="@null"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btn_ok" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="회원 종류 안내"
+        android:id="@+id/text_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_normal_user"
+        android:src="@drawable/icon_user_normal"
+        android:layout_below="@+id/text_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="일반회원"
+        android:id="@+id/text_normal_user"
+        android:layout_above="@+id/text_normal_user_info"
+        android:layout_toRightOf="@+id/image_normal_user"
+        android:layout_toEndOf="@+id/image_normal_user"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="금연365 앱을 이용하는 회원입니다.\n커뮤니티 서비스를 이용할 수 있습니다."
+        android:id="@+id/text_normal_user_info"
+        android:layout_below="@+id/image_normal_user"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_reward_user"
+        android:src="@drawable/icon_user_reward"
+        android:layout_below="@+id/text_normal_user_info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorRed"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="리워드회원"
+        android:id="@+id/text_reward_user"
+        android:layout_above="@+id/text_reward_user_info"
+        android:layout_toRightOf="@+id/image_normal_user"
+        android:layout_toEndOf="@+id/image_normal_user"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="금연365 리워드 서비스를 이용중인 회원으로,\n리워드 진행 결과를 확인할 수 있습니다.\n자세한 사항은 아래 배너를 클릭해주세요."
+        android:id="@+id/text_reward_user_info"
+        android:layout_below="@+id/image_reward_user"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+
+    <LinearLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_above="@+id/btn_ok"
+        android:layout_alignLeft="@+id/btn_ok"
+        android:layout_alignStart="@+id/btn_ok"
+        android:layout_marginBottom="15dp">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/logo"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|left"
+            android:textSize="13sp"
+            android:text="에서 금연 성공 하고 120%\n금연 포상금의 주인공이 되세요!"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+
+</RelativeLayout>

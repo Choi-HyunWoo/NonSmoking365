@@ -72,6 +72,15 @@ public class ProgressFragment extends Fragment {
         savedMoneyView = (TextView)view.findViewById(R.id.text_savedmoneyView);
         healthGradeView = (TextView)view.findViewById(R.id.text_healthGradeView);
 
+        // 회원 등급
+        userGradeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GradeInfoDialogFragment dlg = new GradeInfoDialogFragment();
+                dlg.show(getActivity().getSupportFragmentManager(), "");
+            }
+        });
+
 
         // 금연 목표
         String motto = PropertyManager.getInstance().getBasisMotto();
@@ -159,23 +168,23 @@ public class ProgressFragment extends Fragment {
         if (isLogined) {
             // 로그인 시
             gradeImageView.setVisibility(View.VISIBLE);
+            userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
             if (userGrade.equals(UserManager.USER_GRADE_REWARD)) {
                 // 리워드회원
                 // Grade icon 생성, 배너 삭제, 리워드기간 표시..
                 gradeImageView.setImageResource(R.drawable.icon_user_reward);
                 userGradeView.setTextColor(getResources().getColor(R.color.colorRed));
             } else if (userGrade.equals(UserManager.USER_GRADE_NORMAL)) {
-                userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
                 // 일반회원
                 // Grade icon 생성
                 gradeImageView.setImageResource(R.drawable.icon_user_normal);
                 userGradeView.setTextColor(getResources().getColor(R.color.colorAccent));
-                userGrade = UserManager.getInstance().getUserGrade();       // 회원 등급
             }
         } else {
             // 비회원
             gradeImageView.setVisibility(View.INVISIBLE);
             userGradeView.setTextColor(getResources().getColor(R.color.colorAAAAAA));
+            UserManager.getInstance().setUserGrade("비회원");
             userGrade = "비회원";
         }
         userGradeView.setText(userGrade);
@@ -197,8 +206,19 @@ public class ProgressFragment extends Fragment {
                 int nonSmokingHours= (int) (nonSmokingTime / TIME_HOUR) - (nonSmokingDays * 24);
                 int nonSmokingMins = (int) (nonSmokingTime / TIME_MIN) - (nonSmokingDays * 24 * 60) - (nonSmokingHours * 60);
                 int nonSmokingSecs = (int) (nonSmokingTime / TIME_SEC) - (nonSmokingDays * 24 * 60 * 60) - (nonSmokingHours * 60 * 60) - (nonSmokingMins * 60);
-                String s = String.format("%d일 %d시간 %d분 %d초", nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
-                timeView.setText(s);
+                if (nonSmokingDays==0 && nonSmokingHours==0 && nonSmokingMins==0) {
+                    String s = String.format("%d초", nonSmokingSecs);
+                    timeView.setText(s);
+                } else if (nonSmokingDays==0 && nonSmokingHours==0) {
+                    String s = String.format("%d분 %d초", nonSmokingMins, nonSmokingSecs);
+                    timeView.setText(s);
+                } else if (nonSmokingDays==0) {
+                    String s = String.format("%d시간 %d분 %d초",nonSmokingHours, nonSmokingMins, nonSmokingSecs);
+                    timeView.setText(s);
+                } else {
+                    String s = String.format("%d일 %d시간 %d분 %d초", nonSmokingDays, nonSmokingHours, nonSmokingMins, nonSmokingSecs);
+                    timeView.setText(s);
+                }
 
                 // 절약금액
                 currentSaved = (int)

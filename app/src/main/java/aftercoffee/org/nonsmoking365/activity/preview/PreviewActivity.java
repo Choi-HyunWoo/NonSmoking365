@@ -16,6 +16,10 @@ public class PreviewActivity extends AppCompatActivity {
     ViewPager pager;
     PreviewPagerAdapter mAdapter;
 
+    public static final String START_MODE = "start_mode";
+    public static final String MODE_FIRST = "mode_first";
+    public static final String MODE_NOT_FIRST = "mode_not_first";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
