@@ -64,7 +64,7 @@ public class PwDialogFragment extends DialogFragment {
                 String pwNew = newPwView.getText().toString();
                 String pwNewChcek = newPwCheckView.getText().toString();
                 if (TextUtils.isEmpty(pwOld)) {
-                    Toast.makeText(getActivity(), "이전 비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "현재 비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(pwNew)) {
                     Toast.makeText(getActivity(), "새 비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(pwNewChcek)) {
@@ -74,13 +74,13 @@ public class PwDialogFragment extends DialogFragment {
                         NetworkManager.getInstance().updatePassword(getActivity(), user_id, pwOld, pwNew, new NetworkManager.OnResultResponseListener<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "비밀번호가 수정되었습니다.", Toast.LENGTH_SHORT).show();
                                 dismiss();
                             }
 
                             @Override
                             public void onFail(int code, String reponseString) {
-                                Toast.makeText(getActivity(), reponseString, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "입력된 비밀번호와 현재 비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else {

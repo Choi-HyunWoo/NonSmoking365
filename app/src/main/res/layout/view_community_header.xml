@@ -82,6 +82,32 @@
         android:layout_marginBottom="80dp"
         android:id="@+id/text_content" />
 
+    <LinearLayout
+        android:paddingRight="10dp"
+        android:id="@+id/contentsControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+        <TextView
+            android:id="@+id/btn_contentsModify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="수정"/>
+        <TextView
+            android:id="@+id/btn_contentsDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="삭제"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -149,6 +175,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textStyle="bold"
         android:text="댓글"/>
 </LinearLayout>

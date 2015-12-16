@@ -199,6 +199,10 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
                                         mAdapter.addCommentItem(comment);
                                     }
                                 }
+                                // Keyboard 내리기
+                                imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                // 작성된 댓글로 list 이동
                                 listView.smoothScrollToPosition(mAdapter.getCount());
                                 commentView.setText("");
                             }
@@ -304,7 +308,7 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
         builder.setNeutralButton("삭제", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                final String comment_id = ((CommentItemView)view)._id;
+                final String comment_id = ((CommentItemView) view)._id;
                 NetworkManager.getInstance().deleteBoardCommentDelete(getContext(), docID, comment_id, new NetworkManager.OnResultListener<BoardDocs>() {
                     @Override
                     public void onSuccess(BoardDocs result) {
@@ -337,7 +341,7 @@ public class BoardContentsFragment extends Fragment implements ContentsAdapter.O
                 });
             }
         });
-        builder.setNeutralButton("취소", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

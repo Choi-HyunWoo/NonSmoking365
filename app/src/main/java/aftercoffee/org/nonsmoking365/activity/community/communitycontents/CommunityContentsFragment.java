@@ -199,6 +199,10 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
                                         mAdapter.addCommentItem(comment);
                                     }
                                 }
+                                // Keyboard 내리기
+                                imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                // 작성된 댓글로 list 이동
                                 listView.smoothScrollToPosition(mAdapter.getCount());
                                 commentView.setText("");
                             }
@@ -295,40 +299,58 @@ public class CommunityContentsFragment extends Fragment implements ContentsAdapt
         Toast.makeText(getActivity(), "구현중입니다.", Toast.LENGTH_SHORT).show();
     }
 
-    // 댓글 삭제 << 안됨
+    // 댓글 삭제
     @Override
-    public void onAdapterDelete(ContentsAdapter adapter, View view) {
-        final String comment_id = ((CommentItemView)view)._id;
-        NetworkManager.getInstance().deleteCommunityCommentDelete(getContext(), docID, comment_id, new NetworkManager.OnResultListener<CommunityDocs>() {
+    public void onAdapterDelete(ContentsAdapter adapter, final View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(R.drawable.icon_logo_black);
+        builder.setTitle("댓글 삭제");
+        builder.setMessage("댓글을 삭제하시겠습니까?");
+        builder.setNeutralButton("삭제", new DialogInterface.OnClickListener() {
             @Override
-            public void onSuccess(CommunityDocs result) {
-                // Adapter item을 갱신
-                Toast.makeText(getActivity(), "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                mAdapter.clear();
-                if (result.commentsList.size() != 0) {
-                    for (int i = 0; i < result.commentsList.size(); i++) {
-                        // 댓글 추가
-                        CommentItem comment = new CommentItem();
-                        comment.docID = result._id;                         // 글 _id
-                        comment._id = result.commentsList.get(i)._id;       // 댓글 _id
-                        // 유저정보
-                        comment.user_id = result.commentsList.get(i).user_id._id;
-                        if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
-                            comment.userProfileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+            public void onClick(DialogInterface dialog, int which) {
+                final String comment_id = ((CommentItemView)view)._id;
+                NetworkManager.getInstance().deleteCommunityCommentDelete(getContext(), docID, comment_id, new NetworkManager.OnResultListener<CommunityDocs>() {
+                    @Override
+                    public void onSuccess(CommunityDocs result) {
+                        // Adapter item을 갱신
+                        Toast.makeText(getActivity(), "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        mAdapter.clear();
+                        if (result.commentsList.size() != 0) {
+                            for (int i = 0; i < result.commentsList.size(); i++) {
+                                // 댓글 추가
+                                CommentItem comment = new CommentItem();
+                                comment.docID = result._id;                         // 글 _id
+                                comment._id = result.commentsList.get(i)._id;       // 댓글 _id
+                                // 유저정보
+                                comment.user_id = result.commentsList.get(i).user_id._id;
+                                if (result.commentsList.get(i).user_id.image_ids.size() != 0) {
+                                    comment.userProfileImgURL = result.commentsList.get(i).user_id.image_ids.get(0).uri;
+                                }
+                                comment.nickname = result.commentsList.get(i).user_id.nick;
+                                comment.content = result.commentsList.get(i).content;
+                                comment.date = result.commentsList.get(i).created;
+                                mAdapter.addCommentItem(comment);
+                            }
                         }
-                        comment.nickname = result.commentsList.get(i).user_id.nick;
-                        comment.content = result.commentsList.get(i).content;
-                        comment.date = result.commentsList.get(i).created;
-                        mAdapter.addCommentItem(comment);
                     }
-                }
-            }
 
-            @Override
-            public void onFail(int code) {
-                Log.d("Network_Error/", "CommentDELETE " + code);
+                    @Override
+                    public void onFail(int code) {
+                        Log.d("Network_Error/", "CommentDELETE " + code);
+                    }
+                });
             }
         });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dlg = builder.create();
+        dlg.show();
     }
 
     @Override
