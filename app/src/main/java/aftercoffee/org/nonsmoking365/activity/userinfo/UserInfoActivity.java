@@ -1,4 +1,4 @@
-package aftercoffee.org.nonsmoking365.activity;
+package aftercoffee.org.nonsmoking365.activity.userinfo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,7 +18,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,8 +28,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import java.io.File;
@@ -57,6 +53,7 @@ public class UserInfoActivity extends AppCompatActivity {
     EditText userNicknameView;
     ImageView userProfileImageView;
     TextView userGradeView;
+    TextView pwChangeView;
     Button finishBtn;
 
     public static final int RESULT_LOAD_IMAGE = 1;
@@ -85,6 +82,7 @@ public class UserInfoActivity extends AppCompatActivity {
         userProfileImageView = (ImageView)findViewById(R.id.image_userProfileImage);
         userNicknameView = (EditText)findViewById(R.id.edit_userNickname);
         userGradeView = (TextView)findViewById(R.id.text_userGrade);
+        pwChangeView = (TextView)findViewById(R.id.text_pwChangeView);
         finishBtn = (Button)findViewById(R.id.btn_finish);
 
         // setting
@@ -122,6 +120,7 @@ public class UserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(UserInfoActivity.this);
+                builder.setIcon(R.drawable.icon_logo_black);
                 builder.setTitle("프로필 사진 변경");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -186,6 +185,13 @@ public class UserInfoActivity extends AppCompatActivity {
             }
         });
 
+        pwChangeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PwDialogFragment dlg = new PwDialogFragment();
+                dlg.show(getSupportFragmentManager(), "");
+            }
+        });
     }
 
     // Bitmap to File

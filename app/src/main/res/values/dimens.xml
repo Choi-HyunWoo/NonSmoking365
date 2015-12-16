@@ -13,6 +13,7 @@
     <dimen name="grade_dialog_width">300dp</dimen>
     <dimen name="grade_dialog_height">450dp</dimen>
 
-
+    <dimen name="password_dialog_width">300dp</dimen>
+    <dimen name="password_dialog_height">500dp</dimen>
 
 </resources>

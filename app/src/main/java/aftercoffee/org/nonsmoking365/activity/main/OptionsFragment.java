@@ -21,12 +21,10 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
-import aftercoffee.org.nonsmoking365.activity.UserInfoActivity;
+import aftercoffee.org.nonsmoking365.activity.userinfo.UserInfoActivity;
 import aftercoffee.org.nonsmoking365.manager.NetworkManager;
-import aftercoffee.org.nonsmoking365.manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
 import aftercoffee.org.nonsmoking365.R;
 import aftercoffee.org.nonsmoking365.activity.AlarmActivity;
@@ -52,8 +50,8 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
 
     ImageView userProfileImageView;
     TextView userNicknameView;
-    Button loginBtn, questionBtn, withdrawBtn;
-    LinearLayout loginBtnForm, questionBtnForm, withdrawBtnForm, emptyBottomForm;
+    Button loginBtn, userInfoBtn, questionBtn, withdrawBtn;
+    LinearLayout loginBtnForm, userInfoBtnForm, questionBtnForm, withdrawBtnForm, emptyBottomForm;
 
     DisplayImageOptions options;
 
@@ -67,6 +65,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         userProfileImageView = (ImageView)v.findViewById(R.id.image_userProfileImage);
         userNicknameView = (TextView)v.findViewById(R.id.text_userNickname);
         loginBtnForm = (LinearLayout)v.findViewById(R.id.loginBtnForm);
+        userInfoBtnForm = (LinearLayout)v.findViewById(R.id.userInfoBtnForm);
         questionBtnForm = (LinearLayout)v.findViewById(R.id.questionBtnForm);
         withdrawBtnForm = (LinearLayout)v.findViewById(R.id.withdrawBtnForm);
         emptyBottomForm = (LinearLayout)v.findViewById(R.id.emptyBottomForm);
@@ -124,6 +123,8 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         // Etc option buttons setting
         loginBtn = (Button)v.findViewById(R.id.btn_login);
         loginBtn.setOnClickListener(this);
+        userInfoBtn = (Button)v.findViewById(R.id.btn_userInfo);
+        userInfoBtn.setOnClickListener(this);
         Button btn;
         btn = (Button)v.findViewById(R.id.btn_basisInfo);
         btn.setOnClickListener(this);
@@ -166,6 +167,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
             }
             userNicknameView.setText(UserManager.getInstance().getUserNickname());
             loginBtn.setText("로그아웃");
+            userInfoBtnForm.setVisibility(View.VISIBLE);
             questionBtnForm.setVisibility(View.VISIBLE);
             withdrawBtnForm.setVisibility(View.VISIBLE);
             emptyBottomForm.setVisibility(View.GONE);
@@ -175,6 +177,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
             ImageLoader.getInstance().displayImage("drawable://"+R.drawable.icon_profile_default, userProfileImageView, options);
             userNicknameView.setText("로그인 해주세요");
             loginBtn.setText("로그인");
+            userInfoBtnForm.setVisibility(View.GONE);
             questionBtnForm.setVisibility(View.GONE);
             withdrawBtnForm.setVisibility(View.GONE);
             emptyBottomForm.setVisibility(View.VISIBLE);
@@ -209,8 +212,12 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
                 break;
+            case R.id.btn_userInfo:
+                Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+                startActivity(intent);
+                break;
             case R.id.btn_basisInfo:
-                Intent intent = new Intent(getActivity(), BasisInfoActivity.class);
+                intent = new Intent(getActivity(), BasisInfoActivity.class);
                 intent.putExtra(BasisInfoActivity.START_MODE, BasisInfoActivity.MODE_MODIFY);
                 startActivity(intent);
                 break;

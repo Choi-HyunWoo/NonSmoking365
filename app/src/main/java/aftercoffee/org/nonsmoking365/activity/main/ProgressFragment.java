@@ -20,6 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import aftercoffee.org.nonsmoking365.activity.BasisInfoActivity;
 import aftercoffee.org.nonsmoking365.manager.PropertyManager;
 import aftercoffee.org.nonsmoking365.manager.UserManager;
@@ -224,7 +228,8 @@ public class ProgressFragment extends Fragment {
                 currentSaved = (int)
                           ((float)packPrice/20 * numOfCigar * nonSmokingDays                    // 한 개비 가격 * 1일 흡연량(개비) * 금연날짜
                         + ((float)packPrice/20 * (float)numOfCigar/24) * nonSmokingHours);      // 한 개비 가격 * 시간당 흡연량(개비) * 금연시간
-                savedMoneyView.setText("담배값 "+currentSaved+" 원 절약중");
+                currentSaved = (currentSaved/100)*100;
+                savedMoneyView.setText("담배값 "+NumberFormat.getNumberInstance(Locale.US).format(currentSaved)+" 원 절약중");
 
                 // 건강 상태 (12단계 등급)
                 if (nonSmokingTime > 15*TIME_YEAR) {

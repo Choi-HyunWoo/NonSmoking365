@@ -12,8 +12,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import aftercoffee.org.nonsmoking365.R;
+import aftercoffee.org.nonsmoking365.manager.NetworkManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +60,18 @@ public class FindDialogFragment extends DialogFragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NetworkManager.getInstance().findPassword(getActivity(), findEmailView.getText().toString(), new NetworkManager.OnResultResponseListener<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Toast.makeText(getActivity(), "입력하신 ID Email로 인증 메일이 발송되었습니다.", Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    }
 
+                    @Override
+                    public void onFail(int code, String reponseString) {
+                        Toast.makeText(getActivity(), "ID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

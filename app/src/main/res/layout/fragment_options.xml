@@ -69,6 +69,28 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:id="@+id/userInfoBtnForm">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDDDDDD"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/options_user_info"
+            android:textColor="@color/selector_text_color_black_to_white"
+            android:id="@+id/btn_userInfo"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:stateListAnimator="@null"
+            android:background="@drawable/btn_color_normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:id="@+id/basisBtnForm">
         <TextView
             android:layout_width="match_parent"

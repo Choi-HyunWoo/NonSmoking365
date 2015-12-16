@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="aftercoffee.org.nonsmoking365" >
+    package="aftercoffee.org.nonsmoking365">
 
     <uses-sdk
         android:maxSdkVersion="21"
@@ -22,7 +22,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="aftercoffee.org.nonsmoking365.permission.C2D_MESSAGE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- END GCM permission -->
@@ -32,18 +31,18 @@
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/FullScreen" >
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.preview.PreviewActivity"
+        <activity
+            android:name=".activity.preview.PreviewActivity"
             android:theme="@style/FullScreen" />
         <activity android:name=".activity.BasisInfoActivity" />
         <activity android:name=".activity.main.MainActivity" />
@@ -67,7 +66,7 @@
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
@@ -77,14 +76,14 @@
 
         <service
             android:name=".service.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
             android:name=".service.MyInstanceIDListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
@@ -97,8 +96,7 @@
             android:name=".activity.community.CommunityPostActivity"
             android:label="@string/title_activity_community_post"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.UserInfoActivity" >
-        </activity>
+        <activity android:name=".activity.userinfo.UserInfoActivity"></activity>
     </application>
 
 </manifest>

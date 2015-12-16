@@ -61,6 +61,7 @@
     <string name="options_btn_login">로그인</string>
     <string name="options_btn_logout">로그아웃</string>
     <string name="options_basis_info">기초정보 수정</string>
+    <string name="options_user_info">회원정보 수정</string>
     <string name="options_alarm">알람 설정</string>
     <string name="options_notice">공지사항 및 이벤트</string>
     <string name="options_question">문의하기</string>
