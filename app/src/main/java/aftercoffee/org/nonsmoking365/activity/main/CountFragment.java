@@ -260,9 +260,11 @@ public class CountFragment extends Fragment {
             countPositionView.setText("금연 카운트 " + (todayCountPos + 1) + "일차");
             countStartView.setText("금연 카운트 시작일 : " + startTimeToString());
 
-            // 자정이 됬을 때, 다음 카운트 버튼을 ON Button으로 활성화.
-            if (mAdapter.isModeOff(todayCountPos) && todayCountPos <= mAdapter.COUNT_ITEMS_MAX_POSITION) {
-                mAdapter.setModeOn(todayCountPos);
+            // 자정이 됬을 때, 활성화되지 않은(OFF) 카운트 버튼을 ON Button으로 활성화.
+            for (int pos=0; pos <= todayCountPos; pos++) {
+                if (mAdapter.isModeOff(pos) && pos <= mAdapter.COUNT_ITEMS_MAX_POSITION) {
+                    mAdapter.setModeOn(pos);
+                }
             }
 
             mHandler.postDelayed(this, TIME_INTERVAL);
@@ -313,6 +315,7 @@ public class CountFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // 카운트 리셋 버튼
             case R.id.action_count_reset :
                 if (startTime == -1) {
                     Toast.makeText(getActivity(), "이 버튼은 카운트 초기화 버튼입니다.\n아직 금연 카운트가 시작되지 않았습니다.", Toast.LENGTH_SHORT).show();

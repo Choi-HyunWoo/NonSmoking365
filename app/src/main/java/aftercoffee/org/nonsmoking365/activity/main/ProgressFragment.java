@@ -110,7 +110,7 @@ public class ProgressFragment extends Fragment {
         mHandler.post(updateRunnable);
 
         // Banner
-        RelativeLayout banner = (RelativeLayout)view.findViewById(R.id.banner);
+        ImageView banner = (ImageView)view.findViewById(R.id.banner);
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

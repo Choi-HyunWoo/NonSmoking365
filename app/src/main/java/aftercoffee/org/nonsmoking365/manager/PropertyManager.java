@@ -53,6 +53,9 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public static final String KEY_COUNT_SUCCESS = "count_success";
     public static final String KEY_COUNT_FAILURE = "count_failure";
 
+    /* alarm setting keys */
+    public static final String KEY_ALARM_SETTING = "alarm_setting";
+    public static final String KEY_ALARM_TIME = "alarm_time";
 
     // GCM token
     public void setRegistrationToken(String regId) {
@@ -204,6 +207,31 @@ public class PropertyManager {                  // 설정값 Manager (Singleton)
     public int getCountFailure() {
         return mPrefs.getInt(KEY_COUNT_FAILURE, 0);
     }
+
+
+    /* set alarm setting */
+    public void setAlarmSetting(boolean alarmSet) {
+        mEditor.putBoolean(KEY_ALARM_SETTING, alarmSet);
+        mEditor.commit();
+    }
+
+    /* get alarm setting */
+    public boolean getAlarmSetting() {
+        return mPrefs.getBoolean(KEY_ALARM_SETTING, true);
+    }
+
+    /* set alarm time */
+    public void setAlarmTime(String alarmTime) {
+        mEditor.putString(KEY_ALARM_TIME, alarmTime);
+        mEditor.commit();
+    }
+
+    public String getAlarmTime() {
+        return mPrefs.getString(KEY_ALARM_TIME, "");
+    }
+
+
+
 
 
     //..
